@@ -3,6 +3,20 @@ package com.group6.demo.entity;
 public class LoginController {
 
     // Login header로 적용 thymeleaf 태크 #{auth.header.login}
+//    @GetMapping("/login")
+//    // 에러 메시지와 로그아웃 메시지를 파라미터로 사용
+//    public String loginForm(String error, String logout, Model model) {
+//        if (error != null) {
+//            model.addAttribute("error", "Login Error!!!");
+//        }
+//        if (logout != null) {
+//            model.addAttribute("logout", "Logout!!!");
+//        }
+//        return "auth/loginForm";
+//    }
+
+
+
 //<html xmlns:th="http://www.thymeleaf.org"
 //    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 //    layout:decorate="~{/layouts/common_template}">
