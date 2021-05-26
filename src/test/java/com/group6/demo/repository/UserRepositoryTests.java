@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserRepositoryTests {
 
     @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
 
 
 
