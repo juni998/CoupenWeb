@@ -9,16 +9,28 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Transactional
+    @Override
+    public void changePasswordByAccount(String account,String newPassword){
+        Member member = memberRepository.findMemberByAccount(account);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        member.changePassword(passwordEncoder.encode(newPassword));
+    }
+
+
 
     @Override
     @Transactional
@@ -29,6 +41,11 @@ public class MemberServiceImpl implements MemberService {
 
         memberRepository.save(member);
         return member.getId();
+    }
+
+    @Override
+    public Member findMemberByName(String name) {
+        return null;
     }
 
     @Override

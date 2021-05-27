@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 public class Member {
 
-    @Id
+    @Id // !
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,7 +22,7 @@ public class Member {
     @Column(length = 50, nullable = false, unique = true)
     private String account;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 200, nullable = false)
     private String email;
 
     public Member(Long id, String name, String password, String account, String email) {
@@ -31,5 +31,9 @@ public class Member {
         this.password = password;
         this.account = account;
         this.email = email;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
     }
 }

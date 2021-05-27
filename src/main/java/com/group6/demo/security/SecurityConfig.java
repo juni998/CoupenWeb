@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/loginProcess")
                 .defaultSuccessUrl("/home") // true
                 .permitAll();
 
@@ -57,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
+
+        http.csrf().disable();
     }
 
     @Override
