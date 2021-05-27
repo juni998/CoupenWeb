@@ -34,30 +34,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/**").permitAll();
 
         http.formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/loginProcess")
-                .defaultSuccessUrl("/home") // true
-                .permitAll();
+                .defaultSuccessUrl("/home"); // true
+
 
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true);
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/home")
+                .invalidateHttpSession(true)
+                .deleteCookies("remember-me","JSESSIONID");
 
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
+
+        http.rememberMe()
+                .key("KsJjE4VzhhEW3juG")
+                .tokenValiditySeconds(60*60*24);
 
         http.csrf().disable();
     }

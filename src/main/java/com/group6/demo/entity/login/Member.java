@@ -1,5 +1,6 @@
 package com.group6.demo.entity.login;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,11 +20,12 @@ public class Member {
     private String name;
     @Column(length = 50, nullable = false)
     private String password;
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     private String account;
 
     @Column(length = 200, nullable = false)
     private String email;
+
 
     public Member(Long id, String name, String password, String account, String email) {
         this.id = id;
