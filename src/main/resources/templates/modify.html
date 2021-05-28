@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+/* 	$(function(){
+		if(##){
+			alert('${##}');
+		};
+		
+		if($("##").submit(function(){
+			if($("##").val() !== $("##").val()){
+				alert("비밀번호가 다릅니다.");
+				$("##").val("").focus();
+				$("##").val("");
+				return false;
+			}else if($.trim($("#").val()) !== $("#pw").val()){
+				alert("공백은 입력이 불가능합니다.");
+				return false;
+			}
+		}));
+	}) */
+</script>
+</head>
+<body>
+<div class="w3-content w3-container w3-margin-top">
+		<div class="w3-container w3-card-4">
+			<div class="w3-center w3-large w3-margin-top">
+				<h3>My Page</h3>
+			</div>
+			<div>
+					<p>
+						<label>ID</label> 
+						<input class="#" type="text" id="id" name="id" readonly value="${ ##.id }"> 
+					</p>
+					<p>
+						<label>Email</label> 
+						<input class="#" type="text" id="email" name="email" value="${ ##.email }" required> 
+					</p>
+					<p>
+						<label>User</label> 
+						<input class="#" type="text" id="user" name="user" value="${ ##.User }" required> 
+					</p>
+					<p>
+						<label>Addr</label> 
+						<input class="#" type="text" id="addr" name="addr" value="${ ##.email }" required> 
+					</p>
+				
+				<p class="#">
+						<button type="submit" class="#">회원정보 변경</button>
+					</p>
+				</form>
+				
+				
+				<br>
+				<form id="pwForm" action="경로입력하세요!" method="post">	 <!-- 여기확인해주세요 -->
+					<p>
+						<label>Password</label>
+						<input class="#" id="pw" name="pw" type="password">
+					</p>
+					<p>
+						<label>New Password</label> 
+						<input class="#" id="pw2" name="pw2" type="password">
+					</p>
+					<p>
+						<label>RE New Password</label>
+						<input class="#" id="pw2" name="pw2" type="password">  <!--  -->
+					</p>
+					<p class="#">
+						<button type="submit" id="#" class="#">비밀번호 변경</button>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+</body>
+</html>

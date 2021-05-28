@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+ 
+ 
+  <style>
+ 
+ h, td, tr, input, textarea, select, FORM
+ {
+   font-family:고딕;
+  font-size:1em;
+  border-radius:5px;
+  
+ }
+ 
+ table, FORM
+ {
+  border:1px solid rgba(36, 228, 172, 0.29);
+  border-spacing:15px;
+ }
+ </style>
+  
+</head>
+<body style="background-color:#f0f5f3">>
+
+ <h1> 회원가입</h1>
+ <table boder = "0" bgcolor = "#cdfdee" cellspacing = "1" >
+ 
+ <form action="register" method="post"> <!-- 폼 -->
+  
+  <tr>
+   <td text-align="center">아이디 </td>
+   <td>
+   <input type = "text" name = "account" id = "account"/>
+   <input type = "button" value = "중복확인"/>
+   </td>
+  </tr>
+
+
+
+  <tr>
+   <td> 비밀번호 </td>
+   <td> <input type = "password" name= password id="password"/> </td>
+  </tr>
+
+
+  <tr>
+   <td> 비밀번호 확인 </td>
+   <td> <input type = "password" id="password1"/>&nbsp;*비밀번호를 다시입력하여주세여. </td>
+  </tr>
+
+  <tr>
+   <td> 성명 </td>
+   <td> <input type = "text" name = "name" id="name"/> </td>
+  </tr>
+
+<!--
+  <tr>
+   <td> 성별 </td>
+   <td>
+    <input type = "radio" name = "gender"/ checked> 남자
+    <input type = "radio" name = "gender"/> 여자
+   </td>
+  </tr>
+-->
+
+
+
+  <tr>
+   <td> 이메일 </td>
+   <td>
+    <input type = "text" name= "email" id="email"> @ <input type = "text" name= "email1" id="email1" /> &nbsp;&nbsp;
+    <select>
+     <option> 직접입력 </option>
+     <option> naver.com </option>
+     <option> daum.net </option>
+     <option> nate.com </option>
+    </select>
+   </td>
+  </tr>
+
+
+
+<!-- 
+  <tr>
+   <td> 주소 </td>
+   <td>
+    <input type = "text" name= "address">
+    <input type = "button" value = "주소찾기"/>
+   </td>
+  </tr>
+  <tr>
+   <td> 상세주소 </td>
+   <td>
+    <input type = "text"/>
+   </td>
+  </tr>
+ -->
+
+<!-- 
+  <tr>
+   <td> 휴대폰 </td>
+   <td>
+    <input type = "radio" name = "phone"/> SKT
+    <input type = "radio" name = "phone"/> KT
+    <input type = "radio" name = "phone"/> LG
+   <br/>
+    <select>
+     <option> 010 </option>
+     <option> 011 </option>
+     
+    </select>
+    <input type = "text" size = "6"/> - <input type = "text" size = "6"/>
+   </td>
+  </tr>
+ -->
+
+</table>
+
+<br/>
+
+
+<input type = "submit" value = "가입하기"/>
+<input type = "reset" value = "다시 입력"/>
+ </form>
+
+
+</body>
+</html>
