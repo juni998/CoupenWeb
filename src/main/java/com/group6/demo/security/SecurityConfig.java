@@ -49,10 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
 
-        http.rememberMe()
-                .key("KsJjE4VzhhEW3juG")
-                .tokenValiditySeconds(60*60*24);
-
         http.csrf().disable();
     }
 

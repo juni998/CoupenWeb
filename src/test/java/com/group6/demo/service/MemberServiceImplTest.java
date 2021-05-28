@@ -51,9 +51,15 @@ class MemberServiceImplTest {
       }
 
     @Test
-    public void findMemberByNameFalse() throws Exception{
+    public void findMemberByNameFalse(){
         String Saccount = "Account1";
-        memberService.findMemberByName(Saccount);
+        try {
+            Member member = memberService.findMemberByName(Saccount);
+            member.toString();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 
 

@@ -60,11 +60,10 @@ public class MemberServiceImpl implements MemberService {
 
 
 
-
-
     @Override
     public Member findMemberByName(String name) {
         Member member = memberRepository.findMemberByName(name);
+
         if(member == null){
             new NullPointerException("Null member");
         }
@@ -73,9 +72,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Boolean checkAccountValidate(String account) {
-        Member member = memberRepository.findMemberByAccount(account);
-        String rawName  = member.getAccount();
-        if (!(rawName == null)){
+        try {
+            Member member = memberRepository.findMemberByAccount(account);
+            String rawName  = member.getAccount();
+        }catch (NullPointerException e){
+            e.printStackTrace();
             return false;
         }
         return true;

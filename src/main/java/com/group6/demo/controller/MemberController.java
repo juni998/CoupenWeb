@@ -32,33 +32,15 @@ public class MemberController {
 
 	@Autowired
 	MemberService ms;
+
 	@GetMapping("/home")
 	public String home() {
 		return "/index";
 	}
 	// 로그인 버튼 -> 로그인폼 페이지로
 	@GetMapping("/login")
-	public String login(String error, String logout, Model model) {
-//		if (error != null) {
-//			model.addAttribute("error", "Login Error!!!");
-//		}
-//		if (logout != null) {
-//			model.addAttribute("logout", "Logout!!!");
-//		}
-		return "/popup";
-	}
+	public void login() {
 
-	// 로그인 성공 실패 여부 -> 홈
-	@PostMapping("/loginProcess")
-	public String loginProcess() {
-		return "/home";
-	}
-
-	// 로그아웃 버튼 -> 홈
-	@GetMapping("/logout")
-	public String logout() {
-
-		return "";
 	}
 
 	@GetMapping("modifyForm")
@@ -70,8 +52,8 @@ public class MemberController {
 	@PostMapping("/modify")
 	public String modify(HttpSession session, MemberDTO dto,
 			RedirectAttributes ra) {
-		
-		
+
+
 		return "";
 	}
 
@@ -84,9 +66,9 @@ public class MemberController {
 	// 회원가입 완료 -> 로그인 페이지로
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {
-		
+
 		ms.save(dto);
-		
+
 		return "redirect:/home";
 	}
 
@@ -94,6 +76,6 @@ public class MemberController {
 //   @GetMapping("items/{account}/mypage")
 //   public String updateItemForm(@PathVariable("account") Long account,
 //   		Model model) {
-//   	
+//
 //   }
 }

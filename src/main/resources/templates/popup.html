@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
 .modal_wrap{
         display: none;
         width: 500px;
@@ -162,7 +162,7 @@ h2 {
     
 </style>
 
-<script>
+    <script>
     window.onload = function() {
  
     function onClick() {
@@ -183,69 +183,55 @@ h2 {
 <body>
 <header include-html="Header.html"></header>
 
-	<button type='button' id="modal_btn">로그인 팝업창</button>
-	<div class="black_bg"></div>
-	<div class="modal_wrap">
-		<div class="modal_close">
-			<a href="#">close</a>
-		</div>
-		<div>
+<button type='button' id="modal_btn">로그인 팝업창</button>
+<div class="black_bg"></div>
+<div class="modal_wrap">
+    <div class="modal_close">
+        <a href="#">close</a>
+    </div>
+    <div>
 
-	 <div class="wrap" style="text-align: right;">
-	 <form action="loginProcess" method="post">
-	 
-		 <div class="wrap">
-        <div class="login">
-            <h2>Log-in</h2>
-            
-            
-            <!-- <div class="login_sns">
-            <li><a href=""><i class="#"></i></a></li> 네이버
-            <li><a href=""><i class="#"></i></a></li> 구글
-            </div> -->
-            
-            
-            <div class="login_id">
-                <h4>Id</h4>
-                <input type="text" name="account" id="account" placeholder="id">
-            </div>
-            
-            
-            <div class="login_pw">
-                <h4>Password</h4>
-                <input type="password" name="password" id="password" placeholder="Password">
-            </div>
-            
-            
-            <div class="login_etc">
-                <div class="checkbox">
-                <input type="checkbox" name="" id=""> Remember Me?
+        <div class="wrap" style="text-align: right;">
+
+
+            <div class="wrap">
+                <div class="login">
+                    <h2>Log-in</h2>
+
+
+                    <!-- <div class="login_sns">
+                    <li><a href=""><i class="#"></i></a></li> 네이버
+                    <li><a href=""><i class="#"></i></a></li> 구글
+                    </div> -->
+
+                    <form th:action="@{/loginProcess}" method="post">
+
+                        <div class="login_id">
+                            <h4>Id</h4>
+                            <input type="text" id="username" placeholder="id">
+                        </div>
+
+
+                        <div class="login_pw">
+                            <h4>Password</h4>
+                            <input type="password" id="password" placeholder="Password">
+                        </div>
+
+                        <div class="submit">
+                            <input type="submit">로그인
+                        </div>
+                    </form>
+
+
+                    <div class="new">
+                        <a href="/registerForm">회원가입</a>
+                    </div>
                 </div>
-                
-                <div class="new">
-                <a href="/registerForm">회원가입</a>
-            </div>
-           
-            </div>
-            <div class="submit">
-                <input type="submit" value="로그인">
             </div>
         </div>
+
     </div>
-		
-				
-	</div>	
-	</form>
-    
-	</div>
-		
-		</div>
-		<div>
-
-
-
-
-
-			<footer include-html="Footer.html"></footer>
+    <footer include-html="Footer.html"></footer>
+</div>
 </body>
 </html>
