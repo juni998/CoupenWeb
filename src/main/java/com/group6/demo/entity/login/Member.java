@@ -18,12 +18,12 @@ public class Member {
 
     @Column(length = 50, nullable = false)
     private String name;
-    @Column(length = 50, nullable = false)
+    @Column(length = 200, nullable = false)
     private String password;
     @Column(length = 50, nullable = false)
     private String account;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 50, nullable = false)
     private String email;
 
 

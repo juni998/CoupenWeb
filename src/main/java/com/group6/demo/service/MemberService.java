@@ -5,7 +5,7 @@ import com.group6.demo.entity.login.MemberDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface MemberService extends UserDetailsService {
-    void changeAllByAccount(String account);
+    void changeAllByAccount(MemberDTO memberDTO);
     void changePasswordByAccount(String account,String newPassword);
     Long save(MemberDTO memberDTO);
     Member findMemberByName(String name); // 쓰지말것

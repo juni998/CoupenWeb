@@ -24,10 +24,30 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public void changeAllByAccount(String account) {
-        Member member = memberRepository.findMemberByAccount(account);
+    @Transactional
+    public void changeAllByAccount(MemberDTO memberDTO) {
+        Member member = memberRepository.findMemberByAccount(memberDTO.getAccount());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 
+        member = Member.builder()
+                .name(memberDTO.getName())
+                .password(memberDTO.getPassword())
+                .email(memberDTO.getEmail())
+                .build();
 
+        memberRepository.flush();
+    }
+
+    @Override
+    @Transactional
+    public Long save(MemberDTO memberDTO) {
+        Member member = memberDTO.toEntity();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+        memberRepository.save(member);
+        return member.getId();
     }
 
     @Transactional
@@ -40,16 +60,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 
-    @Override
-    @Transactional
-    public Long save(MemberDTO memberDTO) {
-        Member member = memberDTO.toEntity();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
 
-        memberRepository.save(member);
-        return member.getId();
-    }
 
     @Override
     public Member findMemberByName(String name) {
