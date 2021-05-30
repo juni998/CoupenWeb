@@ -108,10 +108,10 @@ public class MemberController {
 	
 	// 회원가입
 	@GetMapping("/registerForm")
-	public String register_Form(Model model) {
+	public String registerForm(Model model) {
 		return "/saveView";
 	}
-
+	
 	// 회원가입 완료
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {
