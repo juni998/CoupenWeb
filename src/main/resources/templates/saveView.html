@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
- 
- 
-  <style>
+ <meta charset="UTF-8">
+ <title>회원가입</title>
+
+
+ <style>
  
  h, td, tr, input, textarea, select, FORM
  {
@@ -21,111 +21,57 @@
   border-spacing:15px;
  }
  </style>
-  
+
 </head>
 <body style="background-color:#f0f5f3">>
 
- <h1> 회원가입</h1>
- <table boder = "0" bgcolor = "#cdfdee" cellspacing = "1" >
- 
- <form action="register" method="post"> <!-- 폼 -->
-  
+<h1> 회원가입</h1>
+<table boder = "0" bgcolor = "#cdfdee" cellspacing = "1" >
+
+ <form th:action="@{/register}" th:object="${memberDTO}" method="post">
+
+
   <tr>
    <td text-align="center">아이디 </td>
    <td>
-   <input type = "text" name = "account" id = "account"/>
-   <input type = "button" value = "중복확인"/>
+    <input type = "text" th:field="*{account}" />
+   <td class="err" th:if="${#fields.hasErrors('account')}" th:errors="*{account}">
    </td>
-  </tr>
 
+  </tr>
 
 
   <tr>
    <td> 비밀번호 </td>
-   <td> <input type = "password" name= password id="password"/> </td>
+   <td> <input type = "password" th:field="*{password}"/> </td>
+   <td class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
   </tr>
 
-
-  <tr>
-   <td> 비밀번호 확인 </td>
-   <td> <input type = "password" id="password1"/>&nbsp;*비밀번호를 다시입력하여주세여. </td>
-  </tr>
 
   <tr>
    <td> 성명 </td>
-   <td> <input type = "text" name = "name" id="name"/> </td>
+   <td> <input type = "text" th:field="*{name}"/> </td>
+   <td class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
   </tr>
-
-<!--
-  <tr>
-   <td> 성별 </td>
-   <td>
-    <input type = "radio" name = "gender"/ checked> 남자
-    <input type = "radio" name = "gender"/> 여자
-   </td>
-  </tr>
--->
-
 
 
   <tr>
    <td> 이메일 </td>
    <td>
-    <input type = "text" name= "email" id="email"> @ <input type = "text" name= "email1" id="email1" /> &nbsp;&nbsp;
-    <select>
-     <option> 직접입력 </option>
-     <option> naver.com </option>
-     <option> daum.net </option>
-     <option> nate.com </option>
-    </select>
+    <input type = "text" th:field="*{email}" > &nbsp;&nbsp;
+   <td class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
    </td>
   </tr>
 
 
 
-<!-- 
-  <tr>
-   <td> 주소 </td>
-   <td>
-    <input type = "text" name= "address">
-    <input type = "button" value = "주소찾기"/>
-   </td>
-  </tr>
-  <tr>
-   <td> 상세주소 </td>
-   <td>
-    <input type = "text"/>
-   </td>
-  </tr>
- -->
-
-<!-- 
-  <tr>
-   <td> 휴대폰 </td>
-   <td>
-    <input type = "radio" name = "phone"/> SKT
-    <input type = "radio" name = "phone"/> KT
-    <input type = "radio" name = "phone"/> LG
-   <br/>
-    <select>
-     <option> 010 </option>
-     <option> 011 </option>
-     
-    </select>
-    <input type = "text" size = "6"/> - <input type = "text" size = "6"/>
-   </td>
-  </tr>
- -->
-
-</table>
-
-<br/>
+  <br/>
 
 
-<input type = "submit" value = "가입하기"/>
-<input type = "reset" value = "다시 입력"/>
+  <input type = "submit" value = "가입하기"/>
+  <input type = "reset" value = "다시 입력"/>
  </form>
-
+</table>
 
 </body>
 </html>

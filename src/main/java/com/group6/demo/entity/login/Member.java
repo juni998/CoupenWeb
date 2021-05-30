@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
@@ -21,7 +22,7 @@ public class Member {
     @Column(length = 200, nullable = false)
     private String password;
     @Column(length = 50, nullable = false)
-    private String account;
+    private String account; // username
 
     @Column(length = 50, nullable = false)
     private String email;

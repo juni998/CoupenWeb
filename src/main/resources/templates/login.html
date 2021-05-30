@@ -220,6 +220,8 @@ h2 {
                         <div class="submit">
                             <input type="submit">로그인
                         </div>
+
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     </form>
 
 

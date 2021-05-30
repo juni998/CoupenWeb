@@ -91,5 +91,6 @@ public class MemberServiceImpl implements MemberService {
         authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
 
         return new User(member.getAccount(), member.getPassword(), authorities);
+
     }
 }
