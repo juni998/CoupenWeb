@@ -21,7 +21,7 @@ public class SignUpFormValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         MemberDTO memberDTO = (MemberDTO) o;
-        if(memberRepository.existsByAccount(memberDTO.getAccount())){
+        if(memberRepository.existsByEmail(memberDTO.getEmail())){
             errors.rejectValue("email","invalid email","이미 사용중인 이메일입니다.");
         }
     }
