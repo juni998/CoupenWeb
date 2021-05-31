@@ -50,6 +50,8 @@ public class MemberServiceImpl implements MemberService {
         return member.getId();
     }
 
+
+
     @Transactional
     @Override
     public void changePasswordByAccount(String account,String newPassword){
@@ -88,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = (Member) memberEntityWrapper.orElse(null);
 
         List authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER")); // Member
 
         return new User(member.getAccount(), member.getPassword(), authorities);
 

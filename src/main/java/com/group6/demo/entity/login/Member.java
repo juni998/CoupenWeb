@@ -21,10 +21,10 @@ public class Member {
     private String name;
     @Column(length = 200, nullable = false)
     private String password;
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String account; // username
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
 
 
