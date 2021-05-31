@@ -109,7 +109,7 @@ public class MemberController {
 		Long result = ms.save(dto);
 
 		log.info("register : " + dto);
-		return "redirect:/";
+		return "redirect:/home";
 
 	}
 	// 마이페이지 수정폼
