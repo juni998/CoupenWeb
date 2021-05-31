@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+ <meta charset="UTF-8">
+ <title>회원가입</title>
+
+
+ <style>
+ 
+ h, td, tr, input, textarea, select, FORM
+ {
+   font-family:고딕;
+  font-size:1em;
+  border-radius:5px;
+  
+ }
+ 
+ table, FORM
+ {
+  border:1px solid rgba(36, 228, 172, 0.29);
+  border-spacing:15px;
+ }
+ </style>
+
+</head>
+<body style="background-color:#f0f5f3">
+
+<h1> 회원가입</h1>
+<table boder = "0" bgcolor = "#cdfdee" cellspacing = "1" >
+
+ <form th:action="@{/register}" th:object="${memberDTO}" method="post">
+
+
+  <tr>
+   <td text-align="center">아이디 </td>
+   <td>
+    <input type = "text" th:field="*{account}" />
+   <p th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Incorrect date</p>
+
+
+
+  </td>
+
+  </tr>
+
+
+  <tr>
+   <td> 비밀번호 </td>
+   <td> <input type = "password" th:field="*{password}"/> </td>
+   <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+  </tr>
+
+
+  <tr>
+   <td> 성명 </td>
+   <td> <input type = "text" th:field="*{name}"/> </td>
+   <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+  </tr>
+
+
+  <tr>
+   <td> 이메일 </td>
+   <td>
+    <input type = "text" th:field="*{email}" > &nbsp;&nbsp;
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
+   </td>
+  </tr>
+
+
+
+  <br/>
+
+
+  <input type = "submit" value = "가입하기"/>
+  <input type = "reset" value = "다시 입력"/>
+ </form>
+</table>
+
+</body>
+</html>

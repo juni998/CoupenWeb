@@ -2,6 +2,7 @@ package com.group6.demo.controller;
 
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.login.MemberDTO;
+import com.group6.demo.security.SignUpFormValidator;
 import com.group6.demo.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -23,7 +28,10 @@ public class MemberController {
 	//LoggerFactory.getLogger(MemberController.class);
 
 	@Autowired
-	MemberService ms;
+	private MemberService ms;
+
+	@Autowired
+	private SignUpFormValidator signUpFormValidator;
 
 	// 홈
 	@GetMapping("/home")
@@ -91,35 +99,29 @@ public class MemberController {
 
 	// 회원가입 완료
 	@PostMapping("/register")
-	public String register(@Valid MemberDTO dto, BindingResult bindingResult) {
+	public String register(@Valid MemberDTO dto, Errors errors , RedirectAttributes attributes) {
 
-		if (bindingResult.hasErrors()){
-			return "redirect:/register";
+		if (errors.hasErrors()) {
+			return "register";
 		}
 
+		attributes.addFlashAttribute("message", "회원가입 성공");
 		Long result = ms.save(dto);
+
 		log.info("register : " + dto);
+		return "redirect:/";
 
-
-		if(result == null) {
-			return "redirect:/register";
-		}
-		return "/home";
 	}
-
-	// 로그인 유효성 검사
-	@GetMapping("/checkValid")
-	public void checkValid(Authentication authentication){
-		Member member = (Member) authentication.getPrincipal();
-
-		log.info("member : " + member.toString());
-	}
-
 	// 마이페이지 수정폼
 	@GetMapping("/mypage")
 	public String mypage() {
 
 		return "/modify";
+	}
+
+	@InitBinder("register")
+	public void initBinder(WebDataBinder webDataBinder){
+		webDataBinder.addValidators(signUpFormValidator);
 	}
 
 
