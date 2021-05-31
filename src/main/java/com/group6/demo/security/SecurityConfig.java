@@ -1,10 +1,12 @@
 package com.group6.demo.security;
 
 import com.group6.demo.service.MemberService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.event.AuthenticationFailureExpiredEvent;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,14 +14,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MemberService memberService;
+
+    private final AuthenticationFailureHandler customFailHandler;
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,14 +39,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/admin/**").hasRole("MEMBER")
                 .antMatchers("/**").permitAll()
-                .antMatchers("/123/123").denyAll();
+                .antMatchers("/123/123").denyAll()
+                .anyRequest().authenticated();
+
+
 
 
         http.formLogin()
                 .loginProcessingUrl("/loginProcess")
                 .loginPage("/login")
+                .failureHandler(customFailHandler)
                 .defaultSuccessUrl("/home",true); // true
 
 

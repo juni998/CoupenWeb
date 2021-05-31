@@ -77,4 +77,15 @@ class UserRepositoryTests {
       }
 
 
+
+      @Test
+      public void findEmail() throws Exception{
+         String findemail = "test1coupeng.org";
+
+         Member member = memberRepository.findMemberByEmail(findemail);
+         member.toString();
+
+       }
+
+
 }
