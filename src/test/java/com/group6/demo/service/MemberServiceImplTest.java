@@ -1,14 +1,10 @@
 package com.group6.demo.service;
 
 import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.login.MemberDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import static java.util.stream.IntStream.rangeClosed;
 
 @SpringBootTest
 class MemberServiceImplTest {
@@ -46,13 +42,13 @@ class MemberServiceImplTest {
      
      @Test
      public void findMemberByNameTrue() throws Exception{
-        String Saccount = "SAccount1";
+        String Saccount = "SAccount17";
         memberService.findMemberByName(Saccount);
       }
 
     @Test
     public void findMemberByNameFalse(){
-        String Saccount = "Account1";
+        String Saccount = "SAccount18";
         try {
             Member member = memberService.findMemberByName(Saccount);
             member.toString();
@@ -66,20 +62,20 @@ class MemberServiceImplTest {
 
     @Test
     public void checkAccountValidateTrue() throws Exception{
-        String SAccount = "Account1";
-
-        Boolean aBoolean = memberService.checkAccountValidate(SAccount);
-
-        Assertions.assertThat(false).isEqualTo(aBoolean);
-     }
-
-    @Test
-    public void checkAccountValidateFalse() throws Exception{
-        String SAccount = "SAccount1";
+        String SAccount = "SAccount23";
 
         Boolean aBoolean = memberService.checkAccountValidate(SAccount);
 
         Assertions.assertThat(true).isEqualTo(aBoolean);
+     }
+
+    @Test
+    public void checkAccountValidateFalse() throws Exception{
+        String SAccount = "SAccoun25";
+
+        Boolean aBoolean = memberService.checkAccountValidate(SAccount);
+
+        Assertions.assertThat(false).isEqualTo(aBoolean);
     }
 
 }

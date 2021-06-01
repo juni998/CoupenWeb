@@ -42,9 +42,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public Long save(MemberDTO memberDTO) {
-        Member member = memberDTO.toEntity();
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        Member member = Member.builder()
+                .name(memberDTO.getName())
+                .email(memberDTO.getEmail())
+                .account(memberDTO.getAccount())
+                .password(passwordEncoder.encode(memberDTO.getPassword()))
+                .build();
 
         memberRepository.save(member);
         return member.getId();

@@ -1,16 +1,18 @@
-package com.group6.demo.entity.order;
+package com.group6.demo.entity.Item;
 
 import com.group6.demo.exception.NotEnoughStockException;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
 @Getter
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(name = "dtype")
-public class Item extends BaseEntity{
+public class Item  {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -24,6 +26,9 @@ public class Item extends BaseEntity{
 
     private String img;
     private String thumbImg;
+    private LocalDateTime orderDate;
+
+
 
     public void changeTitle(String title) {
         this.title = title;

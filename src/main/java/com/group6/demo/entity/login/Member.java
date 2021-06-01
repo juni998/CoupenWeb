@@ -1,15 +1,17 @@
 package com.group6.demo.entity.login;
 
-import com.sun.istack.NotNull;
+import com.group6.demo.entity.order.Orders;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
-@Builder
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 public class Member {
 
@@ -28,14 +30,9 @@ public class Member {
     @Column(length = 50, nullable = false, unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "member")
+    private List<Orders> orders = new ArrayList<>();
 
-    public Member(Long id, String name, String password, String account, String email) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.account = account;
-        this.email = email;
-    }
 
     public void changePassword(String password) {
         this.password = password;
