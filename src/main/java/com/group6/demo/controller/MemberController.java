@@ -81,6 +81,7 @@ public class MemberController {
 		return "/home/login/findId";
 	}
 
+	
 	// 아이디 찾기 (매핑주소, 리턴주소 변경예정)
 	@PostMapping("/findIda")
 	public String findId(@RequestParam String email, Model model) {
