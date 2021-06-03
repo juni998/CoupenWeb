@@ -17,7 +17,6 @@ class UserRepositoryTests {
 
 
 //    @Test
-//    @Rollback
 //    public void makeDummies() throws Exception{
 //        IntStream.rangeClosed(1,100).forEach(i ->{
 //            Member member = Member.builder()
@@ -29,6 +28,7 @@ class UserRepositoryTests {
 //            memberRepository.save(member);
 //        });
 //    }
+
 
     @Test
     public void find_ID() throws Exception{

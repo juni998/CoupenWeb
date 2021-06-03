@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Builder
 @Getter  //
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class Orders{
@@ -28,12 +29,9 @@ public class Orders{
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-
     private String name;
 
-
     private String phoneNumber;
-
 
     private Address address;
 
@@ -41,7 +39,7 @@ public class Orders{
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private  OrderStatus status;
+    private OrderStatus status;
 
 }
 
