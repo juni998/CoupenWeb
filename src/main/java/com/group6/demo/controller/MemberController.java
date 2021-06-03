@@ -44,7 +44,7 @@ public class MemberController {
 			
 		}
 		
-		return "/index";
+		return "/home/index";
 	}
 
 	// 로그인폼
@@ -76,27 +76,29 @@ public class MemberController {
 	}
 
 	// 아이디 찾기폼 (매핑주소, 리턴주소 변경예정)
-	@GetMapping("/find")
+	@GetMapping("/findId")
 	public String find() {
-		return "/findId";
+		return "/home/login/findId";
 	}
 
 	// 아이디 찾기 (매핑주소, 리턴주소 변경예정)
-	@PostMapping("/findId")
+	@PostMapping("/findIda")
 	public String findId(@RequestParam String email, Model model) {
 		Member member = mr.findMemberByEmail(email);
+		
 		if(member == null) {
 			//존재하지 않는 이메일
 			return "redirect:/find";
 		}
-		model.addAttribute("member", member);
-		return "redirect:/idInfo";
+		log.info("member : "+ member);
+		model.addAttribute("userId", member.getAccount());
+		return "redirect:/findIdChange";
 	}
 	
 	// 이메일로 아이디 찾기 -> 아이디 확인 (매핑주소, 리턴주소 변경예정)
-	@GetMapping("/idInfo")
+	@GetMapping("/findIdChange")
 	public String IdInfo() {
-		return "/fine";
+		return "home/login/find_id_change";
 	}
 	
 	// 아이디로 비밀번호 찾기 (매핑주소, 리턴주소 변경예정)
@@ -128,12 +130,12 @@ public class MemberController {
 		ms.changePasswordByAccount(account, newPassword);
 		return "redirect:/home";
 	}
-
+	
 	// 회원가입
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		model.addAttribute("memberDTO", new MemberDTO());
-		return "/saveView";
+		return "/master/saveView";
 	}
 
 	// 회원가입 완료
@@ -141,7 +143,7 @@ public class MemberController {
 	public String register(@Valid MemberDTO dto, Errors errors, RedirectAttributes attributes) {
 
 		if (errors.hasErrors()) {
-			return "register";
+			return "/register";
 		}
 
 		attributes.addFlashAttribute("message", "회원가입 성공");
@@ -152,7 +154,7 @@ public class MemberController {
 
 	}
 
-	// 마이페이지 수정폼
+	//  수정폼
 	@GetMapping("/mypage")
 	public String mypage(Principal principal, Model model) {
 		String account = principal.getName();
@@ -165,6 +167,17 @@ public class MemberController {
 		webDataBinder.addValidators(signUpFormValidator);
 	}
 	
+	// 회원정보 보기
+	@GetMapping("gg")
+	public String mypage1(Principal principal, Model model) {
+		String account = principal.getName();
+		Member member = mr.findMemberByAccount(account);
+		
+		log.info("Member :" + member);
+		model.addAttribute("member", member);
+		
+		return "";
+	}
 	
 	/*  참고용
 	@GetMapping("/username1")
