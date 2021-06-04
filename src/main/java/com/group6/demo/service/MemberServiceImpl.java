@@ -30,11 +30,10 @@ public class MemberServiceImpl implements MemberService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
 
-        member = Member.builder()
-                .name(memberDTO.getName())
-                .password(memberDTO.getPassword())
-                .email(memberDTO.getEmail())
-                .build();
+        member.setName(memberDTO.getName());
+        member.setEmail(member.getEmail());
+        member.setPassword(member.getPassword());
+
 
         memberRepository.flush();
     }
@@ -44,12 +43,14 @@ public class MemberServiceImpl implements MemberService {
     public Long save(MemberDTO memberDTO) {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Member member = Member.builder()
-                .name(memberDTO.getName())
-                .email(memberDTO.getEmail())
-                .account(memberDTO.getAccount())
-                .password(passwordEncoder.encode(memberDTO.getPassword()))
-                .build();
+
+
+        Member member = new Member();
+
+        member.setAccount(memberDTO.getAccount());
+        member.setName(member.getName());
+        member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+        member.setEmail(member.getEmail());
 
         memberRepository.save(member);
         return member.getId();

@@ -1,9 +1,7 @@
 package com.group6.demo.entity.order;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.group6.demo.entity.Item.Item;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class OrderItem {
 
 
@@ -24,8 +23,28 @@ public class OrderItem {
     @JoinColumn(name = "orders_id")
     private Orders orders;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Item item;
+
+
     private int price;
     private int count;
+
+    public static OrderItem createOrderItem(Item item, int price, int count){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setPrice(price);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public void cancel(){
+        getItem().addStock(count);
+    }
+
 
     int getTotalPrice(){
         return getPrice() * getCount();

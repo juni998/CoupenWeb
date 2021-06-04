@@ -1,7 +1,6 @@
 package com.group6.demo.entity.login;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class MemberDTO {
 
     private Long id;
@@ -25,4 +23,7 @@ public class MemberDTO {
     @NotBlank(message="필수 입력 값 입니다")
     private String email;
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

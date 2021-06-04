@@ -1,18 +1,16 @@
 package com.group6.demo.entity.Item;
 
 import com.group6.demo.exception.NotEnoughStockException;
-import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
 @Getter
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "dtype")
-public class Item  {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "dtype")
+public abstract class Item  {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -21,7 +19,7 @@ public class Item  {
 
     private String title;
     private int price;
-    private int stockQuantity;
+    private int stock;
     private String content;
 
     private String img;
@@ -37,13 +35,13 @@ public class Item  {
         this.content = content;
     }
     public void addStock(int quantity){
-        this.stockQuantity += quantity;
+        this.stock += quantity;
     }
     public void removeStock(int quantity){
-        int restStock = this.stockQuantity - quantity;
+        int restStock = this.stock - quantity;
         if(restStock < 0){
             throw new NotEnoughStockException("need more stock");
         }
-        this.stockQuantity = restStock;
+        this.stock = restStock;
     }
 }

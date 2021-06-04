@@ -5,6 +5,7 @@ import com.group6.demo.entity.login.MemberDTO;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.security.SignUpFormValidator;
 import com.group6.demo.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,15 +22,16 @@ import java.security.Principal;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class MemberController {
     // private static final Logger logger =
     // LoggerFactory.getLogger(MemberController.class);
 
     @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
 
     @Autowired
@@ -68,8 +70,11 @@ public class MemberController {
         MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        Member member = Member.builder().name(memberDTO.getName()).account(memberDTO.getAccount())
-                .password(passwordEncoder.encode(newMemberDTO.getPassword())).email(newMemberDTO.getEmail()).build();
+        Member member = new Member();
+        member.setAccount(memberDTO.getAccount());
+        member.setPassword(passwordEncoder.encode(newMemberDTO.getPassword()));
+        member.setName(newMemberDTO.getName());
+        member.setEmail(newMemberDTO.getEmail());
 
         return "redirect:/home";
     }

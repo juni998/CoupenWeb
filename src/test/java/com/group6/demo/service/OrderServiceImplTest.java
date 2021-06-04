@@ -1,5 +1,7 @@
 package com.group6.demo.service;
 
+import com.group6.demo.entity.order.Address;
+import com.group6.demo.entity.order.Orders;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,16 +10,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 class OrderServiceImplTest {
 
     @Autowired
-    private MemberServiceImpl memberService;
+    MemberServiceImpl memberService;
     @Autowired
-    private OrderServiceImpl orderService;
+    OrderServiceImpl orderService;
+
     @Test
     public void findID() throws Exception{
         //given
-        memberService.findMemberByName()
-        //when
+        String account ="SAccount88";
+        OrderDTO orderDTO = new OrderDTO("testName","testPhone","testAddress","testStreet","testZipcode");
 
+
+
+        Address address =  new Address("testCity","testStreet","testZipcode");
+        //when
+        Orders orders = orderService.makeOrder(account,1L,address,3);
         //then
+        orders.toString();
+
      }
 
 }

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Builder
 @Getter  //
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -41,5 +40,26 @@ public class Orders{
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    public void setMember(Member member){
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+        orderItem.setOrders(this);
+    }
+
+    public static Orders createOrder(Member member,Address address, OrderItem... orderItems){
+        Orders orders = new Orders();
+        orders.setMember(member);
+        orders.setAddress(address);
+        for (OrderItem orderItem : orderItems){
+            orders.addOrderItem(orderItem);
+        }
+        orders.setStatus(OrderStatus.ORDER);
+        orders.setOrderDate(LocalDateTime.now());
+        return orders;
+    }
 }
 

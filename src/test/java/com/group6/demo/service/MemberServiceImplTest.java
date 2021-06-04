@@ -1,15 +1,10 @@
 package com.group6.demo.service;
 
 import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.login.MemberDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.stream.IntStream;
 
 @SpringBootTest
 class MemberServiceImplTest {
@@ -18,21 +13,21 @@ class MemberServiceImplTest {
     MemberService memberService;
 
 
-    @Test
-    @Rollback(value = false)
-    @Transactional
-    public void safeSave() throws Exception{
-        IntStream.rangeClosed(1,100).forEach(i ->{
-            MemberDTO memberDTO =MemberDTO.builder()
-                    .account("SAccount"+i)
-                    .password("1234")
-                    .email("SEmail"+i+"@coupeng.org")
-                    .name("Sname"+i)
-                    .build();
-            memberService.save(memberDTO);
-        });
-
-    }
+//    @Test
+//    @Rollback(value = false)
+//    @Transactional
+//    public void safeSave() throws Exception{
+//        IntStream.rangeClosed(1,100).forEach(i ->{
+//            MemberDTO memberDTO =MemberDTO.builder()
+//                    .account("SAccount"+i)
+//                    .password("1234")
+//                    .email("SEmail"+i+"@coupeng.org")
+//                    .name("Sname"+i)
+//                    .build();
+//            memberService.save(memberDTO);
+//        });
+//
+//    }
     
 
     
