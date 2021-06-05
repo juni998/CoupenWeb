@@ -19,15 +19,15 @@
        <td>아이디는</td>
       </tr>
       <tr>
-      <td><p class="userId" th:text="${member.userId}"></p>입니다.</td>
+      <td><p th:text="${member.account}"> </p>입니다.</td>
       </tr>
       </table>
       <table width="150px"  align="center" border="0" style="margin-top:1%">
 
        <tr>
 
-        <td><input type="button" value="회원가입하기" class="btn btn-primary" onclick="location.href='#'"></td>
-        <td><input type="button" value="처음으로" class="btn btn-primary" onclick="location.href='#'"></td>
+        <td><input type="button" value="비밀번호 찾기" class="btn btn-primary" onclick="location.href='/pwRefefer'"></td>
+        <td><input type="button" value="처음으로" class="btn btn-primary" onclick="location.href='/home'"></td>
        </tr>
       </table>   
      </td>
