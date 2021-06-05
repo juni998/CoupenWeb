@@ -13,7 +13,7 @@ class MemberServiceImplTest {
     MemberService memberService;
 
 
-//    @Test
+    //    @Test
 //    @Rollback(value = false)
 //    @Transactional
 //    public void safeSave() throws Exception{
@@ -28,25 +28,33 @@ class MemberServiceImplTest {
 //        });
 //
 //    }
-    
+//    @Test
+//    public void save() throws Exception{
+//        MemberDTO memberDTO = new MemberDTO();
+//        memberDTO.setEmail("test12312");
+//        memberDTO.setName("nam123e1");
+//        memberDTO.setPassword("1231234");
+//        memberDTO.setAccount("accou121233nt");
+//        memberService.save(memberDTO);
+//    }
 
-    
+
     @Test
     public void changePassword() throws Exception{
         String account = "SAccount3";
         String newPassword = "1111";
 
         memberService.changePasswordByAccount(account,newPassword);
-     }
+    }
 
 
 
-     
-     @Test
-     public void findMemberByNameTrue() throws Exception{
+
+    @Test
+    public void findMemberByNameTrue() throws Exception{
         String Saccount = "SAccount17";
         memberService.findMemberByName(Saccount);
-      }
+    }
 
     @Test
     public void findMemberByNameFalse(){
@@ -69,7 +77,7 @@ class MemberServiceImplTest {
         Boolean aBoolean = memberService.checkAccountValidate(SAccount);
 
         Assertions.assertThat(true).isEqualTo(aBoolean);
-     }
+    }
 
     @Test
     public void checkAccountValidateFalse() throws Exception{

@@ -29,7 +29,7 @@ public class Member {
     @Column(length = 50, nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
     private List<Orders> orders = new ArrayList<>();
 
 

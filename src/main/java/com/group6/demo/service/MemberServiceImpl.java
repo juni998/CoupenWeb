@@ -3,6 +3,7 @@ package com.group6.demo.service;
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.login.MemberDTO;
 import com.group6.demo.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,10 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
 
     @Override
@@ -48,9 +51,9 @@ public class MemberServiceImpl implements MemberService {
         Member member = new Member();
 
         member.setAccount(memberDTO.getAccount());
-        member.setName(member.getName());
+        member.setName(memberDTO.getName());
         member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
-        member.setEmail(member.getEmail());
+        member.setEmail(memberDTO.getEmail());
 
         memberRepository.save(member);
         return member.getId();

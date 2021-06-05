@@ -30,6 +30,17 @@ class UserRepositoryTests {
 //    }
 
 
+//    @Test
+//    public void save() throws Exception{
+//        Member member = new Member();
+//        member.setEmail("test1");
+//        member.setName("name1");
+//        member.setPassword("1234");
+//        member.setAccount("account");
+//        memberRepository.save(member);
+//     }
+
+
     @Test
     public void find_ID() throws Exception{
         String rawAccount = "SAccount2";

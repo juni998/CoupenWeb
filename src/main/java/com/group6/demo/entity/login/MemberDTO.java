@@ -23,7 +23,4 @@ public class MemberDTO {
     @NotBlank(message="필수 입력 값 입니다")
     private String email;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

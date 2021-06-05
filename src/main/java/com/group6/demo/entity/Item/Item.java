@@ -2,15 +2,17 @@ package com.group6.demo.entity.Item;
 
 import com.group6.demo.exception.NotEnoughStockException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name = "dtype")
-public abstract class Item  {
+@Setter
+@NoArgsConstructor
+public class Item  {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -25,6 +27,7 @@ public abstract class Item  {
     private String img;
     private String thumbImg;
     private LocalDateTime orderDate;
+
 
 
 
