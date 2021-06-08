@@ -1,9 +1,10 @@
-package com.group6.demo.entity.Item;
+package com.group6.demo.entity.item;
 
 import com.group6.demo.exception.NotEnoughStockException;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +12,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Item  {
 
     @Id
@@ -22,11 +26,15 @@ public class Item  {
     private String title;
     private int price;
     private int stock;
-    private String content;
 
-    private String img;
+    private String content;
+    private String writer;
     private String thumbImg;
-    private LocalDateTime orderDate;
+
+    @CreatedDate
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime uploadDate;
 
 
 

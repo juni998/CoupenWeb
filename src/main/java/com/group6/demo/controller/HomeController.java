@@ -1,21 +1,17 @@
 package com.group6.demo.controller;
 
 import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.login.MemberDTO;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.security.SignUpFormValidator;
 import com.group6.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -54,7 +50,7 @@ public class HomeController {
 
 	// 로그아웃
 	@GetMapping("/logout")
-	public String logout() {
+	public String logout(@Valid Member member,  BindingResult bindingResult) {
 
 		return "/logout";
 	}

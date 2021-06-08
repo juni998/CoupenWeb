@@ -1,4 +1,4 @@
-package com.group6.demo.service;
+package com.group6.demo.entity.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

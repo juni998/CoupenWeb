@@ -1,21 +1,19 @@
 package com.group6.demo.controller;
 
-import java.security.Principal;
-
+import com.group6.demo.entity.login.Member;
+import com.group6.demo.entity.login.MemberDTO;
+import com.group6.demo.repository.MemberRepository;
+import com.group6.demo.security.SignUpFormValidator;
+import com.group6.demo.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.login.MemberDTO;
-import com.group6.demo.repository.MemberRepository;
-import com.group6.demo.security.SignUpFormValidator;
-import com.group6.demo.service.MemberService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.security.Principal;
 
 @Controller
 @Slf4j
@@ -35,7 +33,6 @@ public class MemberController {
 	@GetMapping("/mypage")
 	public String mypage(Principal principal, Model model) {
 		if (principal == null) {
-			
 			return "/login";
 		}
 		

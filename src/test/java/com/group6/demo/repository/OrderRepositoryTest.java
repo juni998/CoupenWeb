@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @SpringBootTest
@@ -23,25 +22,6 @@ class OrderRepositoryTest {
     @Autowired
     MemberService memberService;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    //    @OneToMany(mappedBy = "orders")
-//    private List<OrderItem> orderItems = new ArrayList<>();
-    private String name;
-    private String phoneNumber;
-    private Address address;
-
-    private LocalDateTime orderDate;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
 
     @Test
     public void saveOrder() throws Exception {
@@ -64,7 +44,7 @@ class OrderRepositoryTest {
     @Test
     private void createMember() {
         MemberDTO member = new MemberDTO();
-        member.setName("adf");
+        member.setName("Kim Ju");
         member.setAccount("Saccout");
         member.setEmail("adf123");
         member.setPassword("12334");

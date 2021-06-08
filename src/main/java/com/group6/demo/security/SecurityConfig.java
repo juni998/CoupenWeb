@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.event.AuthenticationFailureExpiredEvent;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,15 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/123/123").denyAll()
                 .anyRequest().authenticated();
 
-
-
-
         http.formLogin()
                 .loginProcessingUrl("/loginProcess")
                 .loginPage("/login")
                 .failureHandler(customFailHandler)
                 .defaultSuccessUrl("/home",true); // true
-
 
         http.logout()
                 .logoutUrl("/logout")
@@ -62,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
-
 
     }
 
