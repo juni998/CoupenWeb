@@ -17,7 +17,7 @@
     </thead>
     <tr th:each="dto : ${result.dtoList}" >
         <th scope="row">
-<!--            <a th:href="@{/read/{id} (id={dto.id}) } ">-->
+            <a th:href="@{/read/{id}(id= ${dto.id})} ">
                 [[${dto.id}]]
             </a>
         </th>

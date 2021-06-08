@@ -20,11 +20,13 @@ public class ItemController {
         model.addAttribute("result", itemService.getList(pageRequestDTO));
     }
 
-    @GetMapping("read/{itemId}")
-    public void getItem(@PathVariable("itemId") Long id, Model model){
+    @GetMapping("read/{id}")
+    public String getItem(@PathVariable("id") Long id, Model model){
         ItemDTO itemDTO = itemService.getItemById(id);
 
         model.addAttribute("dto",itemDTO);
+
+        return "read";
     }
 
 }
