@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<body>
+
+<h3>My Page</h3>
+
+<a href="'/home/mypage'+${session.id}"></a>
+memberid : <p th:text="${member.id}"> </p><br>
+membername : <p th:text="${member.name}"> </p><br>
+memberpw : <p th:text="${member.password}"> </p><br>
+memberemail : <p th:text="${member.email}"> </p><br>
+
+    <button type="button" onclick="location.href='/memberUpdate'">회원정보 수정</button>
+
+</body>
+<script>
+
+</script>
+</html>
+
+</body>
+</html>
