@@ -9,6 +9,7 @@ public interface ItemService {
 
     Long register(ItemDTO itemDTO);
 
+    PageResultDTO<ItemDTO, Item> getListByType(String type, PageRequestDTO pageRequestDTO);
     PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO);
     ItemDTO getItemById(Long id);
     void modifyItem(ItemDTO itemDTO);

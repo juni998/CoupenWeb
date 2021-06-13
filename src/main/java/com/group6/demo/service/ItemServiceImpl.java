@@ -30,6 +30,16 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    public PageResultDTO<ItemDTO, Item> getListByType(String type, PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+        Page<Item> result = itemRepository.findByType(type,pageable);
+
+        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result,fn);
+    }
+
+    @Override
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
 
@@ -40,6 +50,8 @@ public class ItemServiceImpl implements ItemService{
         return new PageResultDTO<>(result,fn);
 
     }
+
+
 
     @Override
     public ItemDTO getItemById(Long id) {

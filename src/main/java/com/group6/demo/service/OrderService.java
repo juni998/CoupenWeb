@@ -1,6 +1,11 @@
 package com.group6.demo.service;
 
+import com.group6.demo.entity.order.OrderDTO;
+
 public interface OrderService {
 
-//    public Orders makeOrder(String account, Long itemId, Address address, int count);
+    Long makeOrder(Long memberId, OrderDTO orderDTO);
+    void makeOrderItem(Long itemId, Long memberId,Long orderId,int count);
+    void completeOrder(Long orderId);
+
 }

@@ -19,7 +19,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -45,16 +44,13 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Long save(MemberDTO memberDTO) {
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 
         Member member = new Member();
-
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         member.setAccount(memberDTO.getAccount());
         member.setName(memberDTO.getName());
         member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
         member.setEmail(memberDTO.getEmail());
-
         memberRepository.save(member);
         return member.getId();
     }
@@ -99,8 +95,12 @@ public class MemberServiceImpl implements MemberService {
         Member member = (Member) memberEntityWrapper.orElse(null);
 
         List authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER")); // Member
 
+        if(member.getAccount().contains("Seller")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // Member
+        } else{
+            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER")); // Member
+        }
         return new User(member.getAccount(), member.getPassword(), authorities);
 
     }

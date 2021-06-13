@@ -1,12 +1,21 @@
 package com.group6.demo.service;
 
+import com.group6.demo.entity.item.Item;
+import com.group6.demo.entity.login.Member;
+import com.group6.demo.entity.order.OrderDTO;
+import com.group6.demo.entity.order.OrderItem;
+import com.group6.demo.entity.order.OrderStatus;
+import com.group6.demo.entity.order.Orders;
 import com.group6.demo.repository.ItemRepository;
 import com.group6.demo.repository.MemberRepository;
+import com.group6.demo.repository.OrderItemRepository;
 import com.group6.demo.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -19,19 +28,38 @@ public class OrderServiceImpl implements OrderService{
     MemberRepository memberRepository;
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
-//    @Override
-//    public Orders makeOrder(String account, Long itemId, Address address, int count) {
+    @Override
+    public Long makeOrder(Long memberId, OrderDTO orderDTO) {
+        Member member = memberRepository.findMemberById(memberId);
+        Orders orders = Orders.createOrder(member,orderDTO);
+        orderRepository.save(orders);
+        return orders.getId();
+    }
+
+    @Override
+    public void makeOrderItem(Long itemId, Long memberId,Long orderId, int count) {
+        Item item = itemRepository.getById(itemId);
+        Member member = memberRepository.findMemberById(memberId);
+        Optional<Orders> result = orderRepository.findById(orderId);
+        Orders orders = result.get();
+
+        OrderItem orderItem = OrderItem.createOrderItem(item,3);
+        orderItem.setOrders(orders);
+
+        orderItemRepository.save(orderItem);
+    }
+
+    @Override
+    public void completeOrder(Long orderId) {
+        Optional<Orders> result = orderRepository.findById(orderId);
+        Orders orders =  result.get();
+
+        orders.setStatus(OrderStatus.COMPLETE);
+
+    }
+
 //
-//        Member member = memberRepository.findMemberByAccount(account);
-//        Item item = (itemRepository.findById(itemId)).get();
-//
-//
-//        Orders order = Orders.createOrder(member,address,orderItem);
-//
-//        orderRepository.save(order);
-//
-//        return order;
-//
-//    }
 }

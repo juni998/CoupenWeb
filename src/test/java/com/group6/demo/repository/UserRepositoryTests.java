@@ -30,20 +30,23 @@ class UserRepositoryTests {
 //    }
 
 
-//    @Test
-//    public void save() throws Exception{
-//        Member member = new Member();
-//        member.setEmail("test1");
-//        member.setName("name1");
-//        member.setPassword("1234");
-//        member.setAccount("account");
-//        memberRepository.save(member);
-//     }
+    @Test
+    public void save() throws Exception{
+        for (int i=0; i<200; i++) {
+            Member member = new Member();
+            member.setEmail("test"+i);
+            member.setName("name"+i);
+            member.setPassword("1234");
+            member.setAccount("account"+i);
+            memberRepository.save(member);
+        }
+
+     }
 
 
     @Test
     public void find_ID() throws Exception{
-        String rawAccount = "SAccount2";
+        String rawAccount = memberRepository.findMemberById(1L).getAccount();
 
         Member member = memberRepository.findMemberByAccount(rawAccount);
 
@@ -63,7 +66,7 @@ class UserRepositoryTests {
 
     @Test
     public void find_NAME() throws Exception{
-        String rawName = "Sname4";
+        String rawName =  memberRepository.findMemberById(1L).getName();
 
         Member member = memberRepository.findMemberByName(rawName);
 
@@ -74,7 +77,7 @@ class UserRepositoryTests {
 
     @Test
     public void getOPTIONAL() throws Exception{
-        String rawAccount = "SAccount10";
+        String rawAccount =  memberRepository.findMemberById(1L).getAccount();
 
         Optional<Member> result = memberRepository.findByAccount(rawAccount);
         Member member = result.get();
@@ -86,9 +89,9 @@ class UserRepositoryTests {
 
     @Test
     public void findEmail() throws Exception{
-        String findemail = "SEmail9@coupeng.org";
+        String findEmail =  memberRepository.findMemberById(1L).getEmail();
 
-        Member member = memberRepository.findMemberByEmail(findemail);
+        Member member = memberRepository.findMemberByEmail(findEmail);
         member.toString();
 
     }

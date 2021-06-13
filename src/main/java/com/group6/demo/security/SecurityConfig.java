@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customFailHandler)
                 .defaultSuccessUrl("/home",true); // true
 
+
         http.logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/home")

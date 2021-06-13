@@ -1,12 +1,15 @@
 package com.group6.demo.service;
 
 import com.group6.demo.entity.login.Member;
+import com.group6.demo.entity.login.MemberDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 @SpringBootTest
+@WebAppConfiguration
 class MemberServiceImplTest {
 
     @Autowired
@@ -28,15 +31,16 @@ class MemberServiceImplTest {
 //        });
 //
 //    }
-//    @Test
-//    public void save() throws Exception{
-//        MemberDTO memberDTO = new MemberDTO();
-//        memberDTO.setEmail("test12312");
-//        memberDTO.setName("nam123e1");
-//        memberDTO.setPassword("1231234");
-//        memberDTO.setAccount("accou121233nt");
-//        memberService.save(memberDTO);
-//    }
+    @Test
+    public void save() throws Exception{
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setEmail("test1");
+        memberDTO.setName("testname");
+        memberDTO.setPassword("1234");
+        memberDTO.setAccount("accout123");
+        Long result = memberService.save(memberDTO);
+        System.out.println(result);
+    }
 
 
     @Test

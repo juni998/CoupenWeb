@@ -18,18 +18,17 @@ class ItemRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
 
-
-
     @Test
     public void MakeDummies() throws Exception{
-        rangeClosed(1,200).forEach(i ->{
+        rangeClosed(1,30).forEach(i ->{
             Item item =Item.builder()
-                    .price((int) (Math.random() *15+1))
-                    .stock((int) ((Math.random() *20+1)*100))
+                    .stock((int) (Math.random() *15+1))
+                    .price((int) ((Math.random() *20+1)*100))
                     .thumbImg("testImg"+i)
                     .writer("writer"+i)
                     .content("testcontent"+i)
                     .title("testTitle"+i)
+                    .type("A")
                     .build();
 
             itemRepository.save(item);
@@ -40,7 +39,7 @@ class ItemRepositoryTest {
 
     @Test
     public void UpdateTest() throws Exception{
-        Optional<Item> result = itemRepository.findById(300L);
+        Optional<Item> result = itemRepository.findById(200L);
 
         if (result.isPresent()){
             Item item = result.get();
