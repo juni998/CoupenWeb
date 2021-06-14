@@ -40,9 +40,18 @@ class UserRepositoryTests {
             member.setAccount("account"+i);
             memberRepository.save(member);
         }
-
      }
-
+    @Test
+    public void saveSeller() throws Exception{
+        for (int i=0; i<200; i++) {
+            Member member = new Member();
+            member.setEmail("test"+i);
+            member.setName("saveSeller"+i);
+            member.setPassword("1234");
+            member.setAccount("account"+i);
+            memberRepository.save(member);
+        }
+    }
 
     @Test
     public void find_ID() throws Exception{

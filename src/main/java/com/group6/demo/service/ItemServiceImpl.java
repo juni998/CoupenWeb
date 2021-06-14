@@ -1,10 +1,9 @@
 package com.group6.demo.service;
 
-import com.group6.demo.entity.item.Item;
-import com.group6.demo.entity.item.ItemDTO;
-import com.group6.demo.entity.item.PageRequestDTO;
-import com.group6.demo.entity.item.PageResultDTO;
+import com.group6.demo.entity.item.*;
 import com.group6.demo.repository.ItemRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -41,16 +40,48 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO) {
+//        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+//        Page<Item> result = itemRepository.findAll(pageable);
+//        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
+
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
-
-        Page<Item> result = itemRepository.findAll(pageable);
-
+        BooleanBuilder booleanBuilder = getSearch(pageRequestDTO);
+        Page<Item> result = itemRepository.findAll(booleanBuilder,pageable);
         Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
-
         return new PageResultDTO<>(result,fn);
-
     }
 
+    private BooleanBuilder getSearch(PageRequestDTO pageRequestDTO) {
+        String type = pageRequestDTO.getType();
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QItem qItem = QItem.item;
+        String keyword = pageRequestDTO.getKeyword();
+
+        BooleanExpression expression = qItem.id.gt(0L);
+        booleanBuilder.and(expression);
+
+        if (type == null || type.trim().length() == 0){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if (type.contains("title")){
+            conditionBuilder.or(qItem.title.contains(keyword));
+        }
+        if (type.contains("writer")){
+            conditionBuilder.or(qItem.writer.contains(keyword));
+        }
+        if (type.contains("content")){
+            conditionBuilder.or(qItem.content.contains(keyword));
+        }
+        if (type.contains("type")){
+            conditionBuilder.or(qItem.type.contains(keyword));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+        return booleanBuilder;
+    }
 
 
     @Override
