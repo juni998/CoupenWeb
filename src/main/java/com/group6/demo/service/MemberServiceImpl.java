@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
 
+
     @Override
     @Transactional
     public void changeAllByAccount(MemberDTO memberDTO) {
@@ -52,6 +53,9 @@ public class MemberServiceImpl implements MemberService {
         member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
         member.setEmail(memberDTO.getEmail());
         memberRepository.save(member);
+
+
+
         return member.getId();
     }
 

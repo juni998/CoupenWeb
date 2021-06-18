@@ -25,7 +25,7 @@ public class Orders{
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -38,12 +38,9 @@ public class Orders{
 
     private LocalDateTime orderDate;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
     public void setMember(Member member){
         this.member = member;
-        member.getOrders().add(this);
+        member.setOrders(this);
     }
 
     public void addOrderItem(OrderItem orderItem){
@@ -55,14 +52,14 @@ public class Orders{
         Orders orders = new Orders();
         orders.setMember(member);
         orders.setName(orderDTO.getName());
-        orders.setAddress(orderDTO.getAddress());
+        orders.setAddress(new Address(orderDTO.getCity(),orderDTO.getStreet(),orderDTO.getZipcode()));
         orders.setPhoneNumber(orderDTO.getPhoneNumber());
-        orders.setStatus(OrderStatus.ORDER);
         orders.setOrderDate(LocalDateTime.now());
 
         System.out.println(" createOrder order"+ orders.toString());
         return orders;
     }
+
 
     public int getTotalPrice(){
         return orderItems.stream().mapToInt(OrderItem::getTotalPrice).sum();

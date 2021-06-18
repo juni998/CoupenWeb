@@ -39,6 +39,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO) {
 //        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
 //        Page<Item> result = itemRepository.findAll(pageable);
@@ -59,26 +60,26 @@ public class ItemServiceImpl implements ItemService{
 
         BooleanExpression expression = qItem.id.gt(0L);
         booleanBuilder.and(expression);
-
+        
         if (type == null || type.trim().length() == 0){
-            return booleanBuilder;
+            return booleanBuilder;    
         }
-
+        
         BooleanBuilder conditionBuilder = new BooleanBuilder();
-
+        
         if (type.contains("title")){
             conditionBuilder.or(qItem.title.contains(keyword));
         }
         if (type.contains("writer")){
             conditionBuilder.or(qItem.writer.contains(keyword));
         }
-        if (type.contains("content")){
-            conditionBuilder.or(qItem.content.contains(keyword));
+        if (type.contains("writer")){
+            conditionBuilder.or(qItem.writer.contains(keyword));
         }
         if (type.contains("type")){
             conditionBuilder.or(qItem.type.contains(keyword));
         }
-
+        
         booleanBuilder.and(conditionBuilder);
         return booleanBuilder;
     }

@@ -1,16 +1,20 @@
 package com.group6.demo.entity.order;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDTO {
     private String name;
     private String phoneNumber;
-    private Address address;
+
+
+    private String city;
+    private String street;
+    private String zipcode;
 
 
 }

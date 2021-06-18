@@ -3,12 +3,14 @@ package com.group6.demo.entity.order;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
 @NoArgsConstructor
+@Setter
 public class Address {
 
     private String city;

@@ -3,7 +3,6 @@ package com.group6.demo.controller;
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.login.MemberDTO;
 import com.group6.demo.repository.MemberRepository;
-import com.group6.demo.security.SignUpFormValidator;
 import com.group6.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,8 +28,6 @@ public class LoginController {
 	@Autowired
 	private final MemberRepository memberRepository;
 
-	@Autowired
-	private SignUpFormValidator signUpFormValidator;
 
 	// 아이디 찾기 GET
 	@GetMapping("/idRefefer")
@@ -79,12 +74,6 @@ public class LoginController {
 		
 		memberService.changePasswordByAccount(account, newPassword);
 		return "";
-	}
-
-	// 회원가입
-	@InitBinder("register")
-	public void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(signUpFormValidator);
 	}
 
 	// 회원가입 GET

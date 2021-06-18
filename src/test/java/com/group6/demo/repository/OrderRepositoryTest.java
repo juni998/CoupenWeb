@@ -36,7 +36,6 @@ class OrderRepositoryTest {
             System.out.println("orders.get = " + orders.getId());
             System.out.println("orders.get = " + orders.getName());
             System.out.println("orders.get = " + orders.getPhoneNumber());
-            System.out.println("orders.getStatus() = " + orders.getStatus());
         }
 
      }

@@ -33,6 +33,19 @@ class ItemRepositoryTest {
 
             itemRepository.save(item);
         });
+        rangeClosed(1,30).forEach(i ->{
+            Item item =Item.builder()
+                    .stock((int) (Math.random() *15+1))
+                    .price((int) ((Math.random() *20+1)*100))
+                    .thumbImg("testImg"+i)
+                    .writer("writer"+i)
+                    .content("testcontent"+i)
+                    .title("testTitle"+i)
+                    .type("B")
+                    .build();
+
+            itemRepository.save(item);
+        });
     }
 
 
@@ -61,4 +74,22 @@ class ItemRepositoryTest {
          System.out.println(pageable.toString());
 
       }
+
+
+
+      @Test
+      public void gsd() throws Exception{
+          Optional<String> sdfa = Optional.empty();//given
+
+          if (sdfa.isPresent()){
+              System.out.println("나오면 null아닌거");
+          }else {
+              System.out.println("나오면 null인거");
+          }
+
+
+          //when
+
+          //then
+       }
 }

@@ -4,7 +4,6 @@ import com.group6.demo.entity.item.Item;
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.order.OrderDTO;
 import com.group6.demo.entity.order.OrderItem;
-import com.group6.demo.entity.order.OrderStatus;
 import com.group6.demo.entity.order.Orders;
 import com.group6.demo.repository.ItemRepository;
 import com.group6.demo.repository.MemberRepository;
@@ -57,7 +56,6 @@ public class OrderServiceImpl implements OrderService{
         Optional<Orders> result = orderRepository.findById(orderId);
         Orders orders =  result.get();
 
-        orders.setStatus(OrderStatus.COMPLETE);
 
     }
 

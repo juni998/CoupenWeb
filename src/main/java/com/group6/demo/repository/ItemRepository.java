@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.Optional;
 
-public interface ItemRepository extends JpaRepository<Item,Long>, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item,Long>, QuerydslPredicateExecutor {
 
     Optional<Item> findById(Long ItemId);
 

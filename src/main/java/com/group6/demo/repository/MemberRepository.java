@@ -19,6 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.account = :account")
     Member findMemberByAccount(@Param("account") String account);
 
+
+
     @Transactional(readOnly = true)
     Member findMemberByName(String name);
     @Transactional(readOnly = true)
