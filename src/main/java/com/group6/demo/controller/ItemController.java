@@ -3,6 +3,7 @@ package com.group6.demo.controller;
 import com.group6.demo.entity.item.ItemDTO;
 import com.group6.demo.entity.item.PageRequestDTO;
 import com.group6.demo.service.ItemService;
+import com.group6.demo.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @Slf4j
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ItemController {
 
     private final ItemService itemService;
+    private final S3Service s3Service;
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO , Model model){
@@ -34,7 +39,7 @@ public class ItemController {
     
     // 아이템 작성 GET
     @GetMapping("itemRegister")
-    public String registerForm(Model model) {
+    public String registerForm(Model model){
     	model.addAttribute("itemDTO", new ItemDTO());
 
     	return "itemRegister";
@@ -42,10 +47,14 @@ public class ItemController {
     
     // 아이템 작성 POST
     @PostMapping("itemRegister")
-    public String register(ItemDTO itemDTO){
-    	Long result = itemService.register(itemDTO);
-    	
-    	log.info("itemDTO : "+ itemDTO);
+    public String register(ItemDTO itemDTO, MultipartFile file) throws IOException{
+        String imgPath = s3Service.upload(file);
+        itemDTO.setThumbImg(imgPath);
+
+        log.info("itemDTO : "+ itemDTO);
+        Long result = itemService.register(itemDTO);
+
+
     	return "redirect:/read/" + result;
     }
     

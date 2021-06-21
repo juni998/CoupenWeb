@@ -12,24 +12,24 @@
 	<h1>ITEM</h1>
 
 	<hr>
-	<form th:action="@{/itemRegister}" th:object="${itemDTO}" method="post">
+	<form th:action="@{/itemRegister}"  method="post" enctype="multipart/form-data">
 		<label>title</label><br>
-		<input type="text" id="title" th:field="*{title}"><br>
+		<input type="text" id="title" name="title"><br>
 		
 		<label>price</label><br>
-		<input type="text" id="price" th:field="*{price}"><br>
+		<input type="text" id="price" name="price"><br>
 		
 		<label>stock</label><br>
-		<input type="text" id="stock" th:field="*{stock}"><br>
+		<input type="text" id="stock" name="stock"><br>
 		
 		<label>content</label><br>
-		<input type="text" id="content" th:field="*{content}"><br>
+		<input type="text" id="content" name="content"><br>
 		
 		<label>writer</label><br>
-		<input type="text" id="writer" th:field="*{writer}"><br>
+		<input type="text" id="writer" name="writer"><br>
 		
 		<label>thumbImg</label><br>
-		<input type="text" id="thumbImg" th:field="*{thumbImg}"><br>
+		<input type="file" id="file" name="file"><br>
 		
 		<button type="submit">insert</button>
 	</form>
