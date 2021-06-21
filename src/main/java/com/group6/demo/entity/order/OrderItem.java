@@ -1,11 +1,14 @@
 package com.group6.demo.entity.order;
 
 import com.group6.demo.entity.item.Item;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Setter
@@ -17,6 +20,7 @@ public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "OrderItem_id")
     private Long id;
 
     private int count;

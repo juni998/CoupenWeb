@@ -1,83 +1,42 @@
 package com.group6.demo.service;
 
-import com.group6.demo.entity.item.Item;
-import com.group6.demo.entity.login.MemberDTO;
 import com.group6.demo.entity.order.OrderDTO;
-import com.group6.demo.entity.order.Orders;
-import com.group6.demo.repository.ItemRepository;
+import com.group6.demo.entity.order.OrderItem;
 import com.group6.demo.repository.MemberRepository;
-import com.group6.demo.repository.OrderItemRepository;
 import com.group6.demo.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static java.util.stream.IntStream.rangeClosed;
+import java.util.List;
 
 @SpringBootTest
 public class OrderServiceTests {
 
     @Autowired
     OrderService orderService;
-
-    @Autowired
-    ItemRepository itemRepository;
-    @Autowired
-    OrderItemRepository orderItemRepository;
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    MemberService memberService;
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    OrderRepository orderRepository;
+
+
 
 
     @Test
-    public void MakeDummies() throws Exception{
-
-         rangeClosed(1,30).forEach(i ->{
-             MemberDTO memberDTO = new MemberDTO();
-             memberDTO.setEmail("test"+i);
-             memberDTO.setName("testname"+i);
-             memberDTO.setPassword("1234");
-             memberDTO.setAccount("accout"+i);
-             Long result = memberService.save(memberDTO);
-             Orders orders = new Orders();
-             orders.setMember(memberRepository.findMemberById((long)i));
-             System.out.println("result = " + result);
-          });
-
-        rangeClosed(1,30).forEach(i ->{
-            Item item =Item.builder()
-                    .stock((int) (Math.random() *150+1))
-                    .price((int) ((Math.random() *20+1)*100))
-                    .thumbImg("testImg"+i)
-                    .writer("writer"+i)
-                    .content("testcontent"+i)
-                    .title("testTitle"+i)
-                    .type("A")
-                    .build();
-            itemRepository.save(item);
-        });
-        rangeClosed(1,30).forEach(i ->{
-            Item item =Item.builder()
-                    .stock((int) (Math.random() *150+1))
-                    .price((int) ((Math.random() *20+1)*100))
-                    .thumbImg("testImg"+i)
-                    .writer("writer"+i)
-                    .content("testcontent"+i)
-                    .title("testTitle"+i)
-                    .type("B")
-                    .build();
-
-            itemRepository.save(item);
-        });
-
-        for (int i = 1; i <= 200; i++) {
-            orderService.makeOrderItem((long) (Math.random() * 60 + 1),(long) (Math.random() * 10 + 1) , (long) (Math.random() *5 + 1), (int) (Math.random() *3 + 1));
+    public void OrderItemTest() throws Exception{
+        List<OrderItem> result = orderService.getItemList(1L);
+        System.out.println("result.getClass() = " + result.getClass());
+        for (OrderItem orderItem: result) {
+            System.out.println("=========================");
+            System.out.println("orderItem.get = " + orderItem.getItemName());
+            System.out.println("orderItem.get = " + orderItem.getId());
+            System.out.println("orderItem.get = " + orderItem.getPrice());
+            System.out.println("orderItem.get = " + orderItem.getCount());
         }
 
     }
+
 
     @Test
     public void makeOrder() throws Exception{

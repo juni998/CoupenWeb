@@ -28,7 +28,7 @@ class OrderRepositoryTest {
     @Test
     public void findOrderByAccount() throws Exception{
         //given
-        String orderAccount = "accout123";
+        String orderAccount = "accout2";
         //when
         List<Orders> order = orderRepository.findByMemberAccount(orderAccount);
         //then
@@ -37,7 +37,6 @@ class OrderRepositoryTest {
             System.out.println("orders.get = " + orders.getName());
             System.out.println("orders.get = " + orders.getPhoneNumber());
         }
-
      }
 
 

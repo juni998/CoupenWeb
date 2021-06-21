@@ -5,6 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>수량</th>
+        <th>이름</th>
+        <th>주문가격</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orderItemList : ${orderItemList}">
+        <td th:text="${orderItemList.id}"></td>
+        <td th:text="${orderItemList.count}"></td>
+        <td th:text="${orderItemList.itemName}"></td>
+        <td th:text="${orderItemList.price}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

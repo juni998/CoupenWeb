@@ -11,6 +11,7 @@ public class CompleteOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CompleteOrder_id")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -22,7 +23,6 @@ public class CompleteOrder {
     private Address address;
 
     private LocalDateTime orderDate;
-
     private int totalPrice;
 
     @Enumerated(EnumType.STRING)
