@@ -23,6 +23,10 @@ public class OrderItem {
     @Column(name = "OrderItem_id")
     private Long id;
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
     private int count;
     private int price;
     private String itemName;
@@ -35,6 +39,7 @@ public class OrderItem {
         orderItem.setItemName(item.getTitle());
         orderItem.setCount(count);
         orderItem.setPrice(item.getPrice());
+        orderItem.setItem(item);
 
         item.removeStock(count);
         return orderItem;
@@ -42,5 +47,11 @@ public class OrderItem {
 
     int getTotalPrice(){
         return getPrice() * getCount();
+
     }
+    public void cancelItem(){
+        getItem().addStock(this.count);
+    }
+
+
 }

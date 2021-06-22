@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -18,6 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Transactional
+@EntityListeners(AuditingEntityListener.class)
 public class Orders{
 
     @Id
@@ -36,6 +40,9 @@ public class Orders{
     private String phoneNumber;
     private Address address;
 
+    @CreatedDate
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime orderDate;
 
     public void setMember(Member member){
@@ -60,7 +67,11 @@ public class Orders{
         return orders;
     }
 
-
+    public void cancel(){
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancelItem();
+        }
+    }
     public int getTotalPrice(){
         return orderItems.stream().mapToInt(OrderItem::getTotalPrice).sum();
     }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.stream.IntStream.rangeClosed;
@@ -92,4 +93,16 @@ class ItemRepositoryTest {
 
           //then
        }
+
+
+
+       @Test
+       public void find() throws Exception{
+           //given
+           List<Item> result =itemRepository.findByTitleContaining("t");
+           String[] list = null;
+
+           for (Item items : result) {
+           }
+        }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item,Long>, QuerydslPredicateExecutor {
@@ -13,4 +14,6 @@ public interface ItemRepository extends JpaRepository<Item,Long>, QuerydslPredic
     Optional<Item> findById(Long ItemId);
 
     Page<Item> findByType(String type, Pageable pageable);
+
+    List<Item> findByTitleContaining(String title);
 }

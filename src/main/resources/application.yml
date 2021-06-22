@@ -17,3 +17,17 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type : trace
+
+cloud:
+  aws:
+    s3:
+      bucket: lchs3bucket-12344231
+    region:
+      auto: false
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: AKIAVF6NB6G6G6ULSWFE
+      secretKey: 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
+      instanceProfile : true

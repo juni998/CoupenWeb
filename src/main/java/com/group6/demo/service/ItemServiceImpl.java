@@ -38,12 +38,9 @@ public class ItemServiceImpl implements ItemService{
         return new PageResultDTO<>(result,fn);
     }
 
-    @Override
 
+    @Override
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO) {
-//        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
-//        Page<Item> result = itemRepository.findAll(pageable);
-//        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
 
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
         BooleanBuilder booleanBuilder = getSearch(pageRequestDTO);

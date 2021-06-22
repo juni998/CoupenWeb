@@ -2,13 +2,8 @@ package com.group6.demo.service;
 
 import com.group6.demo.entity.item.Item;
 import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.order.OrderDTO;
-import com.group6.demo.entity.order.OrderItem;
-import com.group6.demo.entity.order.Orders;
-import com.group6.demo.repository.ItemRepository;
-import com.group6.demo.repository.MemberRepository;
-import com.group6.demo.repository.OrderItemRepository;
-import com.group6.demo.repository.OrderRepository;
+import com.group6.demo.entity.order.*;
+import com.group6.demo.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +26,11 @@ public class OrderServiceImpl implements OrderService{
     ItemRepository itemRepository;
     @Autowired
     OrderItemRepository orderItemRepository;
+    @Autowired
+    CompleteRepository completeRepository;
 
     @Override
+    @Transactional
     public Long makeOrder(Long memberId, OrderDTO orderDTO) {
         Member member = memberRepository.findMemberById(memberId);
         Orders orders = Orders.createOrder(member,orderDTO);
@@ -41,19 +39,21 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @Transactional
     public void makeOrderItem(Long itemId, Long memberId,Long orderId, int count) {
         Item item = itemRepository.getById(itemId);
         Member member = memberRepository.findMemberById(memberId);
         Optional<Orders> result = orderRepository.findById(orderId);
         Orders orders = result.get();
 
-        OrderItem orderItem = OrderItem.createOrderItem(item,3);
+        OrderItem orderItem = OrderItem.createOrderItem(item,count);
         orderItem.setOrders(orders);
 
         orderItemRepository.save(orderItem);
     }
 
     @Override
+    @Transactional
     public void completeOrder(Long orderId) {
         Optional<Orders> result = orderRepository.findById(orderId);
         Orders orders =  result.get();
@@ -68,9 +68,33 @@ public class OrderServiceImpl implements OrderService{
         for (OrderItem orderItem : orders.getOrderItems()) {
             orderItemList.add(orderItem);
         }
-       return orderItemList;
+        return orderItemList;
     }
 
+    @Transactional
+    // 추가설정 필요
+    public void cancelOrder(Long memberId, Long orderId){
+        Optional<Orders> result = orderRepository.findById(orderId);
+        Member member = memberRepository.findMemberById(memberId);
+
+        Orders orders = result.get();
+
+        CompleteOrder completeOrder = new CompleteOrder();
+        completeOrder.setMember(member);
+        completeOrder.setName(orders.getName());
+        completeOrder.setAddress(orders.getAddress());
+        completeOrder.setPhoneNumber(orders.getPhoneNumber());
+        completeOrder.setStatus(OrderStatus.CANCEL);
+        completeOrder.setTotalPrice(orders.getTotalPrice());
+        completeRepository.save(completeOrder);
+
+        orders.cancel();
+
+        for (OrderItem orderItems : orders.getOrderItems()) {
+            orderItemRepository.deleteById(orderItems.getId());
+        }
+        orderRepository.deleteById(orders.getId());
+    }
 
 //
 }

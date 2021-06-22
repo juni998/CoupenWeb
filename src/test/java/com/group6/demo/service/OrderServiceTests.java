@@ -54,20 +54,18 @@ public class OrderServiceTests {
         orderService.makeOrderItem(1L,1L,33L,4);
     }
 
+
+
+    @Test
+    public void OrderCancel() throws Exception{
+        //given
+        orderService.cancelOrder(2L,2L);
+        //when
+
+        //then
+    }
+
 }
 
-
-//    @Test
-//    public void OrderStatusTest2() throws Exception{
-//        List<Orders> orders = orderRepository.findOrderByOrderStatus();
-//
-//        for (Orders result : orders) {
-//            System.out.println(result.getId());
-//            System.out.println(result.getPhoneNumber());
-//            System.out.println(result.getName());
-//            System.out.println(result.getMember().getId());
-//            System.out.println("=====End First ====");
-//        }
-//    }
 
 

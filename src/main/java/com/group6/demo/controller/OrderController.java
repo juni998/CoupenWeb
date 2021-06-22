@@ -80,9 +80,9 @@ public class OrderController {
 
         model.addAttribute("orders", orders);
         model.addAttribute("orderItemList",orderItemList);
-        return "redirect:/myOrder";}
+        return "/myOrder";}
         catch (NullPointerException e){
-            return "redirect:/login";
+            return "/login";
         }
     }
 

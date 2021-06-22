@@ -32,6 +32,7 @@ public class Item  {
     private String thumbImg;
 
     private String type;
+
     @CreatedDate
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")

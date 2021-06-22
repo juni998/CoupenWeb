@@ -45,7 +45,7 @@ public class MemberController {
 	// 마이페이지 회원정보 변경 GET
 	@GetMapping("memberUpdate")
 	public String memberUpdate() {
-		return "/home/login/mypage0";
+		return "/home/login/mypage";
 	}
 
 	// 마이페이지 회원정보 변경 POST
