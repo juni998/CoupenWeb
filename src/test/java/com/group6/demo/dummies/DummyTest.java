@@ -72,7 +72,7 @@ public class DummyTest {
                     .writer("writer" + i)
                     .content("testcontent" + i)
                     .title("testTitle" + i)
-                    .type("B")
+                    .type("meet")
                     .build();
 
             itemRepository.save(item);
@@ -85,7 +85,20 @@ public class DummyTest {
                     .writer("writer" + i)
                     .content("testcontent" + i)
                     .title("testTitle" + i)
-                    .type("B")
+                    .type("vegetable")
+                    .build();
+
+            itemRepository.save(item);
+        });
+        rangeClosed(1, 30).forEach(i -> {
+            Item item = Item.builder()
+                    .stock((int) (Math.random() * 1500 + 1))
+                    .price((int) ((Math.random() * 20 + 1) * 100))
+                    .thumbImg("testImg" + i)
+                    .writer("writer" + i)
+                    .content("testcontent" + i)
+                    .title("testTitle" + i)
+                    .type("grain")
                     .build();
 
             itemRepository.save(item);

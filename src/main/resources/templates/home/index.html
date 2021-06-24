@@ -17,53 +17,26 @@
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="/img/Home Images/favicon.png" type="image/png">
-
-
-
-
-        &lt;!&ndash;====== Bootstrap css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/bootstrap.min.css">
-
-        &lt;!&ndash;====== Animate css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/animate.css">
-
-        &lt;!&ndash;====== Magnific Popup css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/magnific-popup.css">
-
-        &lt;!&ndash;====== Slick css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/slick.css">
-
-        &lt;!&ndash;====== Line Icons css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/LineIcons.css">
-
-        &lt;!&ndash;====== Default css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/default.css">
-
-        &lt;!&ndash;====== Style css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/style.css">
-
-        &lt;!&ndash;====== Responsive css ======&ndash;&gt;
         <link rel="stylesheet" href="/css/Home Css/responsive.css">
-
-
-
 </head>
 
 <body>
-
 <!--====== PRELOADER PART START ======-->
-
 <div class="preloader">
     <div class="spin">
         <div class="cube1"></div>
         <div class="cube2"></div>
     </div>
 </div>
-
 <!--====== PRELOADER PART START ======-->
-
 <!--====== HEADER PART START ======-->
-
 <header class="header-area">
     <div class="container">
         <div class="row">
@@ -89,14 +62,12 @@
                             <li class="nav-item" sec:authorize="isAuthenticated()">
                                 <a href="#">Order</a>
                             </li>
-
                             <li class="nav-item" sec:authorize="isAuthenticated()">
                                 <a href="/login/mypage">MyPage</a>
                             </li>
                             <li class="nav-item" sec:authorize="isAnonymous()">
                                 <a href="/login">LogIn</a>
                             </li>
-
                             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a href="/itemRegister">Sign Item</a>
                             </li>
@@ -107,8 +78,6 @@
                                 <form th:action="@{/logout}" method="post">
                                     <input type="submit" class="nav-item" value="Logout"/></form>
                             </li>
-
-
                         </ul> <!-- navbar nav -->
                     </div>
                 </nav> <!-- navbar -->
@@ -116,7 +85,6 @@
         </div> <!-- row -->
     </div> <!-- container -->
 </header>
-
 <!--====== HEADER PART ENDS ======-->
 
 <!--====== SLIDER PART START ======-->
@@ -132,7 +100,6 @@
                                 <img src="/img/Home Images/slider/1.jpg" alt="Slider">
                                 <div class="slider-discount-tag">
                                     <p>Up to 50% <br> OFF</p>
-
                                 </div>
                             </div> <!-- slider product image -->
                         </div>
@@ -146,7 +113,6 @@
                     </div> <!-- row -->
                 </div> <!-- container -->
             </div> <!-- single slider -->
-
             <div class="single-slider">
                 <div class="slider-bg">
                     <div class="row no-gutters align-items-center">
@@ -162,7 +128,7 @@
                             <div class="slider-product-content">
                                 <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>한국</span> 전통 <span>음식</span></h1>
                                 <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s"><br> 우리나라 전통음식을 쿠펭에서 만나보세요  </p>
-                                <a class="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
+                                <a class="main-btn" href="/list?page=1&type=type&keyword=grain" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
                             </div> <!-- slider product content -->
                         </div>
                     </div> <!-- row -->
@@ -184,24 +150,14 @@
                             <div class="slider-product-content">
                                 <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Meet</span></h1>
                                 <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">이것은 고기인가 예술인가</p>
-                                <a class="main-btn" href="#contact" data-animation="fadeInUp" data-delay="1.5s">Contact Us <i class="lni-chevron-right"></i></a>
+                                <a class="main-btn" href="/list?page=1&type=type&keyword=meet" data-animation="fadeInUp" data-delay="1.5s">Contact Us <i class="lni-chevron-right"></i></a>
                             </div> <!-- slider product content -->
                         </div>
                     </div> <!-- row -->
                 </div> <!-- container -->
             </div> <!-- single slider -->
         </div> <!-- slider active -->
-       <!-- <div class="slider-social">
-            <div class="row justify-content-end">
-                <div class="col-lg-7 col-md-6">
-                    <ul class="social text-right">
-                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                        <li><a href="#"><i class="lni-instagram"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
+
     </div> <!-- container fluid -->
 </section>
 
@@ -219,7 +175,7 @@
                     </div> <!-- product image -->
                     <div class="product-content">
                         <h4 class="content-title mb-15">Event Product<br> 1+1</h4>
-                        <a href="#">Shortcut <i class="lni-chevron-right"></i></a>
+                        <a href="/list?page=1&type=type&keyword=vegetable">Shortcut <i class="lni-chevron-right"></i></a>
                     </div> <!-- product content -->
                 </div> <!-- single discount product -->
             </div>
@@ -230,7 +186,7 @@
                     </div> <!-- product image -->
                     <div class="product-content">
                         <h4 class="content-title mb-15">Event Product <br> Discount up to 80%</h4>
-                        <a href="#">Shortcut <i class="lni-chevron-right"></i></a>
+                        <a href="/list?page=1&type=type&keyword=grain">Shortcut <i class="lni-chevron-right"></i></a>
                     </div> <!-- product content -->
                 </div> <!-- single discount product -->
             </div>
@@ -249,14 +205,9 @@
                 <div class="collection-menu text-center mt-30">
                     <h4 class="collection-tilte">Food type</h4>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="active" id="v-pills-furniture-tab" data-toggle="pill" href="#v-pills-furniture" role="tab" aria-controls="v-pills-furniture" aria-selected="true">Sale</a>
-
-                        <a id="v-pills-decorative-tab" data-toggle="pill" href="#v-pills-decorative" role="tab" aria-controls="v-pills-decorative" aria-selected="false">Diet</a>
-
-                        <a id="v-pills-lighting-tab" data-toggle="pill" href="#v-pills-lighting" role="tab" aria-controls="v-pills-lighting" aria-selected="false">Kimchi</a>
-
+                        <a id="v-pills-decorative-tab" data-toggle="pill" href="#v-pills-decorative" role="tab" aria-controls="v-pills-decorative" aria-selected="false">Vegetable</a>
+                        <a id="v-pills-lighting-tab" data-toggle="pill" href="#v-pills-lighting" role="tab" aria-controls="v-pills-lighting" aria-selected="false">Grain</a>
                         <a id="v-pills-outdoor-tab" data-toggle="pill" href="#v-pills-outdoor" role="tab" aria-controls="v-pills-outdoor" aria-selected="false">Fruit</a>
-
                         <a id="v-pills-storage-tab" data-toggle="pill" href="#v-pills-storage" role="tab" aria-controls="v-pills-storage" aria-selected="false">Meet</a>
                     </div> <!-- nav -->
                 </div> <!-- collection menu -->
@@ -848,7 +799,7 @@
                 <div class="services-left mt-45">
                     <div class="services">
                         <img src="/img/Home Images/services/services.jpg" alt="">
-                        <a href="#" class="main-btn mt-30">Read More <i class="lni-chevron-right"></i></a>
+                        <a href="/list?page=1&type=type&keyword=vegetable" class="main-btn mt-30">Read More <i class="lni-chevron-right"></i></a>
                     </div> <!-- services btn -->
                 </div> <!-- services left -->
             </div>
@@ -907,42 +858,6 @@
 
 <!--====== SERVICES PART ENDS ======-->
 
-<!--====== SHOWCASE PART START ======-->
-
-<section id="showcase" class="showcase-area pt-100 pb-130">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="showcase-title pt-25">
-                    <h2 class="title">Cookware</h2>
-                </div> <!-- showcase title -->
-            </div>
-            <div class="col-lg-6">
-                <div class="showcase-title pt-25">
-                    <p>간단한 설치,우리집에 맞는 공간 활용! 튼튼한 제품! 지금 쿠펭에서 만나보세요 1090x700</p>
-                </div> <!-- showcase title -->
-            </div>
-        </div> <!-- row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="showcase-active mt-65">
-                    <div class="single-showcase">
-                        <img src="/img/Home Images/showcase/t-1.jpg" alt="Testimonial">
-                        <a href="#" class="main-btn">Full Preview</a>
-                    </div> <!-- single showcase -->
-                    <div class="single-showcase">
-                        <img src="/img/Home Images/showcase/t-2.jpg" alt="Testimonial">
-                        <a href="#" class="main-btn">Full Preview</a>
-                    </div> <!-- single showcase -->
-                </div> <!-- showcase active -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--====== SHOWCASE PART ENDS ======-->
-
-
 
 <!--====== TESTIMONIAL PART START ======-->
 
@@ -961,7 +876,7 @@
                         </div> <!-- single testimonial -->
                         <div class="single-testimonial">
                             <i class="lni-quotation"></i>
-                            <p class="mb-30">쿠펭을 만난후 요리하는 즐거움을 알게되었어요 신선한 재료,풀 콜트체인 냉장배송,총알같은 배송 여려분도 느껴보세요</p>
+                            <p class="mb-30">매일 아침 새벽에 배송해 드립니다!</p>
                             <h6 class="title">Blog review</h6>
                             <span>- sujin Kim </span>
                         </div> <!-- single testimonial -->
@@ -999,30 +914,6 @@
                         </ul>
                     </div> <!-- footer logo -->
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-5">
-                    <div class="footer-link mt-50">
-                        <h5 class="f-title">Services</h5>
-                        <ul>
-                            <li><a href="#">Country of origin</a></li>
-                            <li><a href="#">Interior Design</a></li>
-                            <li><a href="#">Autocad Services</a></li>
-                            <li><a href="#">Lighting Design</a></li>
-                            <li><a href="#">Poster Design</a></li>
-                        </ul>
-                    </div> <!-- footer link -->
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-5">
-                    <div class="footer-link mt-50">
-                        <h5 class="f-title">Help</h5>
-                        <ul>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
-                    </div> <!-- footer link -->
-                </div>
                 <div class="col-lg-4 col-md-5 col-sm-7">
                     <div class="footer-info mt-50">
                         <h5 class="f-title">Contact Info</h5>
@@ -1049,7 +940,7 @@
                                 <div class="single-footer-info mt-20">
                                     <span>Address :</span>
                                     <div class="footer-info-content">
-                                        <p>5078 Jensen Key, Port Kaya, WV 73505</p>
+                                        <p>서울 강남 어딘가</p>
                                     </div>
                                 </div> <!-- single footer info -->
                             </li>
@@ -1058,15 +949,7 @@
                 </div>
             </div> <!-- row -->
         </div> <!-- footer widget -->
-        <div class="footer-copyright pt-15 pb-15">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright text-center">
-                        <p>Crafted by <a href="https://uideck.com" rel="nofollow">UIdeck</a></p>
-                    </div> <!-- copyright -->
-                </div>
-            </div> <!-- row -->
-        </div> <!--  footer copyright -->
+
     </div> <!-- container -->
 </section>
 
@@ -1086,28 +969,13 @@
 
 
 
-&#45;&#45;====== jquery js ======&ndash;&gt;
 <script src="/js/Home Js/vendor/modernizr-3.6.0.min.js"></script>
 <script src="/js/Home Js/vendor/jquery-1.12.4.min.js"></script>
-
-&lt;!&ndash;====== Bootstrap js ======&ndash;&gt;
 <script src="/js/Home Js/bootstrap.min.js"></script>
-
-
-&lt;!&ndash;====== Slick js ======&ndash;&gt;
 <script src="/js/Home Js/slick.min.js"></script>
-
-&lt;!&ndash;====== Magnific Popup js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.magnific-popup.min.js"></script>
-
-
-&lt;!&ndash;====== nav js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.nav.js"></script>
-
-&lt;!&ndash;====== Nice Number js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.nice-number.min.js"></script>
-
-&lt;!&ndash;====== Main js ======&ndash;&gt;
 <script src="/js/Home Js/main.js"></script>
 
 </body>
