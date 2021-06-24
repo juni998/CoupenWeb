@@ -5,6 +5,8 @@ import com.group6.demo.entity.item.ItemDTO;
 import com.group6.demo.entity.item.PageRequestDTO;
 import com.group6.demo.entity.item.PageResultDTO;
 
+import java.util.List;
+
 public interface ItemService {
 
     Long register(ItemDTO itemDTO);
@@ -14,7 +16,7 @@ public interface ItemService {
     ItemDTO getItemById(Long id);
     void modifyItem(ItemDTO itemDTO);
     void removeItem(Long id);
-
+    List<String> getItemSearchListAjax(String title);
 
     default Item dtoToEntity(ItemDTO dto){
         Item item = Item.builder()

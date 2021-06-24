@@ -1,26 +1,39 @@
 package com.group6.demo.controller;
 
 import com.group6.demo.repository.ItemRepository;
+import com.group6.demo.repository.MemberRepository;
+import com.group6.demo.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class AjaxController {
 
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
+    private final MemberRepository memberRepository;
 
-    @RequestMapping(value = "/searchList", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "/autocomplete")
     @ResponseBody
-    public void searchList(Locale locale, Model model){
+    public List<String> autoName(@RequestParam(value = "term", required = false, defaultValue = "")String term){
+        List<String> designation = itemService.getItemSearchListAjax(term);
+        return designation;
     }
 
-	
+    @ResponseBody
+	@RequestMapping(value = "/accountDuplicate", method = RequestMethod.POST)
+	public Boolean checkAccountDuplicate(@PathVariable String account){
+	    return memberRepository.existsByAccount(account);
+	}
+
+    @ResponseBody
+    @RequestMapping(value = "/emailDuplicate", method = RequestMethod.POST)
+    public Boolean checkEmailDuplicate(@PathVariable String email){
+        return memberRepository.existsByAccount(email);
+    }
 	
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<tbody>
+<tr th:each="completeOrderList : ${orderItemList}">
+    <td th:text="${completeOrderList.id}"></td>
+    <td th:text="${completeOrderList.count}"></td>
+    <td th:text="${completeOrderList.name}"></td>
+    <td th:text="${completeOrderList.totalPrice}"></td>
+    <td th:text="${completeOrderList.address?.city}"></td>
+    <td th:text="${completeOrderList.address?.street}"></td>
+
+</tr>
+</tbody>
+</body>
+</html>

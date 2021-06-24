@@ -1,9 +1,11 @@
 package com.group6.demo.controller;
 
 import com.group6.demo.entity.login.Member;
+import com.group6.demo.entity.order.CompleteOrder;
 import com.group6.demo.entity.order.OrderDTO;
 import com.group6.demo.entity.order.OrderItem;
 import com.group6.demo.entity.order.Orders;
+import com.group6.demo.repository.CompleteRepository;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.repository.OrderRepository;
 import com.group6.demo.service.OrderService;
@@ -30,20 +32,19 @@ public class OrderController {
     private final MemberRepository memberRepository;
     @Autowired
     private final OrderRepository orderRepository;
+    @Autowired
+    private final CompleteRepository completeRepository;
 
     @GetMapping("/order")
     public String order(Principal principal, Model model){
         try {log.info("get order");
             Member result = memberRepository.findMemberByAccount(principal.getName());
 
-            Optional<Orders> orders = orderRepository.findById(result.getId());
-            System.out.println("orders.toString() = " + orders.toString());
+            Optional<Orders> orders = orderRepository.findByMemberId(result.getId());
             if (orders.isEmpty()){
-                System.out.println("orders Present실행");
                 model.addAttribute("orderDTO", new OrderDTO());
                 return "/createOrder";
             }
-            System.out.println("orders를 실행 안했음 = " + orders);
             Orders order = orders.get();
             model.addAttribute("orderDTO", order);
             return "redirect:/myOrder";
@@ -57,33 +58,53 @@ public class OrderController {
         Member result = memberRepository.findMemberByAccount(principal.getName());
         orderService.makeOrder(result.getId(), orderDTO);
 
-        return "redirect:/myOrder";
+        return "redirect:/Order";
     }
     @GetMapping("/myOrder")
     public String myOrderPage(Principal principal, Model model){
-        try{Member result = memberRepository.findMemberByAccount(principal.getName());
-        log.info("MyOrder : "+ principal.getName());
-        Optional<Orders> ordersOptional = orderRepository.findById(result.getId());
-        Orders orders = ordersOptional.get();
-        List<OrderItem> orderItemList = orderService.getItemList(result.getId());
-        System.out.println("MyOrder");
-        System.out.println("MyOrder");
-        System.out.println("MyOrder");
-        System.out.println("orderItemList.getClass() = " + orderItemList.getClass());
-        for (OrderItem get: orderItemList) {
-            System.out.println("=========================");
-            System.out.println("orderItem.get = " + get.getItemName());
-            System.out.println("orderItem.get = " + get.getId());
-            System.out.println("orderItem.get = " + get.getPrice());
-            System.out.println("orderItem.get = " + get.getCount());
-        }
-
-        model.addAttribute("orders", orders);
-        model.addAttribute("orderItemList",orderItemList);
-        return "/myOrder";}
+        try{
+            Member result = memberRepository.findMemberByAccount(principal.getName());
+            log.info("MyOrder : "+ principal.getName());
+            Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
+            Orders orders = ordersOptional.get();
+            List<OrderItem> orderItemList = orderService.getItemList(result.getId());
+            model.addAttribute("orders", orders);
+            model.addAttribute("orderItemList",orderItemList);
+            return "/myOrder";}
         catch (NullPointerException e){
-            return "/login";
+            return "redirect:/login";
         }
+    }
+
+    //주문마지막
+    @GetMapping("/CompleteOrder")
+    public String CompleteOrder(Principal principal){
+        Member result = memberRepository.findMemberByAccount(principal.getName());
+        Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
+        Orders orders = ordersOptional.get();
+        orderService.completeOrder(orders.getId());
+
+        return "redirect:/myOrderList";
+    }
+
+    @GetMapping("/CancelOrder")
+    public String CancelOrder(Principal principal){
+        Member result = memberRepository.findMemberByAccount(principal.getName());
+        Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
+        Orders orders = ordersOptional.get();
+        orderService.cancelOrder(orders.getId());
+
+        return "redirect:/myOrderList";
+    }
+
+    @GetMapping("/myOrderList")
+    public String myOrderList(Principal principal, Model model){
+        Member result = memberRepository.findMemberByAccount(principal.getName());
+        List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
+
+        model.addAttribute("completeOrderList", completeOrderList);
+
+        return "/myOrderList";
     }
 
 

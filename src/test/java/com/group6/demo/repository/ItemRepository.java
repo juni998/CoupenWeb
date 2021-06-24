@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,9 +101,17 @@ class ItemRepositoryTest {
        public void find() throws Exception{
            //given
            List<Item> result =itemRepository.findByTitleContaining("t");
-           String[] list = null;
-
+           ArrayList<String> list = new ArrayList<>();
+           int flag = 0;
            for (Item items : result) {
+               list.add(items.getTitle());
+               flag++;
+               System.out.println("items.getTitle() = " + items.getTitle());
+               if (list.isEmpty() || flag >= 10){
+                   System.out.println("break");
+                   break;
+               }
            }
+           System.out.println(list.toString());
         }
 }

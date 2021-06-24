@@ -1,6 +1,7 @@
 package com.group6.demo.entity.order;
 
 import com.group6.demo.entity.login.Member;
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Setter
+@Getter
 @EntityListeners(AuditingEntityListener.class)
 public class CompleteOrder {
 

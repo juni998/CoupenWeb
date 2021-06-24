@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 class ItemServiceTest {
 
@@ -75,5 +77,27 @@ class ItemServiceTest {
         System.out.println("==================");
         resultDTO.getPageList().forEach(i -> System.out.println(i));
     }
+    
+    
+    
+    @Test
+    public void testSearchBar() throws Exception{
+        //given
+        List<String> result = itemService.getItemSearchListAjax("test");
+        //when
+
+        //then
+        System.out.println("result = " + result);
+     }
+
+
+     @Test
+     public void addItemService() throws Exception{
+         //given
+
+         //when
+
+         //then
+      }
 
 }

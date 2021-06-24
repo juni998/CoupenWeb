@@ -1,5 +1,6 @@
 package com.group6.demo.repository;
 
+import com.group6.demo.entity.order.OrderItem;
 import com.group6.demo.entity.order.Orders;
 import com.group6.demo.service.MemberService;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class OrderRepositoryTest {
@@ -17,10 +19,20 @@ class OrderRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     MemberService memberService;
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
 
     @Test
-    public void saveOrder() throws Exception {
+    public void orderItem() throws Exception {
+        Optional<OrderItem> orderItem = orderItemRepository.findByOrdersIdAndItemId(1L,7L);
+
+        if (orderItem.isPresent()){
+            System.out.println(" 실행했음" );
+        }else {
+            System.out.println("안했음");
+        }
+        
     }
 
 

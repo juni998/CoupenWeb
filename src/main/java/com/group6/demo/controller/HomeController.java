@@ -29,6 +29,11 @@ public class HomeController {
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
 
+	@GetMapping("/")
+	public String welcome(){
+	    log.info("welcome Page");
+	    return "/welcome";
+	}
 	// 홈
 	@GetMapping("/home")
 	public String home(Principal principal, Model model) throws Exception {
@@ -51,58 +56,25 @@ public class HomeController {
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(@Valid Member member,  BindingResult bindingResult) {
-
 		return "/logout";
 	}
 	
 	// 문의하기
 	@GetMapping("question")
 	public String question() {
-
 		return "/home/question";
 	}
 	
 	// 상품게시판
 	@GetMapping("shop")
 	public String shop() {
-
 		return "home/shop";
 	}
 
 	// 장바구니
 	@GetMapping("shoppingcart")
 	public String shoppingcart() {
-
 		return "home/shoppingcart";
 	}
-	/*
-	 * 참고용
-	 * 
-	 * @GetMapping("/username1") public String currentUserName(Authentication
-	 * authentication, Model model) {
-	 * 
-	 * UserDetails userDetails = (UserDetails) authentication.getPrincipal(); String
-	 * name = userDetails.getUsername();
-	 * 
-	 * model.addAttribute("name", name); return "username1"; }
-	 * 
-	 * @GetMapping("asdf")
-	 * 
-	 * @ResponseBody public Long asdf(Member member){
-	 * 
-	 * return member.getId(); }
-	 * 
-	 * @PostMapping("/modify") public String modify(MemberDTO newMemberDTO,
-	 * Authentication authentication) throws Exception { MemberDTO memberDTO =
-	 * (MemberDTO) authentication.getPrincipal(); BCryptPasswordEncoder
-	 * passwordEncoder = new BCryptPasswordEncoder();
-	 * 
-	 * Member member = new Member(); member.setAccount(memberDTO.getAccount());
-	 * member.setPassword(passwordEncoder.encode(newMemberDTO.getPassword()));
-	 * member.setName(newMemberDTO.getName());
-	 * member.setEmail(newMemberDTO.getEmail());
-	 * 
-	 * return "redirect:/home"; }
-	 * 
-	 */
+
 }

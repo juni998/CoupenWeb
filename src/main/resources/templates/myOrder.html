@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+여기는 오더정보
+<label >id</label>
+<input type="text" class="form-control" name="id" th:value="${orders.id}" readonly >
+
+<label >title</label>
+<input type="text" class="form-control" name="title" th:value="${orders.name}" readonly >
+
+<br>
+여긴 아이템 리스트
 <table class="table table-striped">
     <thead>
     <tr>
@@ -18,10 +27,18 @@
     <tr th:each="orderItemList : ${orderItemList}">
         <td th:text="${orderItemList.id}"></td>
         <td th:text="${orderItemList.count}"></td>
-        <td th:text="${orderItemList.itemName}"></td>
+        <th scope="row">
+            <a th:href="@{/read/{id}(id= ${orderItemList.item.id})} ">
+                [[${orderItemList.itemName}]]
+            </a>
+        </th>
         <td th:text="${orderItemList.price}"></td>
     </tr>
     </tbody>
+
+    <a href="/completeOrder">주문</a>
+    <br>
+    <a href="/cancelOrder">취소</a>
 </table>
 </body>
 </html>

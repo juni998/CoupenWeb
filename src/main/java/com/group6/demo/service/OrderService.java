@@ -11,5 +11,5 @@ public interface OrderService {
     void makeOrderItem(Long itemId, Long memberId,Long orderId,int count);
     void completeOrder(Long orderId);
     List<OrderItem> getItemList(Long memberId);
-    void cancelOrder(Long memberId, Long orderId);
+    void cancelOrder(Long orderId);
 }

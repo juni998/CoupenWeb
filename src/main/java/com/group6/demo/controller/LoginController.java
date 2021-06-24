@@ -109,10 +109,4 @@ public class LoginController {
 
 	}
 
-	/*
-	 * @GetMapping("/findIdChange/{memberId}") public String
-	 * IdInfo(@PathVariable("memberId") Long memberId, Model model) {
-	 *
-	 * return "home/login/find_id_change"; }
-	 */
 }

@@ -46,10 +46,17 @@ public class OrderServiceImpl implements OrderService{
         Optional<Orders> result = orderRepository.findById(orderId);
         Orders orders = result.get();
 
-        OrderItem orderItem = OrderItem.createOrderItem(item,count);
-        orderItem.setOrders(orders);
+        Optional<OrderItem> itemResult = orderItemRepository.findByOrdersIdAndItemId(orderId,itemId);
 
-        orderItemRepository.save(orderItem);
+        if (itemResult.isPresent()){
+            OrderItem orderItem = itemResult.get();
+            orderItem.addCount(count);
+            orderItemRepository.save(orderItem);
+        }else {
+            OrderItem orderItem = OrderItem.createOrderItem(item,count);
+            orderItem.setOrders(orders);
+            orderItemRepository.save(orderItem);
+        }
     }
 
     @Override
@@ -57,12 +64,27 @@ public class OrderServiceImpl implements OrderService{
     public void completeOrder(Long orderId) {
         Optional<Orders> result = orderRepository.findById(orderId);
         Orders orders =  result.get();
+        Member member = memberRepository.findMemberById(orders.getMember().getId());
+
+        CompleteOrder completeOrder = new CompleteOrder();
+        completeOrder.setMember(member);
+        completeOrder.setName(orders.getName());
+        completeOrder.setAddress(orders.getAddress());
+        completeOrder.setPhoneNumber(orders.getPhoneNumber());
+        completeOrder.setStatus(OrderStatus.ORDER);
+        completeOrder.setTotalPrice(orders.getTotalPrice());
+        completeRepository.save(completeOrder);
+
+        for (OrderItem orderItems : orders.getOrderItems()) {
+            orderItemRepository.deleteById(orderItems.getId());
+        }
+        orderRepository.deleteById(orders.getId());
     }
 
     @Override
     public List<OrderItem> getItemList(Long memberId) {
         Member result = memberRepository.findMemberById(memberId);
-        Optional<Orders> ordersOptional = orderRepository.findById(result.getId());
+        Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
         Orders orders = ordersOptional.get();
         List<OrderItem> orderItemList = new ArrayList<>();
         for (OrderItem orderItem : orders.getOrderItems()) {
@@ -73,11 +95,11 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     // 추가설정 필요
-    public void cancelOrder(Long memberId, Long orderId){
+    public void cancelOrder(Long orderId){
         Optional<Orders> result = orderRepository.findById(orderId);
-        Member member = memberRepository.findMemberById(memberId);
+        Orders orders =  result.get();
+        Member member = memberRepository.findMemberById(orders.getMember().getId());
 
-        Orders orders = result.get();
 
         CompleteOrder completeOrder = new CompleteOrder();
         completeOrder.setMember(member);
@@ -89,12 +111,11 @@ public class OrderServiceImpl implements OrderService{
         completeRepository.save(completeOrder);
 
         orders.cancel();
-
         for (OrderItem orderItems : orders.getOrderItems()) {
             orderItemRepository.deleteById(orderItems.getId());
         }
         orderRepository.deleteById(orders.getId());
     }
 
-//
+
 }
