@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 
@@ -20,29 +21,29 @@
 
 
 
-    <!--         Bootstrap css -->
-    <link rel="stylesheet" href="/css/Home Css/bootstrap.min.css">
+        &lt;!&ndash;====== Bootstrap css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/bootstrap.min.css">
 
-    <!--        Animate css -->
-    <link rel="stylesheet" href="/css/Home Css/animate.css">
+        &lt;!&ndash;====== Animate css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/animate.css">
 
-    <!--         Magnific Popup css -->
-    <link rel="stylesheet" href="/css/Home Css/magnific-popup.css">
+        &lt;!&ndash;====== Magnific Popup css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/magnific-popup.css">
 
-    <!--         Slick css-->
-    <link rel="stylesheet" href="/css/Home Css/slick.css">
+        &lt;!&ndash;====== Slick css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/slick.css">
 
-    <!--        Line Icons css -->
-    <link rel="stylesheet" href="/css/Home Css/LineIcons.css">
+        &lt;!&ndash;====== Line Icons css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/LineIcons.css">
 
-    <!--        Default css-->
-    <link rel="stylesheet" href="/css/Home Css/default.css">
+        &lt;!&ndash;====== Default css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/default.css">
 
-    <!--       Style css -->
-    <link rel="stylesheet" href="/css/Home Css/style.css">
+        &lt;!&ndash;====== Style css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/style.css">
 
-    <!--       Responsive css -->
-    <link rel="stylesheet" href="/css/Home Css/responsive.css">
+        &lt;!&ndash;====== Responsive css ======&ndash;&gt;
+        <link rel="stylesheet" href="/css/Home Css/responsive.css">
 
 
 </head>
@@ -82,22 +83,19 @@
                                 <a data-scroll-nav="0" href="#home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#">??</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="resources/templates/shop.html">상품</a>
+                                <a href="shop">상품</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#">장바구니</a>
                             </li>
                             <li class="nav-item">
-                                <a href="question.html">문의하기</a>
+                                <a href="question">문의하기</a>
                             </li>
                             <li class="nav-item">
-                                <a href="login/mypage.html">마이페이지</a>
+                                <a href="login/mypage">마이페이지</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/templates/login/login.html">로그인</a>
+                                <a href="login/login">로그인</a>
                             </li>
 
                         </ul> <!-- navbar nav -->
@@ -130,7 +128,7 @@
                         <div class="col-lg-8 col-md-7">
                             <div class="slider-product-content">
                                 <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>레스토랑이</span>  <span>우리 집으로!</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">설명 써놓기</p>
+                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">집에서 레스토랑 음식을 만나보세요!</p>
                                 <a class="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
                             </div> <!-- slider product content -->
                         </div>
@@ -152,7 +150,7 @@
                         <div class="col-lg-8 col-md-7">
                             <div class="slider-product-content">
                                 <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>한국</span> 전통 <span>음식</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">여기에다가 <br> 설명 거창하게</p>
+                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s"><br> 우리나라 전통음식을 쿠펭에서 만나보세요  </p>
                                 <a class="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
                             </div> <!-- slider product content -->
                         </div>
@@ -182,7 +180,7 @@
                 </div> <!-- container -->
             </div> <!-- single slider -->
         </div> <!-- slider active -->
-        <div class="slider-social">
+       <!-- <div class="slider-social">
             <div class="row justify-content-end">
                 <div class="col-lg-7 col-md-6">
                     <ul class="social text-right">
@@ -192,7 +190,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div> <!-- container fluid -->
 </section>
 
@@ -244,11 +242,11 @@
 
                         <a id="v-pills-decorative-tab" data-toggle="pill" href="#v-pills-decorative" role="tab" aria-controls="v-pills-decorative" aria-selected="false">Diet</a>
 
-                        <a id="v-pills-lighting-tab" data-toggle="pill" href="#v-pills-lighting" role="tab" aria-controls="v-pills-lighting" aria-selected="false">3</a>
+                        <a id="v-pills-lighting-tab" data-toggle="pill" href="#v-pills-lighting" role="tab" aria-controls="v-pills-lighting" aria-selected="false">Kimchi</a>
 
-                        <a id="v-pills-outdoor-tab" data-toggle="pill" href="#v-pills-outdoor" role="tab" aria-controls="v-pills-outdoor" aria-selected="false">4</a>
+                        <a id="v-pills-outdoor-tab" data-toggle="pill" href="#v-pills-outdoor" role="tab" aria-controls="v-pills-outdoor" aria-selected="false">Fruit</a>
 
-                        <a id="v-pills-storage-tab" data-toggle="pill" href="#v-pills-storage" role="tab" aria-controls="v-pills-storage" aria-selected="false">5</a>
+                        <a id="v-pills-storage-tab" data-toggle="pill" href="#v-pills-storage" role="tab" aria-controls="v-pills-storage" aria-selected="false">Meet</a>
                     </div> <!-- nav -->
                 </div> <!-- collection menu -->
             </div>
@@ -910,7 +908,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="showcase-title pt-25">
-                    <p>여기다 설명 이미지 화질이 좋지않아 다음에 바꿀게요 1090x700</p>
+                    <p>간단한 설치,우리집에 맞는 공간 활용! 튼튼한 제품! 지금 쿠펭에서 만나보세요 1090x700</p>
                 </div> <!-- showcase title -->
             </div>
         </div> <!-- row -->
@@ -933,92 +931,7 @@
 
 <!--====== SHOWCASE PART ENDS ======-->
 
-<!--====== TEAM PART START ======-->
 
-<section id="team" class="team-area pt-125 pb-130">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-title text-center pb-25">
-                    <h3 class="title mb-15">협력 업체</h3>
-                    <p>엄선된 재료 </p>
-                </div> <!-- section title -->
-            </div>
-        </div> <!-- row -->
-        <div class="row justify-content-center">
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-                        <img src="/img/Home Images/showcase/t-1.jpg"
-                             alt="Team">
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Celina Gomez</a></h4>
-                        <span>FOUNDER</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div> <!-- single temp -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-                        <img src="/img/Home Images/showcase/t-2.jpg"
-                             alt="Team">
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Patric Green</a></h4>
-                        <span>Consultant</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div> <!-- single temp -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-                        <img src="/img/Home Images/showcase/t-2.jpg"
-                             alt="Team">
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Mark Parker</a></h4>
-                        <span>Business Manager</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div> <!-- single temp -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-8">
-                <div class="single-temp text-center mt-30">
-                    <div class="team-image">
-                        <img src="img/Home Images/showcase/t-1.jpg"
-                             alt="Team">
-                    </div>
-                    <div class="team-content mt-30">
-                        <h4 class="title mb-10"><a href="#">Daryl Dixon</a></h4>
-                        <span>Marketing Manager</span>
-                        <ul class="social mt-15">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div> <!-- single temp -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--====== TEAM PART ENDS ======-->
 
 <!--====== TESTIMONIAL PART START ======-->
 
@@ -1054,115 +967,6 @@
 </section>
 
 <!--====== TESTIMONIAL PART ENDS ======-->
-
-<!--======  BLOG PART START ======-->
-
-<section id="blog" class="blog-area pt-125">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="section-title text-center pb-25">
-                    <h3 class="title mb-15">From The Blog</h3>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                </div> <!-- section title -->
-            </div>
-        </div> <!-- row -->
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog mt-30">
-                    <div class="blog-image">
-                        <img src="/img/Home Images/blog/b-1.jpg" alt="Blog">
-                    </div>
-                    <div class="blog-content">
-                        <div class="content">
-                            <h4 class="title"><a href="#">Rowan an orangutan known  & loved</a></h4>
-                            <span>25 JULY, 2022</span>
-                        </div>
-                        <div class="meta d-flex justify-content-between align-items-center">
-                            <div class="meta-admin d-flex align-items-center">
-                                <div class="image">
-                                    <a href="#"><img src="/img/Home Images/blog/admin.jpg" alt="Admin"></a>
-                                </div>
-                                <div class="admin-title">
-                                    <h6 class="title"><a href="#">J. PARKER</a></h6>
-                                </div>
-                            </div>  <!-- meta admin -->
-                            <div class="meta-icon">
-                                <ul>
-                                    <li><a href="#"><i class="lni-share"></i></a></li>
-                                    <li><a href="#"><i class="lni-heart"></i></a></li>
-                                </ul>
-                            </div> <!-- meta icon -->
-                        </div> <!-- meta -->
-                    </div>
-                </div> <!-- single blog -->
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog mt-30">
-                    <div class="blog-image">
-                        <img src="/img/Home Images/blog/b-2.jpg" alt="Blog">
-                    </div>
-                    <div class="blog-content">
-                        <div class="content">
-                            <h4 class="title"><a href="#">Rowan an orangutan known  & loved</a></h4>
-                            <span>25 JULY, 2022</span>
-                        </div>
-                        <div class="meta d-flex justify-content-between align-items-center">
-                            <div class="meta-admin d-flex align-items-center">
-                                <div class="image">
-                                    <a href="#"><img src="/img/Home Images/blog/admin.jpg" alt="Admin"></a>
-                                </div>
-                                <div class="admin-title">
-                                    <h6 class="title"><a href="#">J. PARKER</a></h6>
-                                </div>
-                            </div>  <!-- meta admin -->
-                            <div class="meta-icon">
-                                <ul>
-                                    <li><a href="#"><i class="lni-share"></i></a></li>
-                                    <li><a href="#"><i class="lni-heart"></i></a></li>
-                                </ul>
-                            </div> <!-- meta icon -->
-                        </div> <!-- meta -->
-                    </div>
-                </div> <!-- single blog -->
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-blog mt-30">
-                    <div class="blog-image">
-                        <img src="/img/Home Images/blog/b-3.jpg" alt="Blog">
-                    </div>
-                    <div class="blog-content">
-                        <div class="content">
-                            <h4 class="title"><a href="#">Rowan an orangutan known  & loved</a></h4>
-                            <span>25 JULY, 2022</span>
-                        </div>
-                        <div class="meta d-flex justify-content-between align-items-center">
-                            <div class="meta-admin d-flex align-items-center">
-                                <div class="image">
-                                    <a href="#"><img src="/img/Home Images/blog/admin.jpg" alt="Admin"></a>
-                                </div>
-                                <div class="admin-title">
-                                    <h6 class="title"><a href="#">J. PARKER</a></h6>
-                                </div>
-                            </div>  <!-- meta admin -->
-                            <div class="meta-icon">
-                                <ul>
-                                    <li><a href="#"><i class="lni-share"></i></a></li>
-                                    <li><a href="#"><i class="lni-heart"></i></a></li>
-                                </ul>
-                            </div> <!-- meta icon -->
-                        </div> <!-- meta -->
-                    </div>
-                </div> <!-- single blog -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--======  BLOG PART ENDS ======-->
-
-
-
 
 
 <!--====== FOOTER PART START ======-->
@@ -1271,25 +1075,28 @@
 
 
 
-<!--jquery js-->
+&#45;&#45;====== jquery js ======&ndash;&gt;
 <script src="/js/Home Js/vendor/modernizr-3.6.0.min.js"></script>
 <script src="/js/Home Js/vendor/jquery-1.12.4.min.js"></script>
 
-<!--Bootstrap js-->
+&lt;!&ndash;====== Bootstrap js ======&ndash;&gt;
 <script src="/js/Home Js/bootstrap.min.js"></script>
 
-<!--Slick js-->
+
+&lt;!&ndash;====== Slick js ======&ndash;&gt;
 <script src="/js/Home Js/slick.min.js"></script>
-<!--Magnific Popup js -->
+
+&lt;!&ndash;====== Magnific Popup js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.magnific-popup.min.js"></script>
 
-<!--nav js-->
+
+&lt;!&ndash;====== nav js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.nav.js"></script>
 
-<!--Nice Number-->
+&lt;!&ndash;====== Nice Number js ======&ndash;&gt;
 <script src="/js/Home Js/jquery.nice-number.min.js"></script>
 
-<!-- Main js -->
+&lt;!&ndash;====== Main js ======&ndash;&gt;
 <script src="/js/Home Js/main.js"></script>
 
 </body>
