@@ -47,14 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/loginProcess")
                 .loginPage("/login")
                 .failureHandler(customFailHandler)
-                .defaultSuccessUrl("/home",true); // true
-
+                .defaultSuccessUrl("/home"); // true
 
         http.logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/home")
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
-                .deleteCookies("remember-me","JSESSIONID");
+                .deleteCookies("remember-me","JSESSIONID")
+                .permitAll();
 
         http.exceptionHandling()
                 .accessDeniedPage("/denied");

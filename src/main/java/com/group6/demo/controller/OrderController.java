@@ -101,7 +101,6 @@ public class OrderController {
     public String myOrderList(Principal principal, Model model){
         Member result = memberRepository.findMemberByAccount(principal.getName());
         List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
-
         model.addAttribute("completeOrderList", completeOrderList);
 
         return "/myOrderList";

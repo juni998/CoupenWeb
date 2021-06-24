@@ -32,10 +32,8 @@ public class MemberController {
 	// 마이페이지 회원정보
 	@GetMapping("/mypage")
 	public String mypage(Principal principal, Model model) {
-		if (principal == null) {
-			return "/login";
-		}
-		
+		if (principal == null) { return "redirect:/login"; }
+
 		Member member = memberRepository.findMemberByAccount(principal.getName());
 		log.info("memeber : " + member);
 		model.addAttribute("member", member);
@@ -55,5 +53,6 @@ public class MemberController {
 		memberService.changeAllByAccount(dto);
 		return "redirect:/home";
 	}
-
 }
+
+

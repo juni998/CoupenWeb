@@ -1,6 +1,5 @@
 package com.group6.demo.controller;
 
-import com.group6.demo.entity.login.Member;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.security.SignUpFormValidator;
 import com.group6.demo.service.MemberService;
@@ -9,11 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -53,11 +50,7 @@ public class HomeController {
 		return "/home/login/login";
 	}
 
-	// 로그아웃
-	@GetMapping("/logout")
-	public String logout(@Valid Member member,  BindingResult bindingResult) {
-		return "/logout";
-	}
+
 	
 	// 문의하기
 	@GetMapping("question")
