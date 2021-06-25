@@ -27,6 +27,7 @@ public interface ItemService {
                 .thumbImg(dto.getThumbImg())
                 .stock(dto.getStock())
                 .price(dto.getPrice())
+                .uploadDate(dto.getUploadDate())
                 .build();
 
         return item;
@@ -40,6 +41,7 @@ public interface ItemService {
                 .thumbImg(dto.getThumbImg())
                 .stock(dto.getStock())
                 .price(dto.getPrice())
+                .uploadDate(dto.getUploadDate())
                 .build();
 
         return itemDTO;

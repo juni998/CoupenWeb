@@ -56,14 +56,10 @@ class ItemRepositoryTest {
     public void UpdateTest() throws Exception{
         Optional<Item> result = itemRepository.findById(200L);
 
-        if (result.isPresent()){
-            Item item = result.get();
-
-            item.changeContent("Changed Content");
-            item.changeTitle("Changed Title");
-
-            itemRepository.save(item);
-        }
+        Item item = result.get();
+        System.out.println("item.get = " + item.getUploadDate());
+        System.out.println("item.get = " + item.getType());
+        System.out.println("item.get = " + item.getPrice());
      }
 
 
