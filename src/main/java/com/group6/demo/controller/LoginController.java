@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,27 +79,13 @@ public class LoginController {
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		model.addAttribute("memberDTO", new MemberDTO());
-		return "/master/saveView";
+		return "/home/saveView";
 	}
 
 	// 회원가입 POST
 	@PostMapping("/register")
-	public String register(@Valid MemberDTO dto, Errors errors, RedirectAttributes attributes) {
+	public String register(@Valid MemberDTO dto, RedirectAttributes attributes) {
 
-		if (errors.hasErrors()) {
-			return "/master/register";
-		}
-
-		if (memberRepository.existsByAccount(dto.getAccount())) {
-			attributes.addFlashAttribute("message", "이미 사용중인 아이디입니다.");
-			return "redirect:/register";
-		}
-
-		if (memberRepository.existsByEmail(dto.getEmail())) {
-			attributes.addFlashAttribute("message", "이미 사용중인 이메일입니다.");
-			return "redirect:/register";
-		}
-		
 		attributes.addFlashAttribute("message", "회원가입 성공");
 		Long result = memberService.save(dto);
 

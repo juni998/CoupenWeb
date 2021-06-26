@@ -9,7 +9,16 @@
 </th:block>
 
 <head>
-<style>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+
+    <style>
 
     .postion{
         bottom:-150px;
@@ -28,40 +37,271 @@
 <header th:include="fragments/header">
 
 </header>
-<div class="postion">
 <div class="container mt-5">
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
     <form th:action="@{/register}" th:object="${memberDTO}" method="post">
-        <div class="mb-3">
 
-            <div class="mb-3">
-                <label th:for="email" class="form-label"><b>email</b></label>
-                <input type="email" class="form-control" th:field="*{email}" placeholder="이메일을 입력하세요" aria-describedby="emailHelp">
-                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</p>
-            </div>
+        <div class="mb-3">
+            <label th:for="email" class="form-label"><b>email</b></label>
+            <input type="email" class="form-control" th:field="*{email}" id="email" name="email" oninput="emailCheck()"
+                   placeholder="이메일을 입력하세요">
+            <span id="emailMsg"></span>
+
+
+        </div>
+        <div class="mb-3">
             <label th:for="account"><b>ID</b></label>
-            <input id="account" type="text" class="form-control" placeholder="아이디을 입력하세요" th:field="*{account}" required>
+            <input id="account" type="text" class="form-control" placeholder="아이디을 입력하세요" th:field="*{account}"
+                   oninput="accountCheck()" required>
+            <span id="accountMsg"></span>
         </div>
         <div class="mb-3">
             <label th:for="password"><b>Password</b></label>
-            <input id="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요" th:field="*{password}" required>
+            <input id="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요" th:field="*{password}" oninput="passwordCheck()"
+                   required>
+            <span id="passwordMsg"></span>
+        </div>
+        <div class="mb-3">
+            <label th:for="password"><b>Password</b></label>
+            <input id="password2" type="password" class="form-control" placeholder="비밀번호를 입력하세요" oninput="password2Check()" required>
+            <span id="password2Msg"></span>
         </div>
         <div class="mb-3">
             <label th:for="name"><b>Nickname</b></label>
-            <input id="name" type="text" class="form-control" placeholder="이름 입력하세요" th:field="*{name}" required>
+            <input id="name" type="text" class="form-control" placeholder="이름 입력하세요" th:field="*{name}" oninput="nameCheck()" required>
+            <span id="nameMsg"></span>
         </div>
 
-        <button type="submit"  class="btn btn-primary">Sign Up</button>
-        <p th:text="${message}"> </p>
+        <textarea cols="40" rows="5">
+        개인정보가 어쩌구 저쩌구~~~
+            ~~~~~~
+            ~~~~
+        </textarea><br>
+
+        <input type="checkbox" name="agreeCheck" id="agreeCheck">
+        [필수] 이용약관 동의<br>
+        <button type="submit" class="btn btn-primary" id="reg_submit" disabled>Sign Up</button>
     </form>
 </div>
-</div>
 
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script>
 
+var emailPass = false;
+var accountPass = false;
+var passwordPass = false;
+var password2Pass = false;
+var agreePass = false;
+var namePass = false;
+$(document).ready(function(){
+//전체 체크 클릭 시, 나머지 체크
+$("#agreeCheck").click(function(abc){
+var agreeCheck=$("#agreeCheck").prop("checked");
+
+    if(agreeCheck){
+        $(".agreeCheck").prop("checked",true);
+        $(".btnArea button").css({"backgroundColor":"#d2201d","cursor":"pointer","color":"#fff"}).prop("disabled",false);
+        agreePass = true;
+        console.log("agreePass : " + agreePass);
+        sub();
+    }
+    else{
+        $(".agreeCheck").prop("checked",false);
+        $(".btnArea button").css({"backgroundColor":"#cbcbcb","cursor":"auto","color":"#303033"}).prop("disabled",true);
+        agreePass = false;
+        sub();
+    }
+})
+
+
+});
+
+function emailCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var getMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $('#email').val();
+	var data = {email : email}
+
+	$.ajax({
+		type : "post",
+		url : "/emailDuplicate",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+			 console.log("성공 여부 (true면 중복) 값은 : " + result);
+                if (result){
+                    $('#emailMsg').html("이미 존재하는 이메일 입니다.");
+			        $("#emailMsg").css("color", "red");
+			        emailPass = false;
+			        sub();
+
+
+                } else{
+                    if(getMail.test(email)){
+                        $('#emailMsg').html("사용할 수 있는 이메일 입니다.");
+                        $("#emailMsg").css("color", "green");
+                        emailPass = true;
+                        console.log("emailPass : " + emailPass);
+                        sub();
+                    }
+                    else if(email == ""){
+                        $('#emailMsg').html("필수 정보입니다..");
+                        $("#emailMsg").css("color", "red");
+                        emailPass = false;
+                        sub();
+                    }
+                    else if(!getMail.test(email)){
+                        $('#emailMsg').html("잘못된 이메일 입니다.");
+                        $("#emailMsg").css("color", "red");
+                        emailPass = false;
+                        sub();
+                    }
+
+                }
+            }
+            ,error : function() {
+						console.log("실패");
+				}
+			});
+		};
+
+function accountCheck(){
+    var check = false;
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var account = $('#account').val();
+	var data = {account : account}
+    var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
+	$.ajax({
+		type : "post",
+		url : "/accountDuplicate",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+			 console.log("성공 여부 (true면 중복) 값은 : " + result);
+                if (result){
+                    $('#accountMsg').html("이미 존재하는 아이디 입니다.");
+			        $("#accountMsg").css("color", "red");
+			        accountPass = false;
+			        sub();
+                } else{
+                    if(getCheck.test(account)){
+                        $('#accountMsg').html("사용할 수 있는 아이디 입니다.");
+                        $("#accountMsg").css("color", "green");
+                        accountPass = true;
+                        sub();
+                        console.log("accountPass : " + accountPass);
+                    }
+                    else if(account == ""){
+                        $('#accountMsg').html("필수 정보입니다.");
+                        $("#accountMsg").css("color", "red");
+                        accountPass = false;
+                        sub();
+                    }
+                    else if(!getCheck.test(account)){
+                        $('#accountMsg').html("잘못된 아이디 입니다.");
+                        $("#accountMsg").css("color", "red");
+                        accountPass = false;
+                        sub();
+                    }
+
+                }
+            }
+            ,error : function() {
+						console.log("실패");
+				}
+			});
+		};
+function passwordCheck(){
+    var password = $('#password').val();
+    var getPassword = /^[a-zA-Z0-9]{6,16}$/;
+    var chkNum = password.search(/[0-9]/g);
+    var chkEng = password.search(/[a-z]/ig);
+    if (password == ""){
+        $('#passwordMsg').html("필수 정보입니다.");
+        $("#passwordMsg").css("color", "red");
+         passwordPass = false;
+         sub();
+    }
+    else{
+        if (getPassword.test(password)) {
+            if (chkNum < 0 || chkEng < 0){
+                $('#passwordMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+                $("#passwordMsg").css("color", "red");
+                passwordPass = false;
+                sub();
+            }else {
+                $('#passwordMsg').html("사용할 수 있는 비밀번호입니다.");
+                $("#passwordMsg").css("color", "green");
+                passwordPass = true;
+                sub();
+            }
+        }
+        else {
+            $('#passwordMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+            $("#passwordMsg").css("color", "red");
+            passwordPass = false;
+            sub();
+        }
+    }
+}
+function password2Check(){
+        var pw1 = $('#password').val();
+        var pw2 = $('#password2').val();
+        if (pw1 != "" || pw2 != ""){
+            if(pw1 == pw2){
+                $('#password2Msg').html("비밀번호가 일치합니다.");
+                $("#password2Msg").css("color", "green");
+                password2Pass = true;
+                console.log("password2Pass : " + password2Pass);
+                sub();
+            }else{
+            $('#password2Msg').html("비밀번호가 일치하지 않습니다.");
+            $("#password2Msg").css("color", "red");
+            password2Pass = false;
+            sub();
+            }
+       }
+};
+function nameCheck(){
+        var name = $('#name').val();
+        var getName = /^[가-힣a-zA-Z]+$/;
+        if (name == ""){
+            $('#nameMsg').html("이름을 입력해주세요.");
+            $("#nameMsg").css("color", "red");
+            namePass = false;
+            sub();
+        }else{
+        if (getName.test(name)){
+                $('#nameMsg').html("사용할 수 있는 이름입니다.");
+                $("#nameMsg").css("color", "green");
+                namePass = true;
+                sub();
+        }
+        else{
+            $('#nameMsg').html("올바르지 않은 이름입니다.");
+            $("#nameMsg").css("color", "red");
+            namePass = false;
+            sub();
+            }
+       }
+};
+
+
+function sub(){
+     if (agreePass && emailPass && accountPass && passwordPass && password2Pass && namePass) {
+        reg_submit.disabled = false;
+     }else {
+        reg_submit.disabled = true;
+     }
+}
+
+</script>
 </body>
 </html>

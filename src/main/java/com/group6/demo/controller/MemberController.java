@@ -32,27 +32,36 @@ public class MemberController {
 	// 마이페이지 회원정보
 	@GetMapping("/mypage")
 	public String mypage(Principal principal, Model model) {
-		if (principal == null) { return "redirect:/login"; }
-
-		Member member = memberRepository.findMemberByAccount(principal.getName());
-		log.info("memeber : " + member);
-		model.addAttribute("member", member);
-		return "/home/login/mypage";
+		try {
+			Member member = memberRepository.findMemberByAccount(principal.getName());
+			log.info("memeber : " + member);
+			model.addAttribute("member", member);
+			return "/home/login/mypage";
+		} catch (NullPointerException e){
+			return "redirect:/login";
+		}
 	}
 
 	// 마이페이지 회원정보 변경 GET
 	@GetMapping("memberUpdate")
-	public String memberUpdate() {
-		return "/home/login/mypage";
+	public String memberUpdate(Principal principal) {
+		try {
+			return "/home/login/mypage";
+		} catch (NullPointerException e){
+			return "redirect:/login";
+		}
+
 	}
 
 	// 마이페이지 회원정보 변경 POST
 	@PostMapping("/memberUpdate")
-	public String memberInfoUpdate(MemberDTO dto) {
-
-		memberService.changeAllByAccount(dto);
-		return "redirect:/home";
+	public String memberInfoUpdate(MemberDTO dto, Principal principal) {
+		try{
+			memberService.changeAllByAccount(dto);
+			return "redirect:/home";
+		} catch (NullPointerException e){
+			return "redirect:/login";
+		}
 	}
+
 }
-
-
