@@ -74,7 +74,7 @@
             <span id="nameMsg"></span>
         </div>
 
-        <textarea cols="40" rows="5">
+        <textarea cols="40" rows="5" readonly>
         개인정보가 어쩌구 저쩌구~~~
             ~~~~~~
             ~~~~
@@ -137,7 +137,7 @@ function emailCheck(){
                     $('#emailMsg').html("이미 존재하는 이메일 입니다.");
 			        $("#emailMsg").css("color", "red");
 			        emailPass = false;
-			        sub();
+
 
 
                 } else{
@@ -145,23 +145,24 @@ function emailCheck(){
                         $('#emailMsg').html("사용할 수 있는 이메일 입니다.");
                         $("#emailMsg").css("color", "green");
                         emailPass = true;
-                        console.log("emailPass : " + emailPass);
-                        sub();
+
+
                     }
                     else if(email == ""){
                         $('#emailMsg').html("필수 정보입니다..");
                         $("#emailMsg").css("color", "red");
                         emailPass = false;
-                        sub();
+
                     }
                     else if(!getMail.test(email)){
                         $('#emailMsg').html("잘못된 이메일 입니다.");
                         $("#emailMsg").css("color", "red");
                         emailPass = false;
-                        sub();
+
                     }
 
                 }
+                sub();
             }
             ,error : function() {
 						console.log("실패");
@@ -170,7 +171,6 @@ function emailCheck(){
 		};
 
 function accountCheck(){
-    var check = false;
     var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var account = $('#account').val();
@@ -189,29 +189,29 @@ function accountCheck(){
                     $('#accountMsg').html("이미 존재하는 아이디 입니다.");
 			        $("#accountMsg").css("color", "red");
 			        accountPass = false;
-			        sub();
+
                 } else{
                     if(getCheck.test(account)){
                         $('#accountMsg').html("사용할 수 있는 아이디 입니다.");
                         $("#accountMsg").css("color", "green");
                         accountPass = true;
-                        sub();
-                        console.log("accountPass : " + accountPass);
+
                     }
                     else if(account == ""){
                         $('#accountMsg').html("필수 정보입니다.");
                         $("#accountMsg").css("color", "red");
                         accountPass = false;
-                        sub();
+
                     }
                     else if(!getCheck.test(account)){
-                        $('#accountMsg').html("잘못된 아이디 입니다.");
+                        $('#accountMsg').html("아이디는 영문,숫자 4~12자리 입니다.");
                         $("#accountMsg").css("color", "red");
                         accountPass = false;
-                        sub();
+
                     }
 
                 }
+                sub();
             }
             ,error : function() {
 						console.log("실패");
@@ -227,7 +227,7 @@ function passwordCheck(){
         $('#passwordMsg').html("필수 정보입니다.");
         $("#passwordMsg").css("color", "red");
          passwordPass = false;
-         sub();
+
     }
     else{
         if (getPassword.test(password)) {
@@ -235,21 +235,22 @@ function passwordCheck(){
                 $('#passwordMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
                 $("#passwordMsg").css("color", "red");
                 passwordPass = false;
-                sub();
+
             }else {
                 $('#passwordMsg').html("사용할 수 있는 비밀번호입니다.");
                 $("#passwordMsg").css("color", "green");
                 passwordPass = true;
-                sub();
+
             }
         }
         else {
             $('#passwordMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
             $("#passwordMsg").css("color", "red");
             passwordPass = false;
-            sub();
+
         }
     }
+    sub();
 }
 function password2Check(){
         var pw1 = $('#password').val();
@@ -259,15 +260,16 @@ function password2Check(){
                 $('#password2Msg').html("비밀번호가 일치합니다.");
                 $("#password2Msg").css("color", "green");
                 password2Pass = true;
-                console.log("password2Pass : " + password2Pass);
-                sub();
+
+
             }else{
             $('#password2Msg').html("비밀번호가 일치하지 않습니다.");
             $("#password2Msg").css("color", "red");
             password2Pass = false;
-            sub();
+
             }
        }
+       sub();
 };
 function nameCheck(){
         var name = $('#name').val();
@@ -276,21 +278,22 @@ function nameCheck(){
             $('#nameMsg').html("이름을 입력해주세요.");
             $("#nameMsg").css("color", "red");
             namePass = false;
-            sub();
+
         }else{
         if (getName.test(name)){
                 $('#nameMsg').html("사용할 수 있는 이름입니다.");
                 $("#nameMsg").css("color", "green");
                 namePass = true;
-                sub();
+
         }
         else{
             $('#nameMsg').html("올바르지 않은 이름입니다.");
             $("#nameMsg").css("color", "red");
             namePass = false;
-            sub();
+
             }
        }
+       sub();
 };
 
 

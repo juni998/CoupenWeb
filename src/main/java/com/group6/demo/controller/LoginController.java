@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -36,14 +35,14 @@ public class LoginController {
 
 	// 아이디 찾기 POST
 	@PostMapping("/idRefefer")
-	public String findId(@RequestParam String email, Model model, RedirectAttributes attributes) throws Exception {
-		if (memberRepository.existsByEmail(email) == false) {
-			attributes.addFlashAttribute("message", "존재하지 않는 이메일입니다.");
-			return "redirect:/idRefefer";
-		}
+	public String findId(@RequestParam String email, Model model) throws Exception {
+
 		Member member = memberRepository.findMemberByEmail(email);
+
+		model.addAttribute("memberId", member.getAccount());
+
 		log.info("member : " + member);
-		model.addAttribute("member", member);
+
 		return "/home/login/find_id_change";
 	}
 
@@ -55,24 +54,20 @@ public class LoginController {
 
 	// 비밀번호 찾기 POST
 	@PostMapping("/pwRefefer")
-	public String findPw(@RequestParam String account, Model model, RedirectAttributes attributes) {
+	public String findPw(@RequestParam String account,@RequestParam String email, Model model) throws Exception {
 
-		if (memberRepository.existsByAccount(account) == false) {
-			attributes.addFlashAttribute("message", "존재하지 않는 아이디입니다.");
-			return "redirect:/pwRefefer";
-		}
 		Member member = memberRepository.findMemberByAccount(account);
 		log.info("ACCOUNT : " + account);
-		model.addAttribute("member", member);
-		return "redirect:/idInfo";
+		model.addAttribute("memberId", member.getAccount());
+		return "/home/login/findPwChange";
 	}
 
 	// 비밀번호 변경
-	@PostMapping("/changePwd")
+	@PostMapping("/pwChange")
 	public String changePwd(@RequestParam String newPassword, String account) {
 		
 		memberService.changePasswordByAccount(account, newPassword);
-		return "";
+		return "home";
 	}
 
 	// 회원가입 GET
@@ -84,9 +79,8 @@ public class LoginController {
 
 	// 회원가입 POST
 	@PostMapping("/register")
-	public String register(@Valid MemberDTO dto, RedirectAttributes attributes) {
+	public String register(@Valid MemberDTO dto) {
 
-		attributes.addFlashAttribute("message", "회원가입 성공");
 		Long result = memberService.save(dto);
 
 		log.info("register : " + dto);
