@@ -49,6 +49,7 @@ public class LoginController {
 	// 비밀번호 찾기 GET
 	@GetMapping("/pwRefefer")
 	public String findPwByAccount() {
+
 		return "/home/login/findPw";
 	}
 
@@ -65,7 +66,8 @@ public class LoginController {
 	// 비밀번호 변경
 	@PostMapping("/pwChange")
 	public String changePwd(@RequestParam String newPassword, String account) {
-		
+
+
 		memberService.changePasswordByAccount(account, newPassword);
 		return "home";
 	}
