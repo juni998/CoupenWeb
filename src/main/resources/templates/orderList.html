@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-
+주문내역
 <tbody>
 <tr th:each="completeOrderList : ${orderItemList}">
     <td th:text="${completeOrderList.id}"></td>
@@ -14,7 +14,6 @@
     <td th:text="${completeOrderList.totalPrice}"></td>
     <td th:text="${completeOrderList.address?.city}"></td>
     <td th:text="${completeOrderList.address?.street}"></td>
-
 </tr>
 </tbody>
 </body>

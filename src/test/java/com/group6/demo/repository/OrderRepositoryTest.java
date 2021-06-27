@@ -1,5 +1,6 @@
 package com.group6.demo.repository;
 
+import com.group6.demo.entity.order.CompleteOrder;
 import com.group6.demo.entity.order.OrderItem;
 import com.group6.demo.entity.order.Orders;
 import com.group6.demo.service.MemberService;
@@ -21,6 +22,8 @@ class OrderRepositoryTest {
     MemberService memberService;
     @Autowired
     OrderItemRepository orderItemRepository;
+    @Autowired
+    CompleteRepository completeRepository;
 
 
     @Test
@@ -52,4 +55,18 @@ class OrderRepositoryTest {
      }
 
 
+
+
+     @Test
+     public void asdf() throws Exception{
+         //given
+         List<CompleteOrder> dfw = completeRepository.findByMemberId(2L);
+         //when
+         for (CompleteOrder completeOrder : dfw) {
+             System.out.println("completeOrder.getOrderDate() = " + completeOrder.getOrderDate());
+             System.out.println("completeOrder.getName() = " + completeOrder.getName());
+             
+         }
+         //then
+      }
 }
