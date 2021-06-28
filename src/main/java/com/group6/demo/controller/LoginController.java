@@ -55,21 +55,20 @@ public class LoginController {
 
 	// 비밀번호 찾기 POST
 	@PostMapping("/pwRefefer")
-	public String findPw(@RequestParam String account,@RequestParam String email, Model model) throws Exception {
+	public String findPw(@RequestParam String account, Model model) throws Exception {
 
 		Member member = memberRepository.findMemberByAccount(account);
 		log.info("ACCOUNT : " + account);
 		model.addAttribute("memberId", member.getAccount());
 		return "/home/login/findPwChange";
 	}
-
 	// 비밀번호 변경
 	@PostMapping("/pwChange")
 	public String changePwd(@RequestParam String newPassword, String account) {
 
 
 		memberService.changePasswordByAccount(account, newPassword);
-		return "home";
+		return "redirect:/login";
 	}
 
 	// 회원가입 GET
