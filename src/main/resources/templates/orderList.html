@@ -7,13 +7,12 @@
 <body>
 주문내역
 <tbody>
-<tr th:each="completeOrderList : ${orderItemList}">
+<tr th:each="completeOrderList : ${completeOrderList}">
     <td th:text="${completeOrderList.id}"></td>
-    <td th:text="${completeOrderList.count}"></td>
     <td th:text="${completeOrderList.name}"></td>
-    <td th:text="${completeOrderList.totalPrice}"></td>
-    <td th:text="${completeOrderList.address?.city}"></td>
-    <td th:text="${completeOrderList.address?.street}"></td>
+<!--    <td th:text="${completeOrderList.totalPrice}"></td>-->
+<!--    <td th:text="${completeOrderList.address?.city}"></td>-->
+<!--    <td th:text="${completeOrderList.address?.street}"></td>-->
 </tr>
 </tbody>
 </body>

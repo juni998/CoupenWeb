@@ -36,6 +36,8 @@ public class OrderController {
     @Autowired
     private final CompleteRepository completeRepository;
 
+
+    //상품을 담으려면 무조건 order가있어야함
     @GetMapping("/order")
     public String order(Principal principal, Model model){
         try
@@ -78,11 +80,25 @@ public class OrderController {
         }catch (NullPointerException e){
             return "redirect:/login";
         }catch (NoSuchElementException e ){
-            return "/home";
+            return "redirect:/home";
+        }
+    }
+    @GetMapping("/myItemList")
+    public String itemList(Principal principal,Model model){
+        try {
+            log.info("");
+            Member result = memberRepository.findMemberByAccount(principal.getName());
+            List<OrderItem> orderItemList = orderService.getItemList(result.getId());
+            model.addAttribute("orderItemList", orderItemList);
+            return "/myItemList";
+        }catch (NullPointerException e){
+            return "redirect:/order";
+        }catch (NoSuchElementException e){
+            return "redirect:/order";
         }
     }
 
-    //주문마지막
+    //주문완료
     @GetMapping("/completeOrder")
     public String CompleteOrder(Principal principal){
         Member result = memberRepository.findMemberByAccount(principal.getName());
@@ -92,10 +108,11 @@ public class OrderController {
         return "redirect:/myOrderList";
     }
 
+    //주문 취소
     @GetMapping("/cancelOrder")
     public String CancelOrder(Principal principal){
         Member result = memberRepository.findMemberByAccount(principal.getName());
-        
+
         Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
         Orders orders = ordersOptional.get();
         orderService.cancelOrder(orders.getId());
@@ -113,3 +130,4 @@ public class OrderController {
 
 
 }
+

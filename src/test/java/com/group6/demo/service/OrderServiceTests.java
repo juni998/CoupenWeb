@@ -1,5 +1,6 @@
 package com.group6.demo.service;
 
+import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.order.CompleteOrder;
 import com.group6.demo.entity.order.OrderDTO;
 import com.group6.demo.entity.order.OrderItem;
@@ -87,6 +88,24 @@ public class OrderServiceTests {
 
         //then
     }
+
+
+
+    @Test
+    public void dsf() throws Exception{
+        //given
+        Member result = memberRepository.findMemberByAccount("accout2");
+        List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
+        //when
+        for (CompleteOrder completeOrder :
+                completeOrderList) {
+            System.out.println("completeOrder.get = " + completeOrder.getOrderDate());
+            System.out.println("completeOrder.get = " + completeOrder.getName());
+            System.out.println("completeOrder.get = " + completeOrder.getPhoneNumber());
+            System.out.println("completeOrder.get = " + completeOrder.getAddress());
+        }
+        //then
+     }
 
 }
 
