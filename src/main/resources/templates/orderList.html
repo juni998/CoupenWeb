@@ -10,9 +10,11 @@
 <tr th:each="completeOrderList : ${completeOrderList}">
     <td th:text="${completeOrderList.id}"></td>
     <td th:text="${completeOrderList.name}"></td>
-<!--    <td th:text="${completeOrderList.totalPrice}"></td>-->
-<!--    <td th:text="${completeOrderList.address?.city}"></td>-->
-<!--    <td th:text="${completeOrderList.address?.street}"></td>-->
+    <td th:text="${completeOrderList.totalPrice}"></td>
+    <td th:text="${completeOrderList.address?.city}"></td>
+    <td th:text="${completeOrderList.address?.street}"></td>
+    <td th:text="${completeOrderList.orderStatus}"></td>
+
 </tr>
 </tbody>
 </body>
