@@ -1,237 +1,147 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+
 <head>
-<meta charset="UTF-8">
-<title>find_id</title>
-<style>
-tr {
- border: 0px solid none;
-}
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
 
- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>비밀번호 찾기</h1>
+    <hr>
+    <form th:action="@{/pwRefefer}" method="post" name="pwRefefer">
 
-k:hover {
- text-decoration: none;
- color: #9354ED
-}
-</style>
+        <div class="mb-3">
+            <label th:for="email" class="form-label"><b>email</b></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요." oninput="emailCheck()">
+            <span id="emailMsg"></span>
+        </div>
+        <div class="mb-3">
+            <label th:for="account" class="form-label"><b>ID</b></label>
+            <input type="text" class="form-control" id="account" name="account" placeholder="아이디를 입력하세요." oninput="accountCheck()">
+            <span id="accountMsg"></span>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btn" onclick="infoCheck()" disabled>다음</button>
 
 
+    </form>
+</div>
 <script>
- function gohome() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = ""; //넘어간화면
-  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
- }
+    var accountPass = false;
+    var emailPass = false;
 
- function gojoin() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = ""; //넘어간화면
-  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
- }
+    function accountCheck(){
+        var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
+        var account = $('#account').val();
 
- function gologin() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "";
-  frm.submit();
- }
+        if(getCheck.test(account)){
+            $('#accountMsg').html("");
+            accountPass = true;
+        }else{
+            if(!getCheck.test(account)){
+                $('#accountMsg').html("아이디는 영문,숫자 4~12자리 입니다.");
+                $("#accountMsg").css("color", "red");
+                accountPass = false;
+            }else if(account == ""){
+                $('#accountMsg').html("아이디를 입력해주세요.");
+                $("#accountMsg").css("color", "red");
+                accountPass = false;
+            }else{
+                $('#accountMsg').html("잘못된 입력입니다.");
+                $("#accountMsg").css("color", "red");
+                accountPass = false;
+            }
+        }
+        Check()
+    }
+    function emailCheck(){
+	var getMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $('#email').val();
+
+    if(getMail.test(email)){
+        $('#emailMsg').html("");
+        emailPass = true;
+
+    }else{
+        if(email == ""){
+            $('#emailMsg').html("이메일을 입력해주세요.");
+            $("#emailMsg").css("color", "red");
+            emailPass = false;
+
+        }else if(!getMail.test(email)){
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailPass = false;
+
+        }else{
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailPass = false;
+            C
+        }
+    }
+    Check()
+}
+
+function Check(){
+    if (emailPass == true && accountPass == true){
+        btn.disabled = false;
+    }else {
+        btn.disabled = true;
+    }
+}
+
+function infoCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var email = $('#email').val();
+	var account = $('#account').val();
+	var data = {account : account, email : email}
+	var form = document.pwRefefer;
+
+	$.ajax({
+		type : "post",
+		url : "/pwRefeferInfo",
+		data : data,
+
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+            console.log(result);
+            if(result == 1){
+                form.submit();
+            }else{
+                if(result == 0){
+                    $('#accountMsg').html("해당 아이디와 이메일의 정보가 존재하지 않습니다.");
+                    $("#accountMsg").css("color", "red");
+                }else if (result == 2){
+                        $('#accountMsg').html("해당 아이디와 이메일의 정보가 일치하지 않습니다.");
+                        $("#accountMsg").css("color", "red");
+                    }
+
+            }
+
+        }
 
 
-
- 
-
- function id_search1() { //아이디 '찾기' 버튼
-
-  var frm = document.idfind;// 경로 수정해주기
-
-  if (frm.name.value.length < 1) {
-   alert("이름을 입력해주세요");
-   return;
-  }
-
-  frm.method = "post";
-  frm.action = "##"; //넘어간화면
-  frm.submit();  
-  }
-
-​
-
- function pw_search() { //비밀번호 '찾기' 버튼
-
- var frm = document.idfind;// 경로 수정해주기
-
-  if (frm.name2.value.length < 1) {
-   alert("이름을 입력해주세요");
-   return;
-  }
-  if (frm.email.value.length < 1 || frm.e_domain.value.length < 1) {
-   alert("이메일을 입력해주세요");
-   return;
-  }
-
-  frm.method = "post";
-  frm.action = "##"; //넘어간화면
-  frm.submit();  
-  }
-
-​
-
- //이메일 부분
-
- function checkid() {
-
-  var frm = document.idfindscreen;
-  var regExp = '/^([/\w/g\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/';
-  if (!regExp.test(frm.email.value)) {
-   alert('올바른 email을 입력해주세요.');
-   frm.email.focus();
-  }
-
- }
+        });
+}
 </script>
 
-
-</HEAD>
-
-<BODY>
- <form name="##">
-  헤더파일 불러오기
-  <font face="Yang Rounded">
-
-
-   <table width="1330px" height="430px" align="center">
-   <!-- 
-    <tr>
-     <td>
-      <table width="600px" align="center" border="0"
-       style="color: black; background-color: #F6F6F6; font-size: 20px;">
-       <tr>
-        <td>
-         <table width="750px" align="center" border=0;
-          style="background-color: white; margin-top: 3%">
-          <tr>
-           <td align="center"><img src="##" height="30px"></td>
-           <td>아이디,비밀번호 찾기</td>
-           <td width="300px"></td>
-          </tr>
-         </table>
-        </td>
-       </tr>
-
-       <tr>
-        <td>
-         <table width="800px" height="300px" align="center"
-          style="border: dotted 5px none; margin-top: 4%">
-
-          <tr>
-           <td>
-            <table width="300px" height="30px" border="0"
-             style="margin-top: 3%; color: black; font-size: 18px;">
-             <tr>
-              <td>&nbsp;&nbsp; <img src="##" height="30px">
-              </td>
-              <td>&nbsp;아이디 찾기</td>
-             </tr>
-            </table>
-           </td>
-          </tr>
-
-          <tr>
-           <td>
-           <table width="380px" height="70px" align="center" border="0"
-            style="font-size: 16px;">
-            <tr>
-             <td>이름</td>
-             <td><input type="text" name="name2"></td>
-            </tr>
-            <tr>
-             <td style="text-align: center;">e-mail&nbsp;</td>
-             <td><input type="text" name="email"
-              style="width: 169px" onblur="checkid()">
-             
-             </td>
-            </tr>
-           </table>
-          </td>
-          </tr>
-
- 
-
-          <tr>
-           <td>
-            <table width="140px" height="10px" border="0"
-             style="margin-top: 2%;" align="center">
-             <tr>
-              <td><input type="button" name="##" value="  찾기  "
-               align="center"
-               style="cursor: pointer; background: white; color: black; border-color: black;"
-               onClick="id_search1()"></td>
-             
-             </tr>
-            </table>
-           </td>
-          </tr>
-
-          <tr>
-           <td>
-            <table width="300px" height="20px" border="0"
-             style="margin-top: 3%; font-size: 18px;">
-             <br>
-             <br>
-             <tr>
-              <td>&nbsp;&nbsp; <img src="##.png"
-               height="30px">
-              </td>
-              
-               -->
-              <td>&nbsp;비밀번호 찾기</td>
-             </tr>
-            </table>
-           </td>
-          </tr>
-
-          <td>
-           <table width="380px" height="70px" align="center" border="0"
-            style="font-size: 16px;">
-            <tr>
-             <td>   ID</td>
-             <td><input type="text" name="id"></td>
-            </tr>
-           </table>
-          </td>
-          </tr>
-
-          <tr>
-           <td>
-            <table width="140px" height="10px" border="0"
-             style="margin-top: 2%" align="center">
-             <tr>
-              <td><input type="button" name="##" value="  찾기  " 
-               align="center"
-               style="cursor: pointer; background: white; color: black; border-color: black;"
-               onClick="pw_search()"></td>     <!-- name 입력하기  -->     
-             </tr>
-            </table>
-            <br>
-           </td>
-          </tr>
-         </table>
-        </td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>
-
-
-  </font>
- </form>
-</BODY>
-</HTML> 
-<body>
 
 </body>
 </html>
