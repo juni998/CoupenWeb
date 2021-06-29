@@ -125,6 +125,9 @@ public class OrderController {
         List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
         model.addAttribute("completeOrderList", completeOrderList);
 
+        for (CompleteOrder completeOrder : completeOrderList) {
+            System.out.println("completeOrder = " + completeOrder.getStatus());
+        }
         return "/orderList";
     }
 
