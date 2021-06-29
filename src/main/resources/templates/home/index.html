@@ -1,460 +1,523 @@
 <!doctype html>
-<html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: header" />
 
 <body>
-<!--====== PRELOADER PART START ======-->
-<div class="preloader">
-    <div class="spin">
-        <div class="cube1"></div>
-        <div class="cube2"></div>
+    <!--====== 여기서부터 ======-->
+    <div class="preloader">
+        <div class="spin">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
     </div>
-</div>
-<!--====== PRELOADER PART START ======-->
-<!--====== HEADER PART START ======-->
-<header class="header-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="/home">
-                        <img src="/img/Home Images/logo.png" alt="Logo">
-                    </a> <!-- Logo -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <header class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" id="logo" href="/home">
+                            <img src="/img/Home Images/logo.png" alt="Logo">
+                        </a>
+                        <!-- Logo -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="bar-icon"></span>
                         <span class="bar-icon"></span>
                         <span class="bar-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul id="nav" class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a data-scroll-nav="0" href="/home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/shop">Shop</a>
-                            </li>
-                            <li class="nav-item" sec:authorize="isAuthenticated()">
-                                <a href="/order">Order</a>
-                            </li>
-                            <li class="nav-item" sec:authorize="isAuthenticated()">
-                                <a href="/mypage">MyPage</a>
-                            </li>
-                            <li class="nav-item" sec:authorize="isAnonymous()">
-                                <a href="/login">LogIn</a>
-                            </li>
-                            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                                <a href="/itemRegister">Sign Item</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/question">Question</a>
-                            </li>
-                            <li class="nav-item" sec:authorize="isAuthenticated()">
-                                <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
-                                <form name="myForm" th:action="@{/logout}" method="post"></form>
-                            </li>
-
-
-                        </ul> <!-- navbar nav -->
-                    </div>
-                </nav> <!-- navbar -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</header>
-<!--====== HEADER PART ENDS ======-->
-
-<!--====== SLIDER PART START ======-->
-
-<section id="home" class="slider-area pt-100">
-    <div class="container-fluid position-relative">
-        <div class="slider-active">
-            <div class="single-slider">
-                <div class="slider-bg">
-                    <div class="row no-gutters align-items-center ">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="slider-product-image d-none d-md-block">
-                                <img src="/img/Home Images/slider/1.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>Up to 50% <br> OFF</p>
-                                </div>
-                            </div> <!-- slider product image -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a data-scroll-nav="0" href="/home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/shop">Shop</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="isAuthenticated()">
+                                    <a href="/order">Order</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="isAuthenticated()">
+                                    <a href="/mypage">MyPage</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="isAnonymous()">
+                                    <a href="/login">LogIn</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a href="/itemRegister">Sign Item</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/question">Question</a>
+                                </li>
+                                <li class="nav-item" sec:authorize="isAuthenticated()">
+                                    <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
+                                    <form name="myForm" th:action="@{/logout}" method="post"></form>
+                                </li>
+                            </ul>
+                            <!-- navbar nav -->
                         </div>
-                        <div class="col-lg-8 col-md-7">
-                            <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>레스토랑이</span>  <span>우리 집으로!</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">집에서 레스토랑 음식을 만나보세요!</p>
-                                <p class="main-btn" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></p>
-                            </div> <!-- slider product content -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-            </div> <!-- single slider -->
-            <div class="single-slider">
-                <div class="slider-bg">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="slider-product-image d-none d-md-block">
-                                <img src="/img/Home Images/slider/3.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>Up to 40% <br> OFF</p>
-                                </div>
-                            </div> <!-- slider product image -->
-                        </div>
-                        <div class="col-lg-8 col-md-7">
-                            <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>한국</span> 전통 <span>음식</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s"><br> 우리나라 전통음식을 쿠펭에서 만나보세요  </p>
-                                <a class="main-btn" href="/list?page=1&type=type&keyword=grain" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
-                            </div> <!-- slider product content -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-            </div> <!-- single slider -->
-
-            <div class="single-slider">
-                <div class="slider-bg">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="slider-product-image d-none d-md-block">
-                                <img src="/img/Home Images/slider/2.jpg" alt="Slider">
-                                <div class="slider-discount-tag">
-                                    <p>Up to 30%<br> OFF</p>
-                                </div>
-                            </div> <!-- slider product image -->
-                        </div>
-                        <div class="col-lg-8 col-md-7">
-                            <div class="slider-product-content">
-                                <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Meet</span></h1>
-                                <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">이것은 고기인가 예술인가</p>
-                                <a class="main-btn" href="/list?page=1&type=type&keyword=meet" data-animation="fadeInUp" data-delay="1.5s">Contact Us <i class="lni-chevron-right"></i></a>
-                            </div> <!-- slider product content -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-            </div> <!-- single slider -->
-        </div> <!-- slider active -->
-
-    </div> <!-- container fluid -->
-</section>
-
-<!--====== SLIDER PART ENDS ======-->
-
-<!--====== DISCOUNT PRODUCT PART START ======-->
-
-<section id="discount-product" class="discount-product pt-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="single-discount-product mt-30">
-                    <div class="product-image">
-                        <img src="/img/Home Images/discount-product/product-1.jpg" alt="Product">
-                    </div> <!-- product image -->
-                    <div class="product-content">
-                        <h4 class="content-title mb-15" color="white">Event Product<br> 1+1</h4>
-                        <a href="/list?page=1&type=type&keyword=vegetable">Shortcut <i class="lni-chevron-right"></i></a>
-                    </div> <!-- product content -->
-                </div> <!-- single discount product -->
+                    </nav>
+                    <!-- navbar -->
+                </div>
             </div>
-            <div class="col-lg-6">
-                <div class="single-discount-product mt-30">
-                    <div class="product-image">
-                        <img src="/img/Home Images/discount-product/product-2.jpg" alt="Product">
-                    </div> <!-- product image -->
-                    <div class="product-content">
-                        <h4 class="content-title mb-15" color="white">Event Product <br> Discount up to 80%</h4>
-                        <a href="/list?page=1&type=type&keyword=grain">Shortcut <i class="lni-chevron-right"></i></a>
-                    </div> <!-- product content -->
-                </div> <!-- single discount product -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--====== DISCOUNT PRODUCT PART ENDS ======-->
-
-<!--====== PRODUCT PART START ======-->
-
-<section id="product" class="product-area pt-100 pb-130">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4">
-                <div class="collection-menu text-center mt-30">
-                    <h4 class="collection-tilte">Food type</h4>
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a id="v-pills-decorative-tab" data-toggle="pill" href="/list" role="tab" aria-controls="v-pills-decorative" aria-selected="false">Go Shop</a>
-                    </div> <!-- nav -->
-                </div> <!-- collection menu -->
-            </div>
-            <div class="col-lg-9 col-md-8">
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-furniture" role="tabpanel" aria-labelledby="v-pills-furniture-tab">
-                        <div class="product-items mt-30">
-                            <div class="row product-items-active">
-                                <div class="col-md-4">
-                                    <div class="single-product-items">
-                                        <div class="product-item-image">
-                                            <img src="/img/Home Images/product/p-1.jpg" alt="Product">
-                                            <div class="product-discount-tag">
-                                                <p>-60%</p>
-                                            </div>
-                                        </div>
-                                        <div class="product-item-content text-center mt-30">
-                                            <h5 class="product-title"><a href="/list">Ice cream</a></h5>
-                                            <ul class="rating">
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                            </ul>
-                                            <span class="regular-price">$49.00</span>
-                                            <span class="discount-price">$69.00</span>
-                                        </div>
-                                    </div> <!-- single product items -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="single-product-items">
-                                        <div class="product-item-image">  <!-- 푸드타입 다이어트 -->
-                                            <img src="/img/Home Images/product/p-2.jpg" alt="Product">
-                                            <div class="product-discount-tag">
-                                                <p>-20%</p>
-                                            </div>
-                                        </div>
-                                        <div class="product-item-content text-center mt-30">
-                                            <h5 class="product-title"><a href="/list">Vegetable</a></h5>
-                                            <ul class="rating">
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                            </ul>
-                                            <span class="regular-price">$129.00</span>
-                                            <span class="discount-price">$159.00</span>
-                                        </div>
-                                    </div> <!-- single product items -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="single-product-items">
-                                        <div class="product-item-image">  <!-- 푸드타입 3 -->
-                                            <img src="/img/Home Images/product/p-3.jpg" alt="Product">
-                                            <div class="product-discount-tag">
-                                                <p>-10%</p>
-                                            </div>
-                                        </div>
-                                        <div class="product-item-content text-center mt-30">
-                                            <h5 class="product-title"><a href="/list">Fruit</a></h5>
-                                            <ul class="rating">
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star-filled"></i></li>
-                                                <li><i class="lni-star"></i></li>
-                                            </ul>
-                                            <span class="regular-price">$89.00</span>
-                                            <span class="discount-price">$129.00</span>
-                                        </div>
-                                    </div> <!-- single product items -->
-                                </div>
-                            </div> <!-- row -->
-                        </div> <!-- product items -->
-                    </div> <!-- tab pane -->
-                </div> <!-- tab content -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--====== PRODUCT PART ENDS ======-->
-
-<!--====== SERVICES PART START ======-->
-
-<section id="service" class="services-area pt-125 pb-130">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="section-title pb-30">
-                    <h5 class="mb-15">Our promise</h5>
-                    <h3 class="title mb-15">Fresh food</h3>
-                    <p>우리 아이,가족이 안심하고 먹을 수 있는 음식! 저희 쿠펭이 약속합니다 엄선된 재료,합리적인 가격,신속한 배달! 지금 쿠펭에서 만나보세요</p>
-                </div> <!-- section title -->
-            </div>
+            <!-- row -->
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="services-left mt-45">
-                    <div class="services">
-                        <img src="/img/Home Images/services/services.jpg" alt="">
-                        <a href="/list?page=1&type=type&keyword=vegetable" class="main-btn mt-30">Read More <i class="lni-chevron-right"></i></a>
-                    </div> <!-- services btn -->
-                </div> <!-- services left -->
-            </div>
-            <div class="col-lg-6">
+        <!-- container -->
+    </header>
+    <!--====== 여기까지 헤더  ======-->
 
-                <div class="services-right mt-45">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 col-sm-8">
-                            <div class="single-services text-center">
-                                <div class="services-icon">
-                                    <i class="lni-grid-alt"></i>
-                                </div>
-                                <div class="services-content mt-20">
-                                    <h5 class="title mb-10">first</h5>
-                                    <p><b>전국 유명 산지</b> 상품을 선별해 고른 품질을 약속 합니다</p>
-                                </div>
-                            </div> <!-- single services -->
+    <!--====== SLIDER PART START ======-->
 
-                            <div class="single-services text-center mt-30">
-                                <div class="services-icon">
-                                    <i class="lni-ruler-pencil"></i>
+    <section id="home" class="slider-area pt-100">
+        <div class="container-fluid position-relative">
+            <div class="slider-active">
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center ">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="/img/Home Images/slider/1.jpg" alt="Slider">
+                                    <div class="slider-discount-tag">
+                                        <p>Up to 50% <br> OFF</p>
+                                    </div>
                                 </div>
-                                <div class="services-content mt-20">
-                                    <h5 class="title mb-10">Third</h5>
-                                    <p>안심하고 먹을 수 있는 우리땅의 <b>국내산</b> 채소를 판매합니다</p>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>레스토랑이</span> <span>우리 집으로!</span></h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">집에서 레스토랑 음식을 만나보세요!</p>
+                                    <p class="main-btn" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></p>
                                 </div>
-                            </div> <!-- single services -->
+                                <!-- slider product content -->
+                            </div>
                         </div>
-                        <div class="col-md-6 col-sm-8">
-                            <div class="single-services text-center mt-30">
-                                <div class="services-icon">
-                                    <i class="lni-customer"></i>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="/img/Home Images/slider/3.jpg" alt="Slider">
+                                    <div class="slider-discount-tag">
+                                        <p>Up to 40% <br> OFF</p>
+                                    </div>
                                 </div>
-                                <div class="services-content mt-20">
-                                    <h5 class="title mb-10">Second</h5>
-                                    <p>하루2회,시간대 별 가격 모니터링을 통해 <b>최저가</b>로 운영합니다</p>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>한국</span> 전통 <span>음식</span></h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s"><br> 우리나라 전통음식을 쿠펭에서 만나보세요 </p>
+                                    <a class="main-btn" href="/list?page=1&type=type&keyword=grain" data-animation="fadeInUp" data-delay="1.5s">Explore More <i class="lni-chevron-right"></i></a>
                                 </div>
-                            </div> <!-- single services -->
-
-                            <div class="single-services text-center mt-30">
-                                <div class="services-icon">
-                                    <i class="lni-support"></i>
-                                </div>
-                                <div class="services-content mt-20">
-                                    <h5 class="title mb-10">fourth</h5>
-                                    <p><b>24시간</b>,전 과정을 풀 콜드체인으로 냉장 배송합니다</p>
-                                </div>
-                            </div> <!-- single services -->
+                                <!-- slider product content -->
+                            </div>
                         </div>
-                    </div> <!-- row -->
-                </div> <!-- services right -->
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
+
+                <div class="single-slider">
+                    <div class="slider-bg">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="slider-product-image d-none d-md-block">
+                                    <img src="/img/Home Images/slider/2.jpg" alt="Slider">
+                                    <div class="slider-discount-tag">
+                                        <p>Up to 30%<br> OFF</p>
+                                    </div>
+                                </div>
+                                <!-- slider product image -->
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="slider-product-content">
+                                    <h1 class="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Meet</span></h1>
+                                    <p class="mb-25" data-animation="fadeInUp" data-delay="0.9s">이것은 고기인가 예술인가</p>
+                                    <a class="main-btn" href="/list?page=1&type=type&keyword=meet" data-animation="fadeInUp" data-delay="1.5s">Contact Us <i class="lni-chevron-right"></i></a>
+                                </div>
+                                <!-- slider product content -->
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- single slider -->
             </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
+            <!-- slider active -->
 
-<!--====== SERVICES PART ENDS ======-->
+        </div>
+        <!-- container fluid -->
+    </section>
 
+    <!--====== SLIDER PART ENDS ======-->
 
-<!--====== TESTIMONIAL PART START ======-->
+    <!--====== DISCOUNT PRODUCT PART START ======-->
 
-<section id="testimonial" class="testimonial-area pt-200">
-    <div class="testimonial-bg bg_cover" style="background-image: url(#)"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-md-8">
-                <div class="testimonial-content">
-                    <div class="testimonial-active">
-                        <div class="single-testimonial">
-                            <i class="lni-quotation"></i>
-                            <p class="mb-30">요리하는 즐거움을 알게되었어요 신선한 재료,풀 콜트체인 냉장배송,총알같은 배송 여려분도 느껴보세요</p>
-                            <h6 class="title">Blog review</h6>
-                            <span>- sujin Kim </span>
-                        </div> <!-- single testimonial -->
-                        <div class="single-testimonial">
-                            <i class="lni-quotation"></i>
-                            <p class="mb-30">매일 아침 새벽에 배송해 드립니다!</p>
-                            <h6 class="title">당일 9시 이전 주문시</h6>
-                            <span>무조건 새벽 배송 </span>
-                        </div> <!-- single testimonial -->
-                    </div> <!-- testimonial active -->
-                </div> <!-- testimonial content -->
-            </div>
-            <div class="col-lg-7 col-md-4">
-                <div class="testimonial-play text-right d-none d-md-block">
-                    <iframe width="560" height="315" src="//www.youtube.com/watch?v=lfKvhEvJZZs" frameborder="0" allowfullscreen></iframe>
-                </div> <!-- testimonial play -->
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</section>
-
-<!--====== TESTIMONIAL PART ENDS ======-->
-
-
-<!--====== FOOTER PART START ======-->
-
-<section id="footer" class="footer-area">
-    <div class="container">
-        <div class="footer-widget pt-75 pb-120">
+    <section id="discount-product" class="discount-product pt-100">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-5 col-sm-7">
-                    <div class="footer-logo mt-40">
-                        <a href="#">
-                            <img src="../img/Home Images/logo.png" alt="Logo">
-                        </a>
-                        <p class="mt-10">여러가지 신선한 상품을 받아보세요</p>
-                        <ul class="footer-social mt-25">
-                            <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                            <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                            <li><a href="#"><i class="lni-instagram"></i></a></li>
-                        </ul>
-                    </div> <!-- footer logo -->
+                <div class="col-lg-6">
+                    <div class="single-discount-product mt-30">
+                        <div class="product-image">
+                            <img src="/img/Home Images/discount-product/product-1.jpg" alt="Product">
+                        </div>
+                        <!-- product image -->
+                        <div class="product-content">
+                            <h4 class="content-title mb-15" color="white">Event Product<br> 1+1</h4>
+                            <a href="/list?page=1&type=type&keyword=vegetable">Shortcut <i class="lni-chevron-right"></i></a>
+                        </div>
+                        <!-- product content -->
+                    </div>
+                    <!-- single discount product -->
                 </div>
-                <div class="col-lg-4 col-md-5 col-sm-7">
-                    <div class="footer-info mt-50">
-                        <h5 class="f-title">Contact Info</h5>
-                        <ul>
-                            <li>
-                                <div class="single-footer-info mt-20">
-                                    <span>Phone :</span>
-                                    <div class="footer-info-content">
-                                        <p>+88123 4567 890</p>
-                                        <p>+88123 4567 890</p>
-                                    </div>
-                                </div> <!-- single footer info -->
-                            </li>
-                            <li>
-                                <div class="single-footer-info mt-20">
-                                    <span>Email :</span>
-                                    <div class="footer-info-content">
-                                        <p>contact@yourmail.com</p>
-                                        <p>support@yourmail.com</p>
-                                    </div>
-                                </div> <!-- single footer info -->
-                            </li>
-                            <li>
-                                <div class="single-footer-info mt-20">
-                                    <span>Address :</span>
-                                    <div class="footer-info-content">
-                                        <p>서울 강남 어딘가</p>
-                                    </div>
-                                </div> <!-- single footer info -->
-                            </li>
-                        </ul>
-                    </div> <!-- footer link -->
+                <div class="col-lg-6">
+                    <div class="single-discount-product mt-30">
+                        <div class="product-image">
+                            <img src="/img/Home Images/discount-product/product-2.jpg" alt="Product">
+                        </div>
+                        <!-- product image -->
+                        <div class="product-content">
+                            <h4 class="content-title mb-15" color="white">Event Product <br> Discount up to 80%</h4>
+                            <a href="/list?page=1&type=type&keyword=grain">Shortcut <i class="lni-chevron-right"></i></a>
+                        </div>
+                        <!-- product content -->
+                    </div>
+                    <!-- single discount product -->
                 </div>
-            </div> <!-- row -->
-        </div> <!-- footer widget -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
 
-    </div> <!-- container -->
-</section>
+    <!--====== DISCOUNT PRODUCT PART ENDS ======-->
 
-<!--====== FOOTER PART ENDS ======-->
+    <!--====== PRODUCT PART START ======-->
 
-<!--====== BACK TO TOP PART START ======-->
+    <section id="product" class="product-area pt-100 pb-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="collection-menu text-center mt-30">
+                        <h4 class="collection-tilte">Food type</h4>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a id="v-pills-decorative-tab" data-toggle="pill" href="/list" role="tab" aria-controls="v-pills-decorative" aria-selected="false">Go Shop</a>
+                        </div>
+                        <!-- nav -->
+                    </div>
+                    <!-- collection menu -->
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-furniture" role="tabpanel" aria-labelledby="v-pills-furniture-tab">
+                            <div class="product-items mt-30">
+                                <div class="row product-items-active">
+                                    <div class="col-md-4">
+                                        <div class="single-product-items">
+                                            <div class="product-item-image">
+                                                <img src="/img/Home Images/product/p-1.jpg" alt="Product">
+                                                <div class="product-discount-tag">
+                                                    <p>-60%</p>
+                                                </div>
+                                            </div>
+                                            <div class="product-item-content text-center mt-30">
+                                                <h5 class="product-title"><a href="/list">Ice cream</a></h5>
+                                                <ul class="rating">
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                </ul>
+                                                <span class="regular-price">$49.00</span>
+                                                <span class="discount-price">$69.00</span>
+                                            </div>
+                                        </div>
+                                        <!-- single product items -->
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="single-product-items">
+                                            <div class="product-item-image">
+                                                <!-- 푸드타입 다이어트 -->
+                                                <img src="/img/Home Images/product/p-2.jpg" alt="Product">
+                                                <div class="product-discount-tag">
+                                                    <p>-20%</p>
+                                                </div>
+                                            </div>
+                                            <div class="product-item-content text-center mt-30">
+                                                <h5 class="product-title"><a href="/list">Vegetable</a></h5>
+                                                <ul class="rating">
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                </ul>
+                                                <span class="regular-price">$129.00</span>
+                                                <span class="discount-price">$159.00</span>
+                                            </div>
+                                        </div>
+                                        <!-- single product items -->
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="single-product-items">
+                                            <div class="product-item-image">
+                                                <!-- 푸드타입 3 -->
+                                                <img src="/img/Home Images/product/p-3.jpg" alt="Product">
+                                                <div class="product-discount-tag">
+                                                    <p>-10%</p>
+                                                </div>
+                                            </div>
+                                            <div class="product-item-content text-center mt-30">
+                                                <h5 class="product-title"><a href="/list">Fruit</a></h5>
+                                                <ul class="rating">
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star-filled"></i></li>
+                                                    <li><i class="lni-star"></i></li>
+                                                </ul>
+                                                <span class="regular-price">$89.00</span>
+                                                <span class="discount-price">$129.00</span>
+                                            </div>
+                                        </div>
+                                        <!-- single product items -->
+                                    </div>
+                                </div>
+                                <!-- row -->
+                            </div>
+                            <!-- product items -->
+                        </div>
+                        <!-- tab pane -->
+                    </div>
+                    <!-- tab content -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
 
-<a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+    <!--====== PRODUCT PART ENDS ======-->
 
-<!--====== BACK TO TOP PART ENDS ======-->
+    <!--====== SERVICES PART START ======-->
 
-<script src="/js/Home Js/vendor/modernizr-3.6.0.min.js"></script>
-<script src="/js/Home Js/vendor/jquery-1.12.4.min.js"></script>
-<script src="/js/Home Js/bootstrap.min.js"></script>
-<script src="/js/Home Js/slick.min.js"></script>
-<script src="/js/Home Js/jquery.magnific-popup.min.js"></script>
-<script src="/js/Home Js/jquery.nav.js"></script>
-<script src="/js/Home Js/jquery.nice-number.min.js"></script>
-<script src="/js/Home Js/main.js"></script>
+    <section id="service" class="services-area pt-125 pb-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title pb-30">
+                        <h5 class="mb-15">Our promise</h5>
+                        <h3 class="title mb-15">Fresh food</h3>
+                        <p>우리 아이,가족이 안심하고 먹을 수 있는 음식! 저희 쿠펭이 약속합니다 엄선된 재료,합리적인 가격,신속한 배달! 지금 쿠펭에서 만나보세요</p>
+                    </div>
+                    <!-- section title -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="services-left mt-45">
+                        <div class="services">
+                            <img src="/img/Home Images/services/services.jpg" alt="">
+                            <a href="/list?page=1&type=type&keyword=vegetable" class="main-btn mt-30">Read More <i class="lni-chevron-right"></i></a>
+                        </div>
+                        <!-- services btn -->
+                    </div>
+                    <!-- services left -->
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="services-right mt-45">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-sm-8">
+                                <div class="single-services text-center">
+                                    <div class="services-icon">
+                                        <i class="lni-grid-alt"></i>
+                                    </div>
+                                    <div class="services-content mt-20">
+                                        <h5 class="title mb-10">first</h5>
+                                        <p><b>전국 유명 산지</b> 상품을 선별해 고른 품질을 약속 합니다</p>
+                                    </div>
+                                </div>
+                                <!-- single services -->
+
+                                <div class="single-services text-center mt-30">
+                                    <div class="services-icon">
+                                        <i class="lni-ruler-pencil"></i>
+                                    </div>
+                                    <div class="services-content mt-20">
+                                        <h5 class="title mb-10">Third</h5>
+                                        <p>안심하고 먹을 수 있는 우리땅의 <b>국내산</b> 채소를 판매합니다</p>
+                                    </div>
+                                </div>
+                                <!-- single services -->
+                            </div>
+                            <div class="col-md-6 col-sm-8">
+                                <div class="single-services text-center mt-30">
+                                    <div class="services-icon">
+                                        <i class="lni-customer"></i>
+                                    </div>
+                                    <div class="services-content mt-20">
+                                        <h5 class="title mb-10">Second</h5>
+                                        <p>하루2회,시간대 별 가격 모니터링을 통해 <b>최저가</b>로 운영합니다</p>
+                                    </div>
+                                </div>
+                                <!-- single services -->
+
+                                <div class="single-services text-center mt-30">
+                                    <div class="services-icon">
+                                        <i class="lni-support"></i>
+                                    </div>
+                                    <div class="services-content mt-20">
+                                        <h5 class="title mb-10">fourth</h5>
+                                        <p><b>24시간</b>,전 과정을 풀 콜드체인으로 냉장 배송합니다</p>
+                                    </div>
+                                </div>
+                                <!-- single services -->
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- services right -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== SERVICES PART ENDS ======-->
+
+
+    <!--====== TESTIMONIAL PART START ======-->
+
+    <section id="testimonial" class="testimonial-area pt-200">
+        <div class="testimonial-bg bg_cover" style="background-image: url(#)"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-8">
+                    <div class="testimonial-content">
+                        <div class="testimonial-active">
+                            <div class="single-testimonial">
+                                <i class="lni-quotation"></i>
+                                <p class="mb-30">요리하는 즐거움을 알게되었어요 신선한 재료,풀 콜트체인 냉장배송,총알같은 배송 여려분도 느껴보세요</p>
+                                <h6 class="title">Blog review</h6>
+                                <span>- sujin Kim </span>
+                            </div>
+                            <!-- single testimonial -->
+                            <div class="single-testimonial">
+                                <i class="lni-quotation"></i>
+                                <p class="mb-30">매일 아침 새벽에 배송해 드립니다!</p>
+                                <h6 class="title">당일 9시 이전 주문시</h6>
+                                <span>무조건 새벽 배송 </span>
+                            </div>
+                            <!-- single testimonial -->
+                        </div>
+                        <!-- testimonial active -->
+                    </div>
+                    <!-- testimonial content -->
+                </div>
+                <div class="col-lg-7 col-md-4">
+                    <div class="testimonial-play text-right d-none d-md-block">
+                        <iframe width="560" height="315" src="//www.youtube.com/watch?v=lfKvhEvJZZs" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <!-- testimonial play -->
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== TESTIMONIAL PART ENDS ======-->
+
+
+    <!--====== FOOTER PART START ======-->
+
+    <section id="footer" class="footer-area">
+        <div class="container">
+            <div class="footer-widget pt-75 pb-120">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 col-sm-7">
+                        <div class="footer-logo mt-40">
+                            <a href="#">
+                                <img src="../img/Home Images/logo.png" alt="Logo">
+                            </a>
+                            <p class="mt-10">여러가지 신선한 상품을 받아보세요</p>
+                            <ul class="footer-social mt-25">
+                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                                <li><a href="#"><i class="lni-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- footer logo -->
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-7">
+                        <div class="footer-info mt-50">
+                            <h5 class="f-title">Contact Info</h5>
+                            <ul>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Phone :</span>
+                                        <div class="footer-info-content">
+                                            <p>+88123 4567 890</p>
+                                            <p>+88123 4567 890</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Email :</span>
+                                        <div class="footer-info-content">
+                                            <p>contact@yourmail.com</p>
+                                            <p>support@yourmail.com</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                                <li>
+                                    <div class="single-footer-info mt-20">
+                                        <span>Address :</span>
+                                        <div class="footer-info-content">
+                                            <p>서울 강남 어딘가</p>
+                                        </div>
+                                    </div>
+                                    <!-- single footer info -->
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- footer link -->
+                    </div>
+                </div>
+                <!-- row -->
+            </div>
+            <!-- footer widget -->
+
+        </div>
+        <!-- container -->
+    </section>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TOP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
+
+    <!--====== BACK TO TOP PART ENDS ======-->
+
+    <script src="/js/Home Js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/js/Home Js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/Home Js/bootstrap.min.js"></script>
+    <script src="/js/Home Js/slick.min.js"></script>
+    <script src="/js/Home Js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/Home Js/jquery.nav.js"></script>
+    <script src="/js/Home Js/jquery.nice-number.min.js"></script>
+    <script src="/js/Home Js/main.js"></script>
 
 </body>
 
