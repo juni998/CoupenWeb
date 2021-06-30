@@ -1,50 +1,268 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <title>login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+<title>login</title>
+<style>
+.modal_wrap {
+	display: none;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -250px 0 0 -250px;
+	background: #eee;
+	z-index: 2;
+}
+
+.black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.modal_close {
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: -30px;
+	right: 0;
+}
+
+.modal_close>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+	text-indent: -9999px;
+}
+
+/* ---------위는팝업창  */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+li {
+	list-style: none;
+}
+
+.wrap {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login {
+	width: 300px;
+	height: 300px;
+	background: white;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+h2 {
+	color: tomato;
+	font-size: 2em;
+}
+/* .login_sns {
+  padding: 20px;
+  display: flex; 
+} 
+
+.login_sns li {
+  padding: 0px 15px;
+}
+
+.login_sns a {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50px;
+  background: white;
+  font-size: 20px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(0, 0, 0, 0.1);
+} 
+*/
+.login_id {
+	margin-top: 20px;
+	width: 80%;
+}
+
+.login_id input {
+	width: 200px;
+	height: 50px;
+	border-radius: 30px;
+	margin-top: 10px;
+	padding: 0px 20px;
+	border: 1px solid lightgray;
+	outline: none;
+}
+
+.login_pw {
+	margin-top: 20px;
+	width: 80%;
+}
+
+.login_pw input {
+	width: 200px;
+	height: 50px;
+	border-radius: 30px;
+	margin-top: 10px;
+	padding: 0px 20px;
+	border: 1px solid lightgray;
+	outline: none;
+}
+
+.login_etc {
+	padding: 10px;
+	width: 80%;
+	font-size: 14px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: bold;
+}
+
+.submit {
+	margin-top: 50px;
+	width: 80%;
+}
+
+.submit input {
+	width: 150px;
+	height: 50px;
+	border: 0;
+	outline: none;
+	border-radius: 40px;
+	background: linear-gradient(to left, rgb(255, 77, 46), rgb(255, 155, 47));
+	color: white;
+	font-size: 1.2em;
+	letter-spacing: 2px;
+}
+</style>
+
+<script>
+	/*  window.onload = function() {
+	
+	 function onClick() {
+	     document.querySelector('.modal_wrap').style.display ='block';
+	     document.querySelector('.black_bg').style.display ='block';
+	 }   
+	 function offClick() {
+	     document.querySelector('.modal_wrap').style.display ='none';
+	     document.querySelector('.black_bg').style.display ='none';
+	 }
+	
+	 document.getElementById('modal_btn').addEventListener('click', onClick);
+	 //보이게 해주는 함수생성
+	 document.querySelector('.modal_close').addEventListener('click', offClick);
+	};	//안보이게 하는 함수 생성 */
+</script>
 </head>
 <body>
-<div style="display: block;width:400px;margin:0 auto;background:ddd;position:relative;" class="container mt-5">
-    <div align="center">
-        <a class="navbar-brand" id="logo" href="/home" ali>
-            <img src="/img/Home Images/logo.png" alt="Logo" align="center">
-        </a>
-    </div>
-    <hr>
-    <form th:action="@{/loginProcess}" method="post">
+	<header include-html="Header.html"></header>
 
-        <div class="mb-3" style="width:370px">
-            <label class="form-label"><b>ID</b></label>
-        <input type="text" class="form-control" name="username" placeholder="아이디 입력">
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><b>PASSWORD</b></label>
-        <input type="password" class="form-control" name="password" placeholder="비밀번호 입력">
-        </div>
-        <div class="mb-3" >
-            <a href="/idRefefer">아이디 찾기</a> | <a href="/pwRefefer">비밀번호 찾기</a>
-        </div>
-        <div class="mb-3">
-        <input type="submit" class="btn btn-primary" style="width:370px" value="로그인">
-        </div>
-        <div class="mb-3">
-            <hr>
-        <button type="button" class="btn btn-light" onclick="location.href='/register'" style="width:370px">회원가입</button>
-        </div>
+	<!-- 	<button type='button' id="modal_btn">로그인 팝업창</button>
+	<div class="black_bg"></div>
+	<div class="modal_wrap">
+		<div class="modal_close">
+			<a href="#">close</a>
+		</div>
+		<div> -->
+
+	<div class="wrap" style="text-align: center;">
+		<form th:action="@{/loginProcess}" method="post">
+
+			<div class="wrap">
+				<div class="login">
+					<h2>Log-in</h2>
 
 
+					<!-- <div class="login_sns">
+            <li><a href=""><i class="#"></i></a></li> 네이버
+            <li><a href=""><i class="#"></i></a></li> 구글
+            </div> -->
 
 
-    </form>
+					<div class="login_id">
+						<h4>Id</h4>
+						<input type="text" name="username" placeholder="id">
+					</div>
 
-</div>
 
+					<div class="login_pw">
+						<h4>Password</h4>
+						<input type="password" name="password" placeholder="Password">
+					</div>
+					<div th:if="${param.error}">
+						<p th:text="${exception}" class="alert alert-danger"></p>
+					</div>
+
+					<div class="login_etc">
+						<div class="checkbox">
+							<input type="checkbox" name="" id=""> Remember Me?
+						</div>
+
+						<div class="new">
+							<a href="/register">회원가입</a>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="new">
+						<a href="/idRefefer">아이디찾기</a>
+					</div>
+					<div class="new">
+						<a href="pwRefefer">비밀번호 찾기</a>
+					</div>
+
+					<div class="submit">
+						<input type="submit" value="로그인"> 
+						<input type="hidden"
+							th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+					</div>
+					
+				</div>
+			</div>
+	</div>
+	</form>
+
+	</div>
+
+	</div>
+	<div>
+
+
+
+
+
+		<footer include-html="Footer.html"></footer>
 </body>
 </html>
