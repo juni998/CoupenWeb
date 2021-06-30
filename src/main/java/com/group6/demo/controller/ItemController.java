@@ -29,9 +29,9 @@ public class ItemController {
     }
 
     @GetMapping("read/{id}")
-    public String getItem(@PathVariable("id") Long id, Model model){
+    public String getItem(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
         ItemDTO itemDTO = itemService.getItemById(id);
-        
+        model.addAttribute("result", itemService.getList(pageRequestDTO));
         model.addAttribute("dto",itemDTO);
 
         return "read";

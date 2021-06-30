@@ -1,7 +1,9 @@
 package com.group6.demo.controller;
 
+import com.group6.demo.entity.item.PageRequestDTO;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.security.SignUpFormValidator;
+import com.group6.demo.service.ItemService;
 import com.group6.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ public class HomeController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	@Autowired
+	private ItemService itemService;
 
 	@GetMapping("/")
 	public String welcome(){
@@ -33,10 +37,11 @@ public class HomeController {
 	}
 	// 홈
 	@GetMapping("/home")
-	public String home(Principal principal, Model model) throws Exception {
+	public String home(Principal principal, PageRequestDTO pageRequestDTO, Model model) throws Exception {
 		if (principal != null) {
 			model.addAttribute("account", principal.getName());
 		}
+		model.addAttribute("result", itemService.getList(pageRequestDTO));
 		return "/home/index";
 	}
 
@@ -57,17 +62,6 @@ public class HomeController {
 	public String question() {
 		return "/home/question";
 	}
-	
-	// 상품게시판
-	@GetMapping("shop")
-	public String shop() {
-		return "home/shop";
-	}
 
-	// 장바구니
-	@GetMapping("shoppingcart")
-	public String shoppingcart() {
-		return "home/shoppingcart";
-	}
 
 }

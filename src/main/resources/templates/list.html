@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
-<head th:replace="fragments/header :: header" />
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Merrang</title>
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -24,12 +21,16 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/Home Images/favicon.png" type="image/png">
+    <title>Merrang</title>
 </head>
 
 <body>
 <!-- Header Section Begin -->
 <header class="header">
-
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -40,18 +41,29 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="/home">Home</a></li>
-                        <li class="active"><a href="/list">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="/shop-details.html">Shop Details</a></li>
-                                <li><a href="/shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="/checkout.html">Check Out</a></li>
-                                <li><a href="/blog-details.html">Blog Details</a></li>
-                            </ul>
+
+                        <li>
+                            <a href="/home">Home</a>
                         </li>
-                        <li><a href="/blog.html">Blog</a></li>
-                        <li><a href="/contact.html">Contact</a></li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/mypage">MyPage</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/order">MyOrder</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
+                            <form name="myForm" th:action="@{/logout}" method="post"></form>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a href="/itemRegister">Sign Item</a>
+                        </li>
+                        <li>
+                            <a href="/list">Shop</a>
+                        </li>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/login">LogIn</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -81,17 +93,16 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="/list" method="get" id="searchForm">
-                            <select name="type">
+                        <div class="hero__search__form">
+                            <form action="/list" method="get" id="searchForm">
+                                <select name="type">
                                     <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
-                                    <option value="writer" th:selected="${pageRequestDTO.type == 'writer'}">writer</option>
-                                    <option value="titlewritercontent" th:selected="${pageRequestDTO.type == 'titlewritercontent'}">content</option>
-                                    <option value="type" th:selected="${pageRequestDTO.type == 'title'}">type</option>
-                            </select>
-                            <input type="hidden" name="page" value="1">
-                            <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
-                            <button class="site-btn btn-search" type="button">Search</button>
-                        </form>
+                                </select>
+                                <input type="hidden" name="page" value="1">
+                                <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}">
+                                <button class="site-btn btn-search" type="submit">Search</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="hero__search__phone">
                         <div class="hero__search__phone__icon">
@@ -158,7 +169,7 @@
                             </div>
                             <div class="product__item__text">
                                 <h6> <a th:href="@{/read/{id}(id= ${dto.id})}"><th:text>[[${dto.title}]]</th:text></a></h6>
-                                <h5><th:text>[[${dto.price}]]</th:text></h5>
+                                <h5><th:text>[[${dto.price}]]</th:text>$</h5>
                             </div>
                         </div>
                     </div>
@@ -184,16 +195,6 @@
 
 <!-- Footer Section End -->
 
-<!-- Js Plugins -->
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.nice-select.min.js"></script>
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/jquery.slicknav.js"></script>
-<script src="/js/mixitup.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/main.js"></script>
-
 <script th:inline="javascript">
 
             var msg = [[${msg}]];
@@ -217,16 +218,16 @@
 
             });
 
-
-
-           $( function() {
-            $( "#keyword" ).autocomplete({
-                source: "/autocomplete",
-                minLength: 1
-                });
-            } );
-
         </script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 </body>
