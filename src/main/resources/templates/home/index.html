@@ -56,11 +56,8 @@
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a href="/itemRegister">Sign Item</a>
                         </li>
-                        <li>
-                            <a href="/list">Shop</a>
-                        </li>
-                        <li>
-                            <a href="/list">Shop</a>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/question">question</a>
                         </li>
                         <li sec:authorize="isAnonymous()">
                             <a href="/login">LogIn</a>
