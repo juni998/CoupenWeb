@@ -52,7 +52,6 @@ public class MemberController {
 		} catch (NullPointerException e){
 			return "redirect:/login";
 		}
-
 	}
 
 	// 마이페이지 패스워드 변경
