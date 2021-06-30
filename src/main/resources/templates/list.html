@@ -1,126 +1,199 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default_layout}">
+>
+<head th:replace="fragments/header :: header" />
 
-
-<th:block layout:fragment="head">
-    <!--/* css */-->
-</th:block>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <!-- 필요한 CSS, JS 로드 -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script type="text/javascript" src="resources/js/plugin/hangul/hangul.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
-
 <body>
+<!-- Header Section Begin -->
+<header class="header">
 
-
-<form action="/list" method="get" id="searchForm">
-    <div class="input-group">
-        <input type="hidden" name="page" value = "1">
-        <div class="input-group-prepend">
-            <select class="custom-select" name="type">
-
-                <option th:selected="${pageRequestDTO.type == null}">-------</option>
-                <option value="title" th:selected="${pageRequestDTO.type == 'title'}">제목</option>
-                <option value="writer" th:selected="${pageRequestDTO.type == 'writer'}">작성자</option>
-                <option value="titlewriter" th:selected="${pageRequestDTO.type == 'titlewriter'}">제목 + 작성자</option>
-                <option value="titlewritercontent" th:selected="${pageRequestDTO.type == 'titlewritercontent'}">제목 + 내용 + 작성자</option>
-                <option value="type" th:selected="${pageRequestDTO.type == 'title'}">종류</option>
-            </select>
-        </div>
-        <input class="form-control" id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}">
-        <div class="input-group-append" id="button-addon4">
-            <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
-            <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
-        </div>
-    </div>
-</form>
-<br>
-<br>
-<br>
-<br>
-
-<a href="/list?page=1&type=type&keyword=A">A</a>
-<br>
-<a href="/list?page=1&type=type&keyword=B">B</a>
-
-
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Writer</th>
-        <th scope="col">date</th>
-    </tr>
-    </thead>
-    <tr th:each="dto : ${result.dtoList}" >
-        <th scope="row">
-            <a th:href="@{/read/{id}(id= ${dto.id})} ">
-                [[${dto.id}]]
-            </a>
-        </th>
-        <td>[[${dto.title}]]</td>
-        <td>[[${dto.writer}]]</td>
-        <td>[[${#temporals.format(dto.uploadDate, 'yyyy/MM/dd')}]]</td>
-    </tr>
-</table>
-
-<ul class="pagination h-100 justify-content-center align-items-center">
-
-    <li class="page-item " th:if="${result.prev}">
-        <a class="page-link" th:href="@{/list(page= ${result.start -1},
-                    type=${pageRequestDTO.type} ,
-                    keyword = ${pageRequestDTO.keyword} )}" tabindex="-1">Previous</a>
-    </li>
-
-    <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-        <a class="page-link" th:href="@{/list(page = ${page},
-                    type=${pageRequestDTO.type},
-                    keyword = ${pageRequestDTO.keyword} )}">
-            [[${page}]]
-        </a>
-    </li>
-
-    <li class="page-item" th:if="${result.next}">
-        <a class="page-link" th:href="@{/list(page= ${result.end + 1},
-                    type=${pageRequestDTO.type},
-                    keyword = ${pageRequestDTO.keyword} )}">Next</a>
-    </li>
-
-</ul>
-<button type="button" onclick="location.href='/itemRegister'">글작성</button>
-
-
-<div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">q
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="/home"><img src="/img/logo.png" alt=""></a>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li class="active"><a href="/list">Shop</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="/shop-details.html">Shop Details</a></li>
+                                <li><a href="/shoping-cart.html">Shoping Cart</a></li>
+                                <li><a href="/checkout.html">Check Out</a></li>
+                                <li><a href="/blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/blog.html">Blog</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
-</div>
+</header>
+<!-- Header Section End -->
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="/list?page=1&type=type&keyword=meat">Fresh Meat</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="/list" method="get" id="searchForm">
+                            <select name="type">
+                                    <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
+                                    <option value="writer" th:selected="${pageRequestDTO.type == 'writer'}">writer</option>
+                                    <option value="titlewritercontent" th:selected="${pageRequestDTO.type == 'titlewritercontent'}">content</option>
+                                    <option value="type" th:selected="${pageRequestDTO.type == 'title'}">type</option>
+                            </select>
+                            <input type="hidden" name="page" value="1">
+                            <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
+                            <button class="site-btn btn-search" type="button">Search</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>QA 02-123456</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Merrang Shop</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/home">Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Department</h4>
+                        <ul>
+                            <li><a href="/list?page=1&type=type&keyword=meat">Fresh Meat</a></li>
+                            <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
+                            <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
+                            <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
+                            <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6" th:each="dto : ${result.dtoList}">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <ul class="product__item__pic__hover">
+                                    <li><a th:href="@{/read/{id}(id= ${dto.id})}"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="/myItemList"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6> <a th:href="@{/read/{id}(id= ${dto.id})}"><th:text>[[${dto.title}]]</th:text></a></h6>
+                                <h5><th:text>[[${dto.price}]]</th:text></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product__pagination">
+                    <a th:if="${result.prev}" th:href="@{/list(page= ${result.start -1},
+                            type=${pageRequestDTO.type} ,
+                            keyword = ${pageRequestDTO.keyword} )}" tabindex="-1"><i class="fa fa-long-arrow-left"></i></a>
+                    <a th:class=" ${result.page == page?'active':''} " th:each="page: ${result.pageList}" th:href="@{/list(page = ${page},
+                            type=${pageRequestDTO.type},
+                            keyword = ${pageRequestDTO.keyword} )}">[[${page}]]</a>
+                    <a th:if="${result.next}" th:href="@{/list(page= ${result.end + 1},
+                            type=${pageRequestDTO.type},
+                            keyword = ${pageRequestDTO.keyword} )}"><i class="fa fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+
+<!-- Footer Section Begin -->
+
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+
 <script th:inline="javascript">
 
             var msg = [[${msg}]];
@@ -154,5 +227,8 @@
             } );
 
         </script>
+
+
 </body>
+
 </html>
