@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -10,21 +11,14 @@
 
 <h3>My Page</h3>
 
-<a href="'/home/mypage'+${session.id}">memberid : <p th:text="${member.id}"> </p><br>
+memberid : <p th:text="${member.account}"> </p><br>
 membername : <p th:text="${member.name}"> </p><br>
-memberpw : <p th:text="${member.password}"> </p><br>
 memberemail : <p th:text="${member.email}"> </p><br>
 
-    <button asdf></button>
-    rkqtdms : <p th:#{asdf}>
+<button type="button" onclick="location.href='/memberUpdate'">회원정보 변경</button>
+
 
 </body>
-<script>
-    $.ajax{
-        member.getid : asdf
-    }
-
-</script>
 </html>
 
 </body>

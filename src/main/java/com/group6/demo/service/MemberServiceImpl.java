@@ -59,7 +59,21 @@ public class MemberServiceImpl implements MemberService {
         return member.getId();
     }
 
+    @Transactional
+    @Override
+    public void changeEmailByAccount(String account, String newEmail){
+        Member member = memberRepository.findMemberByAccount(account);
+        member.changeEmail(newEmail);
 
+    }
+
+    @Transactional
+    @Override
+    public void changeNameByAccount(String account, String newName){
+        Member member = memberRepository.findMemberByAccount(account);
+        member.changeName(newName);
+
+    }
 
     @Transactional
     @Override

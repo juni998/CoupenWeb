@@ -1,73 +1,333 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Modify</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-/* 	$(function(){
-		if(##){
-			alert('${##}');
-		};
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<head th:replace="fragments/header :: header"/>
 
-		if($("##").submit(function(){
-			if($("##").val() !== $("##").val()){
-				alert("비밀번호가 다릅니다.");
-				$("##").val("").focus();
-				$("##").val("");
-				return false;
-			}else if($.trim($("#").val()) !== $("#pw").val()){
-				alert("공백은 입력이 불가능합니다.");
-				return false;
-			}
-		}));
-	}) */
-</script>
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
-<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<div class="w3-center w3-large w3-margin-top">
-				<h3>Modify</h3>
-			</div>
-			<div>
-				<form id="#" action="..#" method="post">
-					<p>
-						<label>ID</label> 
-						<input class="w3-input" type="text" id="id" name="id" readonly value="${ member.id }"> 
-					</p>
-					<p>
-						<label>Email</label> 
-						<input class="w3-input" type="text" id="email" name="email" value="${ member.email }" required> 
-					</p>
-					<p class="w3-center">
-						<button type="submit" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">회원정보 변경</button>
-					</p>
-				</form>
-				<br />
-				<form id="pwForm" action="../member/update_pw.do" method="post">	
-					<input type="hidden" name="id" value="${ member.id }">
-					<p>
-						<label>Password</label>
-						<input class="w3-input" id="old_pw" name="old_pw" type="password" required>
-					</p>
-					<p>
-						<label>New Password</label> 
-						<input class="w3-input" id="pw" name="pw" type="password" required>
-					</p>
-					<p>
-						<label>Re New Password</label>
-						<input class="w3-input" type="password" id="pw2" type="password" required>
-					</p>
-					<p class="w3-center">
-						<button type="submit" id="#" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">비밀번호 변경</button>
-					</p>
-				</form>
-			</div>
-		</div>
-	</div>
+
+<div style="display: block;width:700px;margin:0 auto;background:ddd;position:relative;" class="container mt-5">
+
+    <h1>회원정보 변경</h1>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">아이디</th>
+            <td colspan="2" th:text="${member.account}"></td>
+        </tr>
+        <tr id="emailArea">
+            <th scope="row">이메일</th>
+            <td th:text="${member.email}"></td>
+            <td>
+                <button id="emailDisplay" class="btn btn-light">이메일 변경</button>
+            </td>
+        </tr>
+        <tr id="emailForm" style="display: none;">
+            <th scope="row">이메일</th>
+            <td colspan="2">
+                <div class="container mt-5">
+                    <form th:action="@{/memberUpdate/email}" method="post" name="emailChange">
+                        <input type="email" class="form-control" id="newEmail" name="newEmail"
+                               placeholder="이메일 입력" oninput="emailCheck()">
+                        <span id="emailMsg"></span>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" id="emailBtn" onclick="emailBtnCheck()"
+                                    disabled>완료
+                            </button>
+                            <button type="button" class="btn btn-light" id="emailCancelBtn">취소</button>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr id="nameArea">
+            <th scope="row">이름</th>
+            <td th:text="${member.name}">
+            </td>
+            <td>
+                <button id="nameDisplay" class="btn btn-light">이름 변경</button>
+            </td>
+        </tr>
+        <tr id="nameForm" style="display: none;">
+            <th scope="row">이름</th>
+            <td colspan="2">
+                <div class="container mt-5">
+                    <form th:action="@{/memberUpdate/name}" method="post" name="nameChange">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="newName" name="newName" placeholder="이름 입력"
+                                   oninput="nameCheck()">
+                            <span id="nameMsg"></span>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary" id="nameBtn" disabled>완료</button>
+                                <button type="button" class="btn btn-light" id="nameCancelBtn">취소</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">비밀번호 변경</th>
+            <td colspan="2">
+                <form th:action="@{/memberUpdate/password}" method="post" name="pwChange">
+                    <div class="mb-3">
+                        <input type="hidden" name="account" id="account" th:value="${member.account}">
+                        <label th:for="PASSWORD" class="form-label"><b>PASSWORD</b></label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="현재 비밀번호 입력">
+                        <span id="pwMsg"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                               placeholder="새 비밀번호 입력"
+                               oninput="newPwCheck()">
+                        <span id="newPwMsg"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                        <input type="password" class="form-control" id="newPassword2" name="newPassword2"
+                               placeholder="새 비밀번호 입력"
+                               oninput="newPw2Check()">
+                        <span id="newPw2Msg"></span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="infoCheck()" id="btn" disabled>비밀번호 변경
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-light" onclick="location.href='/mypage'">돌아가기</button>
+</div>
+<script>
+passwordPass = false;
+password2Pass = false;
+
+function newPwCheck(){
+    var password = $('#newPassword').val();
+    var getPassword = /^[a-zA-Z0-9]{6,16}$/;
+    var chkNum = password.search(/[0-9]/g);
+    var chkEng = password.search(/[a-z]/ig);
+    if (password == ""){
+        $('#newPwMsg').html("필수 정보입니다.");
+        $("#newPwMsg").css("color", "red");
+         passwordPass = false;
+
+    }
+    else{
+        if (getPassword.test(password)) {
+            if (chkNum < 0 || chkEng < 0){
+                $('#newPwMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+                $("#newPwMsg").css("color", "red");
+                passwordPass = false;
+
+            }else {
+                $('#newPwMsg').html("사용할 수 있는 비밀번호입니다.");
+                $("#newPwMsg").css("color", "green");
+                passwordPass = true;
+
+            }
+        }
+        else {
+            $('#newPwMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+            $("#newPwMsg").css("color", "red");
+            passwordPass = false;
+
+        }
+    }
+    sub();
+}
+function newPw2Check(){
+        var pw1 = $('#newPassword').val();
+        var pw2 = $('#newPassword2').val();
+        if (pw1 != "" || pw2 != ""){
+            if(pw1 == pw2){
+                $('#newPw2Msg').html("비밀번호가 일치합니다.");
+                $("#newPw2Msg").css("color", "green");
+                password2Pass = true;
+
+
+            }else{
+            $('#newPw2Msg').html("비밀번호가 일치하지 않습니다.");
+            $("#newPw2Msg").css("color", "red");
+            password2Pass = false;
+
+            }
+       }
+       sub();
+};
+
+function sub(){
+     if (passwordPass && password2Pass) {
+        btn.disabled = false;
+     }else {
+        btn.disabled = true;
+     }
+}
+
+function infoCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var form = document.pwChange;
+	var account = $('#account').val();
+	var password = $('#password').val();
+	var data = {account : account, password : password}
+
+    $.ajax({
+		type : "post",
+		url : "/pwCheck",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+            if(result){
+
+                form.submit();
+            }else{
+                $('#pwMsg').html("등록된 계정의 비밀번호와 일치하지 않습니다.");
+                $("#pwMsg").css("color", "red");
+            }
+
+        }
+
+
+        });
+}
+
+
+function emailCheck(){
+	var getMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $('#newEmail').val();
+
+    if(getMail.test(email)){
+        $('#emailMsg').html("");
+        emailBtn.disabled = false;
+
+    }else{
+        if(email == ""){
+            $('#emailMsg').html("이메일을 입력해주세요.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }else if(!getMail.test(email)){
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }else{
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }
+    }
+}
+
+function emailBtnCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    var email = $('#newEmail').val();
+    var data = {email : email}
+    var form = document.emailChange;
+    $.ajax({
+		type : "post",
+		url : "/emailDuplicate",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+			 console.log("성공 여부 (true면 중복) 값은 : " + result);
+                if (result){
+                    $('#emailMsg').html("이미 존재하는 이메일 입니다.");
+			        $("#emailMsg").css("color", "red");
+
+
+
+                } else{
+                    if(!result){
+                    form.submit();
+
+
+
+                    }
+
+                }
+                sub();
+            }
+            ,error : function() {
+						console.log("실패");
+				}
+			});
+}
+
+function nameCheck(){
+        var name = $('#newName').val();
+        var getName = /^[가-힣a-zA-Z]+$/;
+        if (name == ""){
+            $('#nameMsg').html("이름을 입력해주세요.");
+            $("#nameMsg").css("color", "red");
+            nameBtn.disabled = true;
+
+        }else{
+        if (getName.test(name)){
+                $('#nameMsg').html("");
+
+                nameBtn.disabled = false;
+        }
+        else{
+            $('#nameMsg').html("올바르지 않은 이름입니다.");
+            $("#nameMsg").css("color", "red");
+            nameBtn.disabled = true;
+            }
+       }
+};
+
+$(function() {
+    $('#emailDisplay').click(function(){
+            $("#emailArea").css("display","none");
+            $("#emailForm").css("display","");
+    });
+});
+$(function() {
+    $('#emailCancelBtn').click(function(){
+            $("#emailArea").css("display","");
+            $("#emailForm").css("display","none");
+    });
+});
+
+$(function() {
+    $('#nameDisplay').click(function(){
+            $("#nameArea").css("display","none");
+            $("#nameForm").css("display","");
+    });
+});
+$(function() {
+    $('#nameCancelBtn').click(function(){
+            $("#nameArea").css("display","");
+            $("#nameForm").css("display","none");
+    });
+});
+
+
+
+
+
+</script>
 </body>
 </html>

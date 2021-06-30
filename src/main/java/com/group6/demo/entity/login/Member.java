@@ -42,4 +42,6 @@ public class Member {
     public void changePassword(String password) {
         this.password = password;
     }
+    public void changeEmail(String email) { this.email = email; }
+    public void changeName(String name) { this.name = name; }
 }
