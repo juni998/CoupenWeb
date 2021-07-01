@@ -48,13 +48,13 @@ public class OrderServiceImpl implements OrderService{
 
         Optional<OrderItem> itemResult = orderItemRepository.findByOrdersIdAndItemId(orderId,itemId);
 
-        if (itemResult.isPresent()){
-            OrderItem orderItem = itemResult.get();
-            orderItem.addCount(count);
-            orderItemRepository.save(orderItem);
-        }else {
+        if (itemResult.isEmpty()){
             OrderItem orderItem = OrderItem.createOrderItem(item,count);
             orderItem.setOrders(orders);
+            orderItemRepository.save(orderItem);
+        }else {
+            OrderItem orderItem = itemResult.get();
+            orderItem.addCount(count);
             orderItemRepository.save(orderItem);
         }
     }

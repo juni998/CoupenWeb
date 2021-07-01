@@ -1,13 +1,11 @@
 package com.group6.demo.controller;
 
 import com.group6.demo.entity.login.Member;
-import com.group6.demo.entity.order.CompleteOrder;
-import com.group6.demo.entity.order.OrderDTO;
-import com.group6.demo.entity.order.OrderItem;
-import com.group6.demo.entity.order.Orders;
+import com.group6.demo.entity.order.*;
 import com.group6.demo.repository.CompleteRepository;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.repository.OrderRepository;
+import com.group6.demo.service.ItemService;
 import com.group6.demo.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +33,8 @@ public class OrderController {
     private final OrderRepository orderRepository;
     @Autowired
     private final CompleteRepository completeRepository;
+    @Autowired
+    private final ItemService itemService;
 
 
     //상품을 담으려면 무조건 order가있어야함
@@ -130,6 +130,37 @@ public class OrderController {
         }
         return "/orderList";
     }
+//    @PostMapping("/myOrderList")
+//    public String myOrderListPost(Principal principal, Model model){
+//        Member result = memberRepository.findMemberByAccount(principal.getName());
+//        List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
+//        model.addAttribute("completeOrderList", completeOrderList);
+//
+//        for (CompleteOrder completeOrder : completeOrderList) {
+//            System.out.println("completeOrder = " + completeOrder.getStatus());
+//        }
+//        return "/orderList";
+//    }
+
+    @PostMapping("/addOrder")
+    public String getItemOrder(OrderItemDTO orderItemDTO, Principal principal){
+        try{
+            Member member = memberRepository.findMemberByAccount(principal.getName());
+            Optional<Orders> result = orderRepository.findByMemberId(member.getId());
+            Orders orders = result.get();
+            System.out.println("orderItemDTO = " + orderItemDTO.getCount());
+            System.out.println("orderItemDTO = " + orderItemDTO.getId());
+            orderService.makeOrderItem(orderItemDTO.getId(), member.getId(), orders.getId(), orderItemDTO.getCount());
+
+            return "redirect:/myItemList";
+        }catch (NoSuchElementException e){
+            return "redirect:/login";
+        }catch (NullPointerException e){
+            return "redirect:/login";
+        }
+    }
+    
+
 
 
 }

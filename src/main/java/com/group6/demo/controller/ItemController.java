@@ -2,6 +2,7 @@ package com.group6.demo.controller;
 
 import com.group6.demo.entity.item.ItemDTO;
 import com.group6.demo.entity.item.PageRequestDTO;
+import com.group6.demo.entity.order.OrderItemDTO;
 import com.group6.demo.service.ItemService;
 import com.group6.demo.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -29,14 +30,23 @@ public class ItemController {
     }
 
     @GetMapping("read/{id}")
-    public String getItem(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
+    public String getItemGet(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
         ItemDTO itemDTO = itemService.getItemById(id);
         model.addAttribute("result", itemService.getList(pageRequestDTO));
         model.addAttribute("dto",itemDTO);
+        model.addAttribute("orderItemDTO", new OrderItemDTO());
 
         return "read";
     }
-    
+    @PostMapping("read/{id}")
+    public String getItemPost(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
+        ItemDTO itemDTO = itemService.getItemById(id);
+        model.addAttribute("result", itemService.getList(pageRequestDTO));
+        model.addAttribute("dto",itemDTO);
+        model.addAttribute("orderItemDTO", new OrderItemDTO());
+        return "read";
+    }
+
     // 아이템 작성 GET
     @GetMapping("itemRegister")
     public String registerForm(Model model){
@@ -55,7 +65,7 @@ public class ItemController {
         Long result = itemService.register(itemDTO);
 
 
-    	return "redirect:/read/" + result;
+    	return "/list";
     }
     
     // 아이템 수정 GET
@@ -74,17 +84,17 @@ public class ItemController {
     	log.info("itemDTO : " + itemDTO);
     	
     	itemService.modifyItem(itemDTO);
-    	
-    	
-    	return "redirect:/read/" + id;
+
+
+        return "redirect:/list";
     }
     
     // 아이템 삭제
     @GetMapping("itemRemove/{id}")
     public String remove(@PathVariable("id") Long id) {
     	itemService.removeItem(id);
-    	
-    	return "redirect:/list";
+
+        return "redirect:/list";
     }
     
     

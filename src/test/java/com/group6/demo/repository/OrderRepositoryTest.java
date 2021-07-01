@@ -28,12 +28,18 @@ class OrderRepositoryTest {
 
     @Test
     public void orderItem() throws Exception {
-        Optional<OrderItem> orderItem = orderItemRepository.findByOrdersIdAndItemId(1L,7L);
+        Optional<OrderItem> orderItem = orderItemRepository.findByOrdersIdAndItemId(1L,39L);
 
         if (orderItem.isPresent()){
             System.out.println(" 실행했음" );
+            OrderItem orderItem1 = orderItem.get();
+            System.out.println("orderItem1.getItemName() = " + orderItem1.getItemName());
+            System.out.println("orderItem1.getItem().getId() = " + orderItem1.getItem().getId());
         }else {
             System.out.println("안했음");
+
+            System.out.println("orderItem.isEmpty() = " + orderItem.isEmpty());
+            System.out.println("orderItem.get() = " + orderItem.get());
         }
         
     }

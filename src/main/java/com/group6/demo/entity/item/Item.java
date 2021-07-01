@@ -2,6 +2,7 @@ package com.group6.demo.entity.item;
 
 import com.group6.demo.exception.NotEnoughStockException;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,6 +28,7 @@ public class Item  {
     private int price;
     private int stock;
 
+    @Lob @Type(type = "org.hibernate.type.TextType")
     private String content;
     private String writer;
     private String thumbImg;
