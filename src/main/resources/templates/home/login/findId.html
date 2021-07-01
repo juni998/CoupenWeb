@@ -25,6 +25,14 @@
         </a>
     </div>
     <hr>
+    <div>
+        <h2>아이디 찾기</h2><br>
+
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" onclick="location.href='/idRefefer'" style="width:185px">아이디 찾기</button><button type="button" class="btn btn-light" onclick="location.href='/pwRefefer'" style="width:185px">비밀번호 찾기</button>
+
+    </div>
 <form th:action="@{/idRefefer}" method="post" name="idRefefer">
     <div class="mb-3" style="width:370px">
         <label th:for="email" class="form-label"><b>EMAIL</b></label>
