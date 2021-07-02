@@ -52,7 +52,7 @@ public class ItemController {
     public String registerForm(Model model){
     	model.addAttribute("itemDTO", new ItemDTO());
 
-    	return "itemRegister";
+    	return "/itemRegister";
     }
     
     // 아이템 작성 POST
@@ -65,7 +65,7 @@ public class ItemController {
         Long result = itemService.register(itemDTO);
 
 
-    	return "/list";
+    	return "redirect:/list";
     }
     
     // 아이템 수정 GET
