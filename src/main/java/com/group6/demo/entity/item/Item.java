@@ -49,6 +49,7 @@ public class Item  {
     public void changeContent(String content) {
         this.content = content;
     }
+    public void changeThumbImg(String thumbImg) { this.thumbImg = thumbImg; }
     public void addStock(int quantity){
         this.stock += quantity;
     }

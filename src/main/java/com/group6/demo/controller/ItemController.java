@@ -80,8 +80,9 @@ public class ItemController {
     
     // 아이템 수정 POST
     @PostMapping("itemModify/{id}")
-    public String modify(@PathVariable("id") Long id, ItemDTO itemDTO) {
-    	log.info("itemDTO : " + itemDTO);
+    public String modify(@PathVariable("id") Long id, ItemDTO itemDTO, MultipartFile file) throws  IOException{
+        String imgPath = s3Service.upload(file);
+        itemDTO.setThumbImg(imgPath);
     	
     	itemService.modifyItem(itemDTO);
 

@@ -70,7 +70,7 @@
 <div style="display: block;width:700px;margin:0 auto;background:ddd;position:relative;" class="container mt-5">
 <h3>상품 수정</h3>
     <hr>
-<form role="form" th:action="@{'/itemModify/' + ${id}}" method="post">
+<form role="form" th:action="@{'/itemModify/' + ${id}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="writer" th:value="${dto.writer}"/>
     <input type="hidden" name="thumbImg" th:value="${dto.thumbImg}"/>
     <input type="hidden" name="id" th:value="${dto.id}"/>
@@ -89,13 +89,16 @@
 
 
     <label>thumbImg</label><br>
-    <input type="file" id="file" name="file"  accept=".gif, .jpg, .png" onchange="setThumbnail(event);"/>
+    <input style="display: block;" type="file" name="file" id="file">
+    <div class="image-container"  id="image-container" style="display: none">
+        <img id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
 
+    </div>
 
     <div id="image">
         <img th:src="${dto.thumbImg}"/>
     </div>
-    <div id="image_container" style="display: none;"></div>
+
 
 
     <div align="center">
@@ -111,19 +114,28 @@ tinymce.init({
     menubar: false
   });
 
-function setThumbnail(event) {
- var reader = new FileReader();
-  reader.onload = function(event) {
-   var img = document.createElement("img");
-   img.setAttribute("src", event.target.result);
-    document.querySelector("div#image_container").appendChild(img);
-    $("#image_container").css("display", "");
-    $("#image").css("display","none");
-     };
-      reader.readAsDataURL(event.target.files[0]);
-       }
-
-
+function readImage(input) {
+    // 인풋 태그에 파일이 있는 경우
+    if(input.files && input.files[0]) {
+        // 이미지 파일인지 검사 (생략)
+        // FileReader 인스턴스 생성
+        const reader = new FileReader()
+        // 이미지가 로드가 된 경우
+        reader.onload = e => {
+            const previewImage = document.getElementById("preview-image")
+            previewImage.src = e.target.result
+            $("#image-container").css("display","");
+            $("#image").css("display","none");
+        }
+        // reader가 이미지 읽도록 하기
+        reader.readAsDataURL(input.files[0])
+    }
+}
+// input file에 change 이벤트 부여
+const inputImage = document.getElementById("file")
+inputImage.addEventListener("change", e => {
+    readImage(e.target)
+})
 
  </script>
 
