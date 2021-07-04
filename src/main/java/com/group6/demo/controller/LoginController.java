@@ -43,7 +43,7 @@ public class LoginController {
 
 		log.info("member : " + member);
 
-		return "/home/login/find_id_change";
+		return "/home/login/findIdResult";
 	}
 
 	// 비밀번호 찾기 GET
