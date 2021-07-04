@@ -94,9 +94,7 @@
                     <div class="hero__search__form">
                         <div class="hero__search__form">
                             <form action="/list" method="get" id="searchForm">
-                                <select name="type">
-                                    <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
-                                </select>
+                                <input type="hidden" name="type" value="title">
                                 <input type="hidden" name="page" value="1">
                                 <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
                                 <button class="site-btn btn-search" type="submit">Search</button>

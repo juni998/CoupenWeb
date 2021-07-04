@@ -85,8 +85,6 @@ public class ItemController {
         itemDTO.setThumbImg(imgPath);
     	
     	itemService.modifyItem(itemDTO);
-
-
         return "redirect:/list";
     }
     

@@ -119,104 +119,104 @@
 
 
 <section>
-<div class="container">
+    <div class="container">
 
-    <h3>회원정보</h3>
-    <br>
-    <table class="table">
-        <tbody>
-        <tr>
-            <th scope="row">아이디</th>
-            <td colspan="2" th:text="${member.account}"></td>
-        </tr>
-        <tr id="emailArea">
-            <th scope="row">이메일</th>
-            <td th:text="${member.email}"></td>
-            <td>
-                <button id="emailDisplay" class="btn btn-light">이메일 변경</button>
-            </td>
-        </tr>
-        <tr id="emailForm" style="display: none;">
-            <th scope="row">이메일</th>
-            <td colspan="2">
-                <div class="container mt-5">
-                    <form th:action="@{/memberUpdate/email}" method="post" name="emailChange">
-                        <input type="email" class="form-control" id="newEmail" name="newEmail"
-                               placeholder="이메일 입력" oninput="emailCheck()">
-                        <span id="emailMsg"></span>
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary" id="emailBtn" onclick="emailBtnCheck()"
-                                    disabled>완료
-                            </button>
-                            <button type="button" class="btn btn-light" id="emailCancelBtn">취소</button>
-                        </div>
-                    </form>
-                </div>
-            </td>
-        </tr>
-        <tr id="nameArea">
-            <th scope="row">이름</th>
-            <td th:text="${member.name}">
-            </td>
-            <td>
-                <button id="nameDisplay" class="btn btn-light">이름 변경</button>
-            </td>
-        </tr>
-        <tr id="nameForm" style="display: none;">
-            <th scope="row">이름</th>
-            <td colspan="2">
-                <div class="container mt-5">
-                    <form th:action="@{/memberUpdate/name}" method="post" name="nameChange">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="newName" name="newName" placeholder="이름 입력"
-                                   oninput="nameCheck()">
-                            <span id="nameMsg"></span>
+        <h3>회원정보</h3>
+        <br>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th scope="row">아이디</th>
+                <td colspan="2" th:text="${member.account}"></td>
+            </tr>
+            <tr id="emailArea">
+                <th scope="row">이메일</th>
+                <td th:text="${member.email}"></td>
+                <td>
+                    <button id="emailDisplay" class="btn btn-light">이메일 변경</button>
+                </td>
+            </tr>
+            <tr id="emailForm" style="display: none;">
+                <th scope="row">이메일</th>
+                <td colspan="2">
+                    <div class="container mt-5">
+                        <form th:action="@{/memberUpdate/email}" method="post" name="emailChange">
+                            <input type="email" class="form-control" id="newEmail" name="newEmail"
+                                   placeholder="이메일 입력" oninput="emailCheck()">
+                            <span id="emailMsg"></span>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-primary" id="nameBtn" disabled>완료</button>
-                                <button type="button" class="btn btn-light" id="nameCancelBtn">취소</button>
+                                <button type="button" class="btn btn-primary" id="emailBtn" onclick="emailBtnCheck()"
+                                        disabled>완료
+                                </button>
+                                <button type="button" class="btn btn-light" id="emailCancelBtn">취소</button>
                             </div>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr id="nameArea">
+                <th scope="row">이름</th>
+                <td th:text="${member.name}">
+                </td>
+                <td>
+                    <button id="nameDisplay" class="btn btn-light">이름 변경</button>
+                </td>
+            </tr>
+            <tr id="nameForm" style="display: none;">
+                <th scope="row">이름</th>
+                <td colspan="2">
+                    <div class="container mt-5">
+                        <form th:action="@{/memberUpdate/name}" method="post" name="nameChange">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="newName" name="newName" placeholder="이름 입력"
+                                       oninput="nameCheck()">
+                                <span id="nameMsg"></span>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary" id="nameBtn" disabled>완료</button>
+                                    <button type="button" class="btn btn-light" id="nameCancelBtn">취소</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비밀번호 변경</th>
+                <td colspan="2">
+                    <form th:action="@{/memberUpdate/password}" method="post" name="pwChange">
+                        <div class="mb-3">
+                            <input type="hidden" name="account" id="account" th:value="${member.account}">
+                            <label th:for="PASSWORD" class="form-label"><b>PASSWORD</b></label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="현재 비밀번호 입력">
+                            <span id="pwMsg"></span>
                         </div>
+                        <div class="mb-3">
+                            <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                   placeholder="새 비밀번호 입력"
+                                   oninput="newPwCheck()">
+                            <span id="newPwMsg"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                            <input type="password" class="form-control" id="newPassword2" name="newPassword2"
+                                   placeholder="새 비밀번호 입력"
+                                   oninput="newPw2Check()">
+                            <span id="newPw2Msg"></span>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="infoCheck()" id="btn" disabled>비밀번호 변경
+                        </button>
                     </form>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">비밀번호 변경</th>
-            <td colspan="2">
-                <form th:action="@{/memberUpdate/password}" method="post" name="pwChange">
-                    <div class="mb-3">
-                        <input type="hidden" name="account" id="account" th:value="${member.account}">
-                        <label th:for="PASSWORD" class="form-label"><b>PASSWORD</b></label>
-                        <input type="password" class="form-control" id="password" name="password"
-                               placeholder="현재 비밀번호 입력">
-                        <span id="pwMsg"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword"
-                               placeholder="새 비밀번호 입력"
-                               oninput="newPwCheck()">
-                        <span id="newPwMsg"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
-                        <input type="password" class="form-control" id="newPassword2" name="newPassword2"
-                               placeholder="새 비밀번호 입력"
-                               oninput="newPw2Check()">
-                        <span id="newPw2Msg"></span>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="infoCheck()" id="btn" disabled>비밀번호 변경
-                    </button>
-                </form>
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-    <button type="button" class="btn btn-light" onclick="location.href='/mypage'">돌아가기</button>
-    <br><br><br><br>
-</div>
+        <button type="button" class="btn btn-light" onclick="location.href='/mypage'">돌아가기</button>
+        <br><br><br><br>
+    </div>
 </section>
 <!-- Footer Section Begin -->
 <footer class="footer spad">
