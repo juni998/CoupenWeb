@@ -75,6 +75,15 @@
         <input type="hidden" name="thumbImg" th:value="${dto.thumbImg}"/>
         <input type="hidden" name="id" th:value="${dto.id}"/>
 
+        <label>Type</label>
+        <select class="form-control" id="type" name="type">
+            <option value='meat'>meat</option>
+            <option value='milk'>milk&butter</option>
+            <option value='grain'>Grain</option>
+            <option value='meat'>Vegetable</option>
+            <option value='fruit'>Fruit</option>
+        </select><br>
+
         <label >title</label>
         <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}" required/><br>
 
@@ -97,14 +106,7 @@
         </div>
         <div id="image_container" style="display: none;"></div>
 
-        <label>Type</label>
-        <select class="form-control" id="type" name="type">
-            <option value='meat'>meat</option>
-            <option value='milk'>milk&butter</option>
-            <option value='grain'>Grain</option>
-            <option value='meat'>Vegetable</option>
-            <option value='fruit'>Fruit</option>
-        </select>
+
 
         <div align="center">
             <button type="submit" class="btn btn-primary">수정</button>

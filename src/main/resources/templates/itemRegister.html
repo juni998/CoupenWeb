@@ -72,6 +72,14 @@
 
 	<hr>
 	<form th:action="@{/itemRegister}"  method="post" enctype="multipart/form-data">
+		<label>Type</label>
+		<select class="form-control" id="type" name="type">
+			<option value='meat'>meat</option>
+			<option value='milk'>milk&butter</option>
+			<option value='grain'>Grain</option>
+			<option value='meat'>Vegetable</option>
+			<option value='fruit'>Fruit</option>
+		</select><br>
 		<label>title</label><br>
 		<input type="text" class="form-control" id="title" name="title" required ><br>
 		<label>writer</label><br>
@@ -90,14 +98,7 @@
 
 		<div id="image_container"></div>
 
-		<label>Type</label>
-		<select class="form-control" id="type" name="type">
-			<option value='meat'>meat</option>
-			<option value='milk'>milk&butter</option>
-			<option value='grain'>Grain</option>
-			<option value='meat'>Vegetable</option>
-			<option value='fruit'>Fruit</option>
-		</select>
+
 		<div align="center">
 			<button type="submit" class="btn btn-primary">insert</button>
 		</div>
