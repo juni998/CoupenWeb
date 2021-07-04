@@ -1,5 +1,6 @@
 package com.group6.demo.controller;
 
+import com.group6.demo.entity.item.PageRequestDTO;
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.repository.MemberRepository;
 import com.group6.demo.security.SignUpFormValidator;
@@ -31,12 +32,12 @@ public class MemberController {
 
 	// 마이페이지 회원정보
 	@GetMapping("/mypage")
-	public String mypage(Principal principal, Model model) {
+	public String mypage(Principal principal, Model model, PageRequestDTO pageRequestDTO) {
 		try {
 			Member member = memberRepository.findMemberByAccount(principal.getName());
 			log.info("memeber : " + member);
 			model.addAttribute("member", member);
-			return "/home/login/MyPage";
+			return "/home/login/mypage";
 		} catch (NullPointerException e){
 			return "redirect:/login";
 		}

@@ -1,25 +1,469 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/Home Images/favicon.png" type="image/png">
+    <title>Merrang</title>
 </head>
+
 <body>
+<!-- Page Preloder -->
+<header class="header">
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="/home"><img src="/img/Home Images/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/mypage">MyPage</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/order">MyOrder</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
+                            <form name="myForm" th:action="@{/logout}" method="post"></form>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a href="/itemRegister">Sign Item</a>
+                        </li>
+                        <li>
+                            <a href="/info">info</a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/login">LogIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
 
-<h3>My Page</h3>
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="/list?page=1&type=type&keyword=meat">Fresh Meat</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="/list" method="get" id="searchForm">
+                            <select name="type">
+                                <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
+                            </select>
+                            <input type="hidden" name="page" value="1">
+                            <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
+                            <button class="site-btn btn-search" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>QA 02-123456</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-memberid : <p th:text="${member.account}"> </p><br>
-membername : <p th:text="${member.name}"> </p><br>
-memberemail : <p th:text="${member.email}"> </p><br>
 
-<button type="button" onclick="location.href='/memberUpdate'">회원정보 변경</button>
+<section>
+<div class="container">
+
+    <h3>회원정보</h3>
+    <br>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">아이디</th>
+            <td colspan="2" th:text="${member.account}"></td>
+        </tr>
+        <tr id="emailArea">
+            <th scope="row">이메일</th>
+            <td th:text="${member.email}"></td>
+            <td>
+                <button id="emailDisplay" class="btn btn-light">이메일 변경</button>
+            </td>
+        </tr>
+        <tr id="emailForm" style="display: none;">
+            <th scope="row">이메일</th>
+            <td colspan="2">
+                <div class="container mt-5">
+                    <form th:action="@{/memberUpdate/email}" method="post" name="emailChange">
+                        <input type="email" class="form-control" id="newEmail" name="newEmail"
+                               placeholder="이메일 입력" oninput="emailCheck()">
+                        <span id="emailMsg"></span>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" id="emailBtn" onclick="emailBtnCheck()"
+                                    disabled>완료
+                            </button>
+                            <button type="button" class="btn btn-light" id="emailCancelBtn">취소</button>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr id="nameArea">
+            <th scope="row">이름</th>
+            <td th:text="${member.name}">
+            </td>
+            <td>
+                <button id="nameDisplay" class="btn btn-light">이름 변경</button>
+            </td>
+        </tr>
+        <tr id="nameForm" style="display: none;">
+            <th scope="row">이름</th>
+            <td colspan="2">
+                <div class="container mt-5">
+                    <form th:action="@{/memberUpdate/name}" method="post" name="nameChange">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="newName" name="newName" placeholder="이름 입력"
+                                   oninput="nameCheck()">
+                            <span id="nameMsg"></span>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary" id="nameBtn" disabled>완료</button>
+                                <button type="button" class="btn btn-light" id="nameCancelBtn">취소</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">비밀번호 변경</th>
+            <td colspan="2">
+                <form th:action="@{/memberUpdate/password}" method="post" name="pwChange">
+                    <div class="mb-3">
+                        <input type="hidden" name="account" id="account" th:value="${member.account}">
+                        <label th:for="PASSWORD" class="form-label"><b>PASSWORD</b></label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="현재 비밀번호 입력">
+                        <span id="pwMsg"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                               placeholder="새 비밀번호 입력"
+                               oninput="newPwCheck()">
+                        <span id="newPwMsg"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label th:for="PASSWORD" class="form-label"><b>NEW PASSWORD</b></label>
+                        <input type="password" class="form-control" id="newPassword2" name="newPassword2"
+                               placeholder="새 비밀번호 입력"
+                               oninput="newPw2Check()">
+                        <span id="newPw2Msg"></span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="infoCheck()" id="btn" disabled>비밀번호 변경
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-light" onclick="location.href='/mypage'">돌아가기</button>
+    <br><br><br><br>
+</div>
+</section>
+<!-- Footer Section Begin -->
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a href="/home"><img src="/img/Home Images/logo.png" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Address: 60-49 Road 11378 New York</li>
+                        <li>Phone: +65 11.188.888</li>
+                        <li>Email: hello@colorlib.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="footer__widget">
+                    <h6>Join Our Newsletter Now</h6>
+                    <p>Get E-mail updates about our latest shop and special offers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+passwordPass = false;
+password2Pass = false;
+
+function newPwCheck(){
+    var password = $('#newPassword').val();
+    var getPassword = /^[a-zA-Z0-9]{6,16}$/;
+    var chkNum = password.search(/[0-9]/g);
+    var chkEng = password.search(/[a-z]/ig);
+    if (password == ""){
+        $('#newPwMsg').html("필수 정보입니다.");
+        $("#newPwMsg").css("color", "red");
+         passwordPass = false;
+
+    }
+    else{
+        if (getPassword.test(password)) {
+            if (chkNum < 0 || chkEng < 0){
+                $('#newPwMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+                $("#newPwMsg").css("color", "red");
+                passwordPass = false;
+
+            }else {
+                $('#newPwMsg').html("사용할 수 있는 비밀번호입니다.");
+                $("#newPwMsg").css("color", "green");
+                passwordPass = true;
+
+            }
+        }
+        else {
+            $('#newPwMsg').html("숫자와 문자 포함 6~16자리 이내로 입력해주세요.");
+            $("#newPwMsg").css("color", "red");
+            passwordPass = false;
+
+        }
+    }
+    sub();
+}
+function newPw2Check(){
+        var pw1 = $('#newPassword').val();
+        var pw2 = $('#newPassword2').val();
+        if (pw1 != "" || pw2 != ""){
+            if(pw1 == pw2){
+                $('#newPw2Msg').html("비밀번호가 일치합니다.");
+                $("#newPw2Msg").css("color", "green");
+                password2Pass = true;
 
 
-</body>
-</html>
+            }else{
+            $('#newPw2Msg').html("비밀번호가 일치하지 않습니다.");
+            $("#newPw2Msg").css("color", "red");
+            password2Pass = false;
 
+            }
+       }
+       sub();
+};
+
+function sub(){
+     if (passwordPass && password2Pass) {
+        btn.disabled = false;
+     }else {
+        btn.disabled = true;
+     }
+}
+
+function infoCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var form = document.pwChange;
+	var account = $('#account').val();
+	var password = $('#password').val();
+	var data = {account : account, password : password}
+
+    $.ajax({
+		type : "post",
+		url : "/pwCheck",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+            if(result){
+
+                form.submit();
+            }else{
+                $('#pwMsg').html("등록된 계정의 비밀번호와 일치하지 않습니다.");
+                $("#pwMsg").css("color", "red");
+            }
+
+        }
+
+
+        });
+}
+
+
+function emailCheck(){
+	var getMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $('#newEmail').val();
+
+    if(getMail.test(email)){
+        $('#emailMsg').html("");
+        emailBtn.disabled = false;
+
+    }else{
+        if(email == ""){
+            $('#emailMsg').html("이메일을 입력해주세요.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }else if(!getMail.test(email)){
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }else{
+            $('#emailMsg').html("잘못된 이메일 입력입니다.");
+            $("#emailMsg").css("color", "red");
+            emailBtn.disabled = true;
+        }
+    }
+}
+
+function emailBtnCheck(){
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    var email = $('#newEmail').val();
+    var data = {email : email}
+    var form = document.emailChange;
+    $.ajax({
+		type : "post",
+		url : "/emailDuplicate",
+		data : data,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+        },
+        success : function(result){
+			 console.log("성공 여부 (true면 중복) 값은 : " + result);
+                if (result){
+                    $('#emailMsg').html("이미 존재하는 이메일 입니다.");
+			        $("#emailMsg").css("color", "red");
+
+
+
+                } else{
+                    if(!result){
+                    form.submit();
+
+
+
+                    }
+
+                }
+                sub();
+            }
+            ,error : function() {
+						console.log("실패");
+				}
+			});
+}
+
+function nameCheck(){
+        var name = $('#newName').val();
+        var getName = /^[가-힣a-zA-Z]+$/;
+        if (name == ""){
+            $('#nameMsg').html("이름을 입력해주세요.");
+            $("#nameMsg").css("color", "red");
+            nameBtn.disabled = true;
+
+        }else{
+        if (getName.test(name)){
+                $('#nameMsg').html("");
+
+                nameBtn.disabled = false;
+        }
+        else{
+            $('#nameMsg').html("올바르지 않은 이름입니다.");
+            $("#nameMsg").css("color", "red");
+            nameBtn.disabled = true;
+            }
+       }
+};
+
+$(function() {
+    $('#emailDisplay').click(function(){
+            $("#emailArea").css("display","none");
+            $("#emailForm").css("display","");
+    });
+});
+$(function() {
+    $('#emailCancelBtn').click(function(){
+            $("#emailArea").css("display","");
+            $("#emailForm").css("display","none");
+    });
+});
+
+$(function() {
+    $('#nameDisplay').click(function(){
+            $("#nameArea").css("display","none");
+            $("#nameForm").css("display","");
+    });
+});
+$(function() {
+    $('#nameCancelBtn').click(function(){
+            $("#nameArea").css("display","");
+            $("#nameForm").css("display","none");
+    });
+});
+
+
+
+
+
+</script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

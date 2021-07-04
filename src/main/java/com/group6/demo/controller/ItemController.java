@@ -52,7 +52,7 @@ public class ItemController {
     public String registerForm(Model model){
     	model.addAttribute("itemDTO", new ItemDTO());
 
-    	return "itemRegister";
+    	return "/itemRegister";
     }
     
     // 아이템 작성 POST
@@ -65,7 +65,7 @@ public class ItemController {
         Long result = itemService.register(itemDTO);
 
 
-    	return "/list";
+    	return "redirect:/list";
     }
     
     // 아이템 수정 GET
@@ -80,8 +80,9 @@ public class ItemController {
     
     // 아이템 수정 POST
     @PostMapping("itemModify/{id}")
-    public String modify(@PathVariable("id") Long id, ItemDTO itemDTO) {
-    	log.info("itemDTO : " + itemDTO);
+    public String modify(@PathVariable("id") Long id, ItemDTO itemDTO, MultipartFile file) throws  IOException{
+        String imgPath = s3Service.upload(file);
+        itemDTO.setThumbImg(imgPath);
     	
     	itemService.modifyItem(itemDTO);
 

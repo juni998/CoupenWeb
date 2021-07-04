@@ -97,7 +97,7 @@ public class ItemServiceImpl implements ItemService{
         Item result = itemRepository.getById(itemDTO.getId());
         result.changeTitle(itemDTO.getTitle());
         result.changeContent(itemDTO.getContent());
-
+        result.setThumbImg(itemDTO.getThumbImg());
         itemRepository.save(result);
     }
 

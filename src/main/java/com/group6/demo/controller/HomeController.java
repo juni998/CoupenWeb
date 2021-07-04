@@ -58,9 +58,10 @@ public class HomeController {
 
 	
 	// 문의하기
-	@GetMapping("question")
-	public String question() {
-		return "/home/question";
+	@GetMapping("info")
+	public String question(PageRequestDTO pageRequestDTO ) {
+
+		return "/home/information";
 	}
 
 
