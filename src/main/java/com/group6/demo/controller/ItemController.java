@@ -50,11 +50,11 @@ public class ItemController {
     // 아이템 작성 GET
     @GetMapping("itemRegister")
     public String registerForm(Model model){
-    	model.addAttribute("itemDTO", new ItemDTO());
+        model.addAttribute("itemDTO", new ItemDTO());
 
-    	return "/itemRegister";
+        return "/itemRegister";
     }
-    
+
     // 아이템 작성 POST
     @PostMapping("itemRegister")
     public String register(ItemDTO itemDTO, MultipartFile file) throws IOException{
@@ -65,39 +65,39 @@ public class ItemController {
         Long result = itemService.register(itemDTO);
 
 
-    	return "redirect:/list";
+        return "redirect:/list";
     }
-    
+
     // 아이템 수정 GET
     @GetMapping("itemModify/{id}")
     public String modifyForm(@PathVariable("id") Long id, Model model) {
-    	ItemDTO itemDTO = itemService.getItemById(id);
-    	
-    	model.addAttribute("dto",itemDTO);
-    	
-    	return "itemModify";
+        ItemDTO itemDTO = itemService.getItemById(id);
+
+        model.addAttribute("dto",itemDTO);
+
+        return "itemModify";
     }
-    
+
     // 아이템 수정 POST
     @PostMapping("itemModify/{id}")
     public String modify(@PathVariable("id") Long id, ItemDTO itemDTO, MultipartFile file) throws  IOException{
         String imgPath = s3Service.upload(file);
         itemDTO.setThumbImg(imgPath);
-    	
-    	itemService.modifyItem(itemDTO);
+
+        itemService.modifyItem(itemDTO);
         return "redirect:/list";
     }
-    
+
     // 아이템 삭제
     @GetMapping("itemRemove/{id}")
     public String remove(@PathVariable("id") Long id) {
-    	itemService.removeItem(id);
+        itemService.removeItem(id);
 
         return "redirect:/list";
     }
-    
-    
-    
-    
+
+
+
+
 
 }
