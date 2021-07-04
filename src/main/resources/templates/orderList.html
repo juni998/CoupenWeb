@@ -1,21 +1,215 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-주문내역
-<tbody>
-<tr th:each="completeOrderList : ${completeOrderList}">
-    <td th:text="${completeOrderList.id}"></td>
-    <td th:text="${completeOrderList.name}"></td>
-    <td th:text="${completeOrderList.totalPrice}"></td>
-    <td th:text="${completeOrderList.address?.city}"></td>
-    <td th:text="${completeOrderList.address?.street}"></td>
-    <td th:text="${completeOrderList.orderStatus}"></td>
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-</tr>
-</tbody>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/Home Images/favicon.png" type="image/png">
+    <title>Merrang</title>
+</head>
+
+<body>
+<!-- Page Preloder -->
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="/home"><img src="/img/Home Images/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/mypage">MyPage</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/order">MyOrder</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
+                            <form name="myForm" th:action="@{/logout}" method="post"></form>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a href="/itemRegister">Sign Item</a>
+                        </li>
+                        <li>
+                            <a href="/list">Shop</a>
+                        </li>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/login">LogIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="/list?page=1&type=type&keyword=meat">Fresh Meat</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <div class="hero__search__form">
+                            <form action="/list" method="get" id="searchForm">
+                                <input type="hidden" name="type" value="title">
+                                <input type="hidden" name="page" value="1">
+                                <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}">
+                                <button class="site-btn btn-search" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>QA 02-123456</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                            <th>Status</th>
+                            <th></th>
+                            <th>Total</th>
+                            <th></th>
+                            <th>Address</th>
+                            <th></th>
+                            <th>OrderDate</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="completeOrderList : ${completeOrderList}">
+                            <td class="shoping__cart__price">
+                                <th:text>[[${completeOrderList.name}]]</th:text><br>
+                            </td>
+                            <td class="shoping__cart__price">
+                                &nbsp; &nbsp; &nbsp;
+                            </td>
+
+                            <td class="shoping__cart__price">
+                                <th:text>[[${completeOrderList.status}]]</th:text>
+                            </td>
+                            <td class="shoping__cart__price">
+                                &nbsp; &nbsp; &nbsp;
+                            </td>
+
+
+                            <td class="shoping__cart__price">
+                                <th:text>$[[${completeOrderList.totalPrice}]]</th:text>
+                            </td>
+                            <td class="shoping__cart__price">
+                                &nbsp; &nbsp; &nbsp;
+                            </td>
+
+                            <td class="shoping__cart__price">
+                                <th:text>[[${completeOrderList.address?.city}]] <br>
+                                    [[${completeOrderList.address?.street}]]
+                                </th:text>
+                            </td>
+
+                            <td class="shoping__cart__price">
+                                &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="shoping__cart__price">
+                                <th:text>[[${#temporals.format(completeOrderList.orderDate, 'yyyy/MM/dd')}]]</th:text>
+                            </td>
+                            <td class="shoping__cart__price">
+                                &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td>
+                                <a th:href="@{/completeStatus/{id}(id= ${completeOrderList.id})}"><h6>구매확정</h6></a>
+                                <a th:href="@{/removeStatus/{id}(id= ${completeOrderList.id})}"><h6>주문취소</h6></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="/list" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                    <a href="/myOrderList" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        Upadate Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+
+
 </body>
+
 </html>
+

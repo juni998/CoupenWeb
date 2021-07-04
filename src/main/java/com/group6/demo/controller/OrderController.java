@@ -75,7 +75,6 @@ public class OrderController {
     @GetMapping("/myOrder")
     public String myOrderPage(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal, Model model, PageRequestDTO pageRequestDTO){
         try{
-            model.addAttribute("result", itemService.getList(pageRequestDTO));
             Member result = memberRepository.findMemberByAccount(principal.getName());
             log.info("MyOrder : "+ principal.getName());
             Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
@@ -95,7 +94,6 @@ public class OrderController {
     @GetMapping("/myItemList") // 장바구니
     public String itemList(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal,Model model, PageRequestDTO pageRequestDTO){
         try {
-            model.addAttribute("result", itemService.getList(pageRequestDTO));
             Member result = memberRepository.findMemberByAccount(principal.getName());
             List<OrderItem> orderItemList = orderService.getItemList(result.getId());
             Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
@@ -135,10 +133,11 @@ public class OrderController {
         return "redirect:/myOrderList";
     }
     @GetMapping("/myOrderList")
-    public String myOrderList(Principal principal, Model model){
+    public String myOrderList(Principal principal, Model model, PageRequestDTO pageRequestDTO){
         Member result = memberRepository.findMemberByAccount(principal.getName());
         List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
         model.addAttribute("completeOrderList", completeOrderList);
+        model.addAttribute("result", itemService.getList(pageRequestDTO));
 
         return "/orderList";
     }
@@ -177,7 +176,22 @@ public class OrderController {
     }
 
 
-
+    @GetMapping("completeStatus/{id}")
+    public String completeStatus(@PathVariable("id") Long id ){
+        Optional<CompleteOrder> result = completeRepository.findById(id);
+        CompleteOrder completeOrder = result.get();
+        completeOrder.setStatus(OrderStatus.COMPLETE);
+        completeRepository.save(completeOrder);
+        return "redirect:/myOrderList";
+    }
+    @GetMapping("removeStatus/{id}")
+    public String removeStatus(@PathVariable("id") Long id ){
+        Optional<CompleteOrder> result = completeRepository.findById(id);
+        CompleteOrder completeOrder = result.get();
+        completeOrder.setStatus(OrderStatus.CANCEL);
+        completeRepository.save(completeOrder);
+        return "redirect:/myOrderList";
+    }
 
 }
 
