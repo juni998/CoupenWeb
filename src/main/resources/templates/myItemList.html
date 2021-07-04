@@ -1,28 +1,204 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-<tr>
-    <th>#</th>
-    <th>수량</th>
-    <th>이름</th>
-    <th>주문가격</th>
-</tr>
-</thead>
-<tbody>
-<tr th:each="orderItemList : ${orderItemList}">
-    <td th:text="${orderItemList.id}"></td>
-    <td th:text="${orderItemList.count}"></td>
-    <th scope="row">
-        <a th:href="@{/read/{id}(id= ${orderItemList.item.id})} ">
-            [[${orderItemList.itemName}]]
-        </a>
-    </th>
-    <td th:text="${orderItemList.price}"></td>
-</tr>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/Home Images/favicon.png" type="image/png">
+    <title>Merrang</title>
+</head>
+
+<body>
+<header class="header">
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="/home"><img src="/img/Home Images/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/mypage">MyPage</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/order">MyOrder</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" onclick="javascript:document.myForm.submit();">LogOut</a>
+                            <form name="myForm" th:action="@{/logout}" method="post"></form>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a href="/itemRegister">Sign Item</a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/question">question</a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/login">LogIn</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="/list?page=1&type=type&keyword=meat">Fresh Meat</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="/list" method="get" id="searchForm">
+                            <select name="type">
+                                <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
+                            </select>
+                            <input type="hidden" name="page" value="1">
+                            <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
+                            <button class="site-btn btn-search" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>QA 02-123456</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Shopping Cart</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/Home">Home</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="shoping__product">Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="orderItemList : ${orderItemList}">
+                            <td class="shoping__cart__item">
+                                <a th:href="@{/read/{id}(id= ${orderItemList.item.id})}">
+                                    <img src="img/cart/cart-1.jpg" alt="">
+                                    <!-- 여기 S3작업좀 해주세요  -->
+                                    <h5>
+                                        <th:text>[[${orderItemList.itemName}]]</th:text>
+                                    </h5>
+                                </a>
+                            </td>
+                            <td class="shoping__cart__price">$<th:text>[[${orderItemList.price}]]</th:text></td>
+                            <td class="shoping__cart__price"><th:text>[[${orderItemList.count}]]</th:text>개</td>
+                            <td class="shoping__cart__item__close">
+                                <a th:href="@{/removeItem/{id}(id= ${orderItemList.id})}"> <span class="icon_close"></span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="/list" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Total Price</h5>
+                    <ul>
+                        <li>Total <span th:text=" '$' + ${ordersTotalPrice}"> </span></li>
+                    </ul>
+                    <a href="/myOrder" class="primary-btn">CHECKOUT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+
+
 </body>
+
 </html>

@@ -1,9 +1,11 @@
 package com.group6.demo.controller;
 
+import com.group6.demo.entity.item.PageRequestDTO;
 import com.group6.demo.entity.login.Member;
 import com.group6.demo.entity.order.*;
 import com.group6.demo.repository.CompleteRepository;
 import com.group6.demo.repository.MemberRepository;
+import com.group6.demo.repository.OrderItemRepository;
 import com.group6.demo.repository.OrderRepository;
 import com.group6.demo.service.ItemService;
 import com.group6.demo.service.OrderService;
@@ -13,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -35,6 +39,8 @@ public class OrderController {
     private final CompleteRepository completeRepository;
     @Autowired
     private final ItemService itemService;
+    @Autowired
+    private final OrderItemRepository orderItemRepository;
 
 
     //상품을 담으려면 무조건 order가있어야함
@@ -52,7 +58,7 @@ public class OrderController {
             }
             Orders order = orders.get();
             model.addAttribute("orderDTO", order);
-            return "redirect:/myOrder";
+            return "redirect:/myItemList";
         } catch (NullPointerException e){
             return "redirect:/login";
 
@@ -67,8 +73,9 @@ public class OrderController {
         return "redirect:/order";
     }
     @GetMapping("/myOrder")
-    public String myOrderPage(Principal principal, Model model){
+    public String myOrderPage(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal, Model model, PageRequestDTO pageRequestDTO){
         try{
+            model.addAttribute("result", itemService.getList(pageRequestDTO));
             Member result = memberRepository.findMemberByAccount(principal.getName());
             log.info("MyOrder : "+ principal.getName());
             Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
@@ -76,6 +83,8 @@ public class OrderController {
             List<OrderItem> orderItemList = orderService.getItemList(result.getId());
             model.addAttribute("orders", orders);
             model.addAttribute("orderItemList",orderItemList);
+            model.addAttribute("ordersTotalPrice", orders.getTotalPrice());
+            model.addAttribute("result", itemService.getList(pageRequestDTO));
             return "/myOrder";
         }catch (NullPointerException e){
             return "redirect:/login";
@@ -83,13 +92,19 @@ public class OrderController {
             return "redirect:/home";
         }
     }
-    @GetMapping("/myItemList")
-    public String itemList(Principal principal,Model model){
+    @GetMapping("/myItemList") // 장바구니
+    public String itemList(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal,Model model, PageRequestDTO pageRequestDTO){
         try {
-            log.info("");
+            model.addAttribute("result", itemService.getList(pageRequestDTO));
             Member result = memberRepository.findMemberByAccount(principal.getName());
             List<OrderItem> orderItemList = orderService.getItemList(result.getId());
+            Optional<Orders> ordersOptional = orderRepository.findByMemberId(result.getId());
+            Orders orders = ordersOptional.get();
+
+            model.addAttribute("result", itemService.getList(pageRequestDTO));
             model.addAttribute("orderItemList", orderItemList);
+            model.addAttribute("orderItemList", orderItemList);
+            model.addAttribute("ordersTotalPrice", orders.getTotalPrice());
             return "/myItemList";
         }catch (NullPointerException e){
             return "redirect:/order";
@@ -125,9 +140,6 @@ public class OrderController {
         List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
         model.addAttribute("completeOrderList", completeOrderList);
 
-        for (CompleteOrder completeOrder : completeOrderList) {
-            System.out.println("completeOrder = " + completeOrder.getStatus());
-        }
         return "/orderList";
     }
 //    @PostMapping("/myOrderList")
@@ -148,8 +160,6 @@ public class OrderController {
             Member member = memberRepository.findMemberByAccount(principal.getName());
             Optional<Orders> result = orderRepository.findByMemberId(member.getId());
             Orders orders = result.get();
-            System.out.println("orderItemDTO = " + orderItemDTO.getCount());
-            System.out.println("orderItemDTO = " + orderItemDTO.getId());
             orderService.makeOrderItem(orderItemDTO.getId(), member.getId(), orders.getId(), orderItemDTO.getCount());
 
             return "redirect:/myItemList";
@@ -159,7 +169,13 @@ public class OrderController {
             return "redirect:/login";
         }
     }
-    
+
+    @GetMapping("removeItem/{id}")
+    public String getItemGet(@PathVariable("id") Long id ){
+        orderItemRepository.deleteById(id);
+        return "redirect:/myItemList";
+    }
+
 
 
 

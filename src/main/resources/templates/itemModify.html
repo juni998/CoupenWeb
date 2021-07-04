@@ -85,6 +85,16 @@
     <label>content</label><br>
     <textarea type="text" class="form-control" id="content" name="content" required th:utext="${dto.content}"></textarea><br>
 
+    <label>Type</label>
+    <select class="form-control" id="type" name="type">
+        <option value='meat'>meat</option>
+        <option value='milk'>milk&butter</option>
+        <option value='grain'>Grain</option>
+        <option value='meat'>Vegetable</option>
+        <option value='fruit'>Fruit</option>
+    </select>
+
+
     <button type="submit" class="btn btn-primary">수정</button>
 </form>
 

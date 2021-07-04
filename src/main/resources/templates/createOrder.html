@@ -7,35 +7,48 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/makeOrder}" th:object="${orderDTO}" method="post">
-    <div class="form-group">
-        <label th:for="name">주문자명</label>
-        <input type="text" th:field="*{name}" class="form-control"
-               placeholder="이름을 입력하세요">
+<div style="display: block;width:400px;margin:0 auto;background:ddd;position:relative;" class="container mt-5">
+    <div align="center">
+        <a class="navbar-brand" id="logo" href="/home" ali>
+            <img src="/img/Home Images/logo.png" alt="Logo" align="center">
+        </a>
     </div>
-    <div class="form-group">
-        <label th:for="phoneNumber">핸드폰번호</label>
-        <input type="text" th:field="*{phoneNumber}" class="form-control"
-               placeholder="핸드폰번호를 입력하세요">
+    <hr>
+    <div>
+        <h2>배송 정보</h2><br>
     </div>
+    <form th:action="@{/makeOrder}" th:object="${orderDTO}" method="post">
+        <div class="form-group">
+            <label th:for="name">주문자명</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="이름을 입력하세요" oninput="nameCheck()" required>
+        </div>
+        <div class="form-group">
+            <label th:for="phoneNumber">핸드폰번호</label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control"
+                   placeholder="핸드폰번호를 입력하세요" oninput="phoneCheck()" required>
+        </div>
 
-    <div class="form-group">
-        <label th:for="city">도시</label>
-        <input type="text" th:field="*{city}" class="form-control"
-               placeholder="도시를 입력하세요">
-    </div>
-    <div class="form-group">
-        <label th:for="street">길</label>
-        <input type="text" th:field="*{street}" class="form-control"
-               placeholder="길을 입력하세요">
-    </div>
-    <div class="form-group">
-        <label th:for="zipcode">우편번호</label>
-        <input type="text" th:field="*{zipcode}" class="form-control"
-               placeholder="우편번호를 입력하세요">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</form>
+        <div class="form-group">
+            <label th:for="city">도시</label>
+            <input type="text" th:field="*{city}" class="form-control"
+                   placeholder="도시를 입력하세요" oninput="cityCheck()" required>
+        </div>
+        <div class="form-group">
+            <label th:for="street">길</label>
+            <input type="text" th:field="*{street}" class="form-control"
+                   placeholder="길을 입력하세요" oninput="streetCheck()" required>
+        </div>
+        <div class="form-group">
+            <label th:for="zipcode">우편번호</label>
+            <input type="text" th:field="*{zipcode}" class="form-control"
+                   placeholder="우편번호를 입력하세요" oninput="zipcodeCheck()" required>
+        </div>
+        <button type="submit" class="btn btn-primary">저장</button>
+    </form>
+</div>
+
+
+
 </body>
 </html>

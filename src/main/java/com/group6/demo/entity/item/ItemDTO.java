@@ -18,6 +18,7 @@ public class ItemDTO {
     private int price;
     private int stock;
     private String content;
+    private String type;
 
     private String writer;
     private String thumbImg;

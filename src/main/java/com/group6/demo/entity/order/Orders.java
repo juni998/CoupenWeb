@@ -38,6 +38,8 @@ public class Orders{
 
     private String name;
     private String phoneNumber;
+
+    @Embedded
     private Address address;
 
     @CreatedDate
