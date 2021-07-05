@@ -44,7 +44,7 @@ public class MemberController {
 	}
 
 	// 마이페이지 회원정보 변경 GET
-	@GetMapping("memberUpdate")
+	@GetMapping("/memberUpdate")
 	public String memberUpdate(Principal principal, Model model) {
 		try {
 			Member member = memberRepository.findMemberByAccount(principal.getName());

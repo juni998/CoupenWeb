@@ -162,7 +162,11 @@
                                 <ul class="product__item__pic__hover">
                                     <a th:href="@{/read/{id}(id= ${dto.id})}"><img th:src="${dto.thumbImg}"></a>
                                     <li><a th:href="@{/read/{id}(id= ${dto.id})}"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="/myItemList"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" onclick="javascript:document.addOrder.submit();"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <form name="addOrder" th:action="@{/addOrder}" th:object="${orderItemDTO}" method="post">
+                                        <input type="hidden" name="count" value="1">
+                                        <input type="hidden" name="id" th:value="${dto.id}"/>
+                                    </form>
                                 </ul>
                             </div>
                             <div class="product__item__text">

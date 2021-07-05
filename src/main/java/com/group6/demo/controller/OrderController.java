@@ -12,6 +12,7 @@ import com.group6.demo.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ public class OrderController {
 
 
     //상품을 담으려면 무조건 order가있어야함
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/order")
     public String order(Principal principal, Model model){
         try
@@ -72,6 +74,7 @@ public class OrderController {
 
         return "redirect:/order";
     }
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/myOrder")
     public String myOrderPage(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal, Model model, PageRequestDTO pageRequestDTO){
         try{
@@ -91,6 +94,7 @@ public class OrderController {
             return "redirect:/home";
         }
     }
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/myItemList") // 장바구니
     public String itemList(@RequestParam(value = "name", required = false) String ordersTotalPrice, Principal principal,Model model, PageRequestDTO pageRequestDTO){
         try {
@@ -132,6 +136,7 @@ public class OrderController {
 
         return "redirect:/myOrderList";
     }
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/myOrderList")
     public String myOrderList(Principal principal, Model model, PageRequestDTO pageRequestDTO){
         Member result = memberRepository.findMemberByAccount(principal.getName());
@@ -141,7 +146,7 @@ public class OrderController {
 
         return "/orderList";
     }
-//    @PostMapping("/myOrderList")
+    //    @PostMapping("/myOrderList")
 //    public String myOrderListPost(Principal principal, Model model){
 //        Member result = memberRepository.findMemberByAccount(principal.getName());
 //        List<CompleteOrder> completeOrderList = completeRepository.findByMemberId(result.getId());
@@ -152,7 +157,7 @@ public class OrderController {
 //        }
 //        return "/orderList";
 //    }
-
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @PostMapping("/addOrder")
     public String getItemOrder(OrderItemDTO orderItemDTO, Principal principal){
         try{
@@ -169,14 +174,15 @@ public class OrderController {
         }
     }
 
-    @GetMapping("removeItem/{id}")
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @GetMapping("/removeItem/{id}")
     public String getItemGet(@PathVariable("id") Long id ){
         orderItemRepository.deleteById(id);
         return "redirect:/myItemList";
     }
 
-
-    @GetMapping("completeStatus/{id}")
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @GetMapping("/completeStatus/{id}")
     public String completeStatus(@PathVariable("id") Long id ){
         Optional<CompleteOrder> result = completeRepository.findById(id);
         CompleteOrder completeOrder = result.get();
@@ -184,7 +190,9 @@ public class OrderController {
         completeRepository.save(completeOrder);
         return "redirect:/myOrderList";
     }
-    @GetMapping("removeStatus/{id}")
+
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @GetMapping("/removeStatus/{id}")
     public String removeStatus(@PathVariable("id") Long id ){
         Optional<CompleteOrder> result = completeRepository.findById(id);
         CompleteOrder completeOrder = result.get();

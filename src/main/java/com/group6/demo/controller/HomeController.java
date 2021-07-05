@@ -64,5 +64,10 @@ public class HomeController {
 		return "/home/information";
 	}
 
+	@GetMapping("/denied")
+	public String deniedView() {
+		return "/home/index";
+	}
+
 
 }

@@ -7,6 +7,7 @@ import com.group6.demo.service.ItemService;
 import com.group6.demo.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +28,10 @@ public class ItemController {
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO , Model model){
         model.addAttribute("result", itemService.getList(pageRequestDTO));
+        model.addAttribute("orderItemDTO", new OrderItemDTO());
     }
 
-    @GetMapping("read/{id}")
+    @GetMapping("/read/{id}")
     public String getItemGet(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
         ItemDTO itemDTO = itemService.getItemById(id);
         model.addAttribute("result", itemService.getList(pageRequestDTO));
@@ -38,7 +40,7 @@ public class ItemController {
 
         return "read";
     }
-    @PostMapping("read/{id}")
+    @PostMapping("/read/{id}")
     public String getItemPost(@PathVariable("id") Long id,PageRequestDTO pageRequestDTO, Model model){
         ItemDTO itemDTO = itemService.getItemById(id);
         model.addAttribute("result", itemService.getList(pageRequestDTO));
@@ -48,15 +50,19 @@ public class ItemController {
     }
 
     // 아이템 작성 GET
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("itemRegister")
-    public String registerForm(Model model){
+    public String registerForm(Model model, PageRequestDTO pageRequestDTO){
+        model.addAttribute("result", itemService.getList(pageRequestDTO));
         model.addAttribute("itemDTO", new ItemDTO());
+
 
         return "/itemRegister";
     }
 
     // 아이템 작성 POST
-    @PostMapping("itemRegister")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/itemRegister")
     public String register(ItemDTO itemDTO, MultipartFile file) throws IOException{
         String imgPath = s3Service.upload(file);
         itemDTO.setThumbImg(imgPath);
@@ -69,8 +75,10 @@ public class ItemController {
     }
 
     // 아이템 수정 GET
-    @GetMapping("itemModify/{id}")
-    public String modifyForm(@PathVariable("id") Long id, Model model) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/itemModify/{id}")
+    public String modifyForm(@PathVariable("id") Long id, Model model, PageRequestDTO pageRequestDTO){
+        model.addAttribute("result", itemService.getList(pageRequestDTO));
         ItemDTO itemDTO = itemService.getItemById(id);
 
         model.addAttribute("dto",itemDTO);
@@ -79,7 +87,8 @@ public class ItemController {
     }
 
     // 아이템 수정 POST
-    @PostMapping("itemModify/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/itemModify/{id}")
     public String modify(@PathVariable("id") Long id, ItemDTO itemDTO, MultipartFile file) throws  IOException{
         String imgPath = s3Service.upload(file);
         itemDTO.setThumbImg(imgPath);
@@ -89,7 +98,8 @@ public class ItemController {
     }
 
     // 아이템 삭제
-    @GetMapping("itemRemove/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/itemRemove/{id}")
     public String remove(@PathVariable("id") Long id) {
         itemService.removeItem(id);
 

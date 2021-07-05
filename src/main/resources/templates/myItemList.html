@@ -90,9 +90,7 @@
                 <div class="hero__search">
                     <div class="hero__search__form">
                         <form action="/list" method="get" id="searchForm">
-                            <select name="type">
-                                <option value="title" th:selected="${pageRequestDTO.type == 'title'}">name</option>
-                            </select>
+
                             <input type="hidden" name="page" value="1">
                             <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
                             <button class="site-btn btn-search" type="submit">Search</button>
@@ -170,9 +168,8 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="shoping__cart__btns">
-                    <a href="/list" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                </div>
+                <a href="/list" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                <a href="/myOrderList" class="primary-btn cart-btn cart-btn-right">MY ORDER</a>
             </div>
 
             <div class="col-lg-6">
