@@ -37,7 +37,7 @@ class ItemServiceTest {
     public void getItemListByType() throws Exception{
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1).size(10).build();
-        String type = "B";
+        String type = "";
 
         PageResultDTO<ItemDTO, Item> resultDTO = itemService.getListByType(type,pageRequestDTO);
 
@@ -54,13 +54,16 @@ class ItemServiceTest {
     @Test
     public void getItemList() throws Exception{
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(1).size(20).build();
-
+                .page(1).size(4).build();
         PageResultDTO<ItemDTO, Item> resultDTO = itemService.getList(pageRequestDTO);
-
         for (ItemDTO itemDTO: resultDTO.getDtoList()){
             System.out.println(itemDTO);
         }
+        System.out.println("resultDTO.getTotalPage() = " + resultDTO.getTotalPage());
+        System.out.println("resultDTO.getPage() = " + resultDTO.getPageList());
+        System.out.println("resultDTO.getPage() = " + resultDTO.getPage());
+
+
     }
 
     @Test

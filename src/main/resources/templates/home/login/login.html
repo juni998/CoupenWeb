@@ -30,11 +30,11 @@
 
         <div class="mb-3" style="width:370px">
             <label class="form-label"><b>ID</b></label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="아이디 입력">
+            <input type="text" class="form-control" id="username" name="username" placeholder="아이디 입력">
         </div>
         <div class="mb-3">
             <label class="form-label"><b>PASSWORD</b></label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 입력">
+            <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 입력">
             <span id="loginMsg"></span>
         </div>
         <div class="mb-3" >
@@ -46,7 +46,7 @@
         </div>
         <div class="mb-3">
             <hr>
-        <button type="button" class="btn btn-light" onclick="location.href='/register'" style="width:370px">회원가입</button>
+            <button type="button" class="btn btn-light" onclick="location.href='/register'" style="width:370px">회원가입</button>
         </div>
 
 
@@ -79,7 +79,11 @@ function infoCheck(){
                 $("#loginMsg").css("color", "red");
             }
 
-        }
+        },
+        error : function() {
+               $('#loginMsg').html("계정이 존재하지 않습니다.");
+                    $("#loginMsg").css("color", "red");
+            }
 
 
         });

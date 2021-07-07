@@ -26,6 +26,7 @@
 
 <body>
 <!-- Page Preloder -->
+<!-- Page Preloder -->
 <header class="header">
     <div id="preloder">
         <div class="loader"></div>
@@ -55,7 +56,6 @@
                         </li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a href="/itemRegister">Sign Item</a>
-                        </li>
                         <li>
                             <a href="/info">info</a>
                         </li>
@@ -84,7 +84,7 @@
                         <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
                         <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
                         <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
-                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=grain">Grain</a></li>
                     </ul>
                 </div>
             </div>
@@ -103,8 +103,9 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>QA 02-123456</h5>
-                            <span>support 24/7 time</span>
+                            <h5>Hello!</h5>
+                            <span sec:authorize="isAuthenticated()" sec:authentication="principal.username"></span>
+                            <span sec:authorize="isAnonymous()"><a href="/login">LogIn</a></span>
                         </div>
                     </div>
                 </div>
@@ -112,6 +113,8 @@
         </div>
     </div>
 </section>
+
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
     <div class="container">

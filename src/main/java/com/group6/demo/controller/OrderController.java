@@ -164,6 +164,9 @@ public class OrderController {
             Member member = memberRepository.findMemberByAccount(principal.getName());
             Optional<Orders> result = orderRepository.findByMemberId(member.getId());
             Orders orders = result.get();
+            if (result.isEmpty()){
+                return "redirect:/myOrder";
+            }
             orderService.makeOrderItem(orderItemDTO.getId(), member.getId(), orders.getId(), orderItemDTO.getCount());
 
             return "redirect:/myItemList";

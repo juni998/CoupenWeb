@@ -72,7 +72,7 @@ public class ItemServiceImpl implements ItemService{
         if (type.contains("writer")){
             conditionBuilder.or(qItem.writer.contains(keyword));
         }
-        if (type.contains("writer")){
+        if (type.contains("content")){
             conditionBuilder.or(qItem.writer.contains(keyword));
         }
         if (type.contains("type")){

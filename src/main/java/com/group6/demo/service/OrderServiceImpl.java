@@ -51,10 +51,12 @@ public class OrderServiceImpl implements OrderService{
         if (itemResult.isEmpty()){
             OrderItem orderItem = OrderItem.createOrderItem(item,count);
             orderItem.setOrders(orders);
+            item.removeStock(count);
             orderItemRepository.save(orderItem);
         }else {
             OrderItem orderItem = itemResult.get();
             orderItem.addCount(count);
+            item.removeStock(count);
             orderItemRepository.save(orderItem);
         }
     }

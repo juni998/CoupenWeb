@@ -31,6 +31,7 @@ public class OrderItem {
     private int count;
     private int price;
     private String itemName;
+    private String thumbImg;
 
     @ManyToOne(fetch = LAZY)
     private Orders orders;
@@ -40,7 +41,9 @@ public class OrderItem {
         orderItem.setItemName(item.getTitle());
         orderItem.setCount(count);
         orderItem.setPrice(item.getPrice());
+        orderItem.setThumbImg(item.getThumbImg());
         orderItem.setItem(item);
+
 
         item.removeStock(count);
         return orderItem;

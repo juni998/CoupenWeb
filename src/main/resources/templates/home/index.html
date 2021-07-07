@@ -26,6 +26,7 @@
 
 <body>
 <!-- Page Preloder -->
+<!-- Page Preloder -->
 <header class="header">
     <div id="preloder">
         <div class="loader"></div>
@@ -83,7 +84,7 @@
                         <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
                         <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
                         <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
-                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=grain">Grain</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,8 +103,9 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>QA 02-123456</h5>
-                            <span>support 24/7 time</span>
+                            <h5>Hello!</h5>
+                            <span sec:authorize="isAuthenticated()" sec:authentication="principal.username"></span>
+                            <span sec:authorize="isAnonymous()"><a href="/login">LogIn</a></span>
                         </div>
                     </div>
                 </div>
@@ -111,6 +113,7 @@
         </div>
     </div>
 </section>
+
 
 
 
@@ -133,7 +136,56 @@
     </div>
 </div>
 <!-- Banner End -->
-
+<!-- Blog Section Begin -->
+<section class="from-blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-1.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2021</li>
+                        </ul>
+                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-2.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> July 4,2021</li>
+                        </ul>
+                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-3.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i>Mau 10,2020</li>
+                        </ul>
+                        <h5><a href="#">Visit the clean farm in the US</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
 
 <footer class="footer spad">
     <div class="container">
@@ -150,7 +202,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
 

@@ -25,6 +25,7 @@
 </head>
 
 <body>
+<!-- Page Preloder -->
 <header class="header">
     <div id="preloder">
         <div class="loader"></div>
@@ -39,7 +40,6 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-
                         <li>
                             <a href="/home">Home</a>
                         </li>
@@ -55,9 +55,8 @@
                         </li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a href="/itemRegister">Sign Item</a>
-                        </li>
                         <li>
-                            <a href="/list">Shop</a>
+                            <a href="/info">info</a>
                         </li>
                         <li sec:authorize="isAnonymous()">
                             <a href="/login">LogIn</a>
@@ -68,8 +67,8 @@
         </div>
     </div>
 </header>
-<!-- Header Section End -->
-<!-- Hero Section Begin -->
+
+
 <section class="hero hero-normal">
     <div class="container">
         <div class="row">
@@ -84,29 +83,28 @@
                         <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
                         <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
                         <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
-                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=grain">Grain</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <div class="hero__search__form">
-                            <form action="/list" method="get" id="searchForm">
-                                <input type="hidden" name="type" value="title">
-                                <input type="hidden" name="page" value="1">
-                                <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
-                                <button class="site-btn btn-search" type="submit">Search</button>
-                            </form>
-                        </div>
+                        <form action="/list" method="get" id="searchForm">
+                            <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="type" value="title">
+                            <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
+                            <button class="site-btn btn-search" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="hero__search__phone">
                         <div class="hero__search__phone__icon">
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>QA 02-123456</h5>
-                            <span>support 24/7 time</span>
+                            <h5>Hello!</h5>
+                            <span sec:authorize="isAuthenticated()" sec:authentication="principal.username"></span>
+                            <span sec:authorize="isAnonymous()"><a href="/login">LogIn</a></span>
                         </div>
                     </div>
                 </div>
@@ -114,7 +112,8 @@
         </div>
     </div>
 </section>
-<!-- Breadcrumb Section End -->
+
+
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">

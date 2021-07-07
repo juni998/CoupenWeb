@@ -24,6 +24,7 @@
 </head>
 
 <body>
+<!-- Page Preloder -->
 <header class="header">
     <div id="preloder">
         <div class="loader"></div>
@@ -53,9 +54,8 @@
                         </li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a href="/itemRegister">Sign Item</a>
-                        </li>
-                        <li sec:authorize="isAnonymous()">
-                            <a href="/question">question</a>
+                        <li>
+                            <a href="/info">info</a>
                         </li>
                         <li sec:authorize="isAnonymous()">
                             <a href="/login">LogIn</a>
@@ -82,7 +82,7 @@
                         <li><a href="/list?page=1&type=type&keyword=vegetable">Vegetables</a></li>
                         <li><a href="/list?page=1&type=type&keyword=fruit">Fruit</a></li>
                         <li><a href="/list?page=1&type=type&keyword=milk">Butter & milk</a></li>
-                        <li><a href="/list?page=1&type=type&keyword=milk">Grain</a></li>
+                        <li><a href="/list?page=1&type=type&keyword=grain">Grain</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,8 +90,8 @@
                 <div class="hero__search">
                     <div class="hero__search__form">
                         <form action="/list" method="get" id="searchForm">
-
                             <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="type" value="title">
                             <input id="keyword" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="What do yo u need?">
                             <button class="site-btn btn-search" type="submit">Search</button>
                         </form>
@@ -101,8 +101,9 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>QA 02-123456</h5>
-                            <span>support 24/7 time</span>
+                            <h5>Hello!</h5>
+                            <span sec:authorize="isAuthenticated()" sec:authentication="principal.username"></span>
+                            <span sec:authorize="isAnonymous()"><a href="/login">LogIn</a></span>
                         </div>
                     </div>
                 </div>
@@ -110,6 +111,8 @@
         </div>
     </div>
 </section>
+
+
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
@@ -148,7 +151,7 @@
                         <tr th:each="orderItemList : ${orderItemList}">
                             <td class="shoping__cart__item">
                                 <a th:href="@{/read/{id}(id= ${orderItemList.item.id})}">
-                                    <img src="img/cart/cart-1.jpg" alt="">
+                                    <img th:src="${orderItemList.thumbImg}" alt="">
                                     <!-- 여기 S3작업좀 해주세요  -->
                                     <h5>
                                         <th:text>[[${orderItemList.itemName}]]</th:text>
