@@ -39,7 +39,6 @@
  - [ ] 내가봐도 페이지는 이쁘게 만들었다.! 
  - [ ] 테스트를 하나만들때 마다  많이많이 사용하여 오류를 일찍 잡아 스트레스를 줄였다 
 
-	
-
+[포트폴리오가 보고싶다면?](https://drive.google.com/file/d/1RLQm_n9jULQqkCU2x1QkxcXiCDP41jXn/view?usp=sharing)
 
 
