@@ -28,10 +28,6 @@
 - thymeleaf
 - ajax
 
-#### 'other'
-- Junit 5
-- Amazon S3
-- Amazon EC2
 
 <br>
 
